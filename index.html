@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fish Aqua Farming | Precision Aquaculture</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Hanken+Grotesk:wght@300;400;600&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="assets/css/index.css" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface": "#111124",
+                "surface-dim": "#111124",
+                "surface-bright": "#38374b",
+                "surface-container-lowest": "#0c0c1e",
+                "surface-container-low": "#1a1a2c",
+                "surface-container": "#1e1e31",
+                "surface-container-high": "#28283b",
+                "surface-container-highest": "#333347",
+                "on-surface": "#e2e0fa",
+                "on-surface-variant": "#bec7d3",
+                "inverse-surface": "#e2e0fa",
+                "inverse-on-surface": "#2f2f42",
+                "outline": "#88929d",
+                "outline-variant": "#3e4851",
+                "surface-tint": "#93ccff",
+                "primary": "#93ccff",
+                "on-primary": "#003351",
+                "primary-container": "#00aaff",
+                "on-primary-container": "#003c5d",
+                "inverse-primary": "#006398",
+                "secondary": "#c4c3eb",
+                "on-secondary": "#2d2d4d",
+                "secondary-container": "#464667",
+                "on-secondary-container": "#b6b5dc",
+                "tertiary": "#91cdfe",
+                "on-tertiary": "#003350",
+                "tertiary-container": "#6ca8d7",
+                "on-tertiary-container": "#003c5c",
+                "background": "#111124",
+                "on-background": "#e2e0fa",
+                "surface-variant": "#333347",
+                "ocean-white": "#E0E0E0",
+                "glass-border": "rgba(255, 255, 255, 0.15)",
+                "water-glow": "#00CCFF"
+              },
+              borderRadius: {
+                "sm": "0.25rem",
+                "DEFAULT": "0.5rem",
+                "md": "0.75rem",
+                "lg": "1rem",
+                "xl": "1.5rem",
+                "full": "9999px"
+              },
+              spacing: {
+                "container-max": "1440px",
+                "gutter": "2rem",
+                "section-padding": "8rem",
+                "stack-sm": "0.5rem",
+                "stack-md": "1.5rem",
+                "stack-lg": "3rem"
+              },
+              fontFamily: {
+                "headline-display": ["Sora", "sans-serif"],
+                "headline-lg": ["Sora", "sans-serif"],
+                "headline-lg-mobile": ["Sora", "sans-serif"],
+                "headline-md": ["Sora", "sans-serif"],
+                "body-lg": ["Hanken Grotesk", "sans-serif"],
+                "body-md": ["Hanken Grotesk", "sans-serif"],
+                "label-caps": ["Space Mono", "monospace"],
+                "stat-number": ["Sora", "sans-serif"]
+              },
+              fontSize: {
+                "headline-display": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                "body-lg": ["20px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-caps": ["12px", {"lineHeight": "1.5", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                "stat-number": ["56px", {"lineHeight": "1", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="font-body-md text-on-surface selection:bg-water-glow selection:text-surface-container-lowest">
+<!-- Background Layers -->
+<div id="gl-canvas-container"></div>
+<div id="three-canvas-container"></div>
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/15 backdrop-blur-xl border-b border-glass-border">
+<div class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-water-glow tracking-tight">Fish Aqua Farming</div>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-water-glow font-bold border-b-2 border-water-glow pb-1 font-label-caps text-label-caps" href="#stage-1">Lifecycle</a>
+<a class="text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps" href="#portfolio">Species</a>
+<a class="text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps" href="#advantage">Advantage</a>
+<a class="text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps" href="#investment">Investment</a>
+<a class="text-ocean-white/70 hover:text-water-glow transition-colors duration-300 font-label-caps text-[11px]" href="pages/investment-portal/code.html">Portal</a>
+</div>
+<button class="bg-water-glow text-surface-container-lowest px-6 py-2 rounded-full font-label-caps text-label-caps font-bold hover:scale-105 transition-transform">
+            Consultation
+        </button>
+</div>
+</nav>
+<!-- Hero Scroll-telling Sections -->
+<main>
+<section class="scroll-section" id="stage-1">
+<div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 01</p>
+<h2 class="font-headline-lg text-4xl mb-4">1. Seed Selection</h2>
+<p class="font-body-lg text-on-surface-variant">Every successful harvest starts from a single healthy seed.</p>
+</div>
+</section>
+<section class="scroll-section" id="stage-2">
+<div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 02</p>
+<h2 class="font-headline-lg text-4xl mb-4">2. Hatchery Incubation</h2>
+<p class="font-body-lg text-on-surface-variant">Precision environments for the first signs of life.</p>
+</div>
+</section>
+<section class="scroll-section" id="stage-3">
+<div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 03</p>
+<h2 class="font-headline-lg text-4xl mb-4">3. Emergence</h2>
+<p class="font-body-lg text-on-surface-variant">Vibrant baby fish begin their journey in pure water.</p>
+</div>
+</section>
+<section class="scroll-section" id="stage-4">
+<div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 04</p>
+<h2 class="font-headline-lg text-4xl mb-4">4. Juvenile Development</h2>
+<p class="font-body-lg text-on-surface-variant">Nurturing strength through scientific feeding protocols.</p>
+</div>
+</section>
+<section class="scroll-section" id="stage-5">
+<div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 05</p>
+<h2 class="font-headline-lg text-4xl mb-4">5. Active Growth</h2>
+<p class="font-body-lg text-on-surface-variant">Continuous monitoring ensures optimal biological health.</p>
+</div>
+</section>
+<section class="scroll-section" id="stage-6">
+<div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 06</p>
+<h2 class="font-headline-lg text-4xl mb-4">6. Maturity</h2>
+<p class="font-body-lg text-on-surface-variant">Reaching the peak characteristics of premium species.</p>
+</div>
+</section>
+<section class="scroll-section" id="stage-7">
+<div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 07</p>
+<h2 class="font-headline-lg text-4xl mb-4">7. Premium Harvest</h2>
+<p class="font-body-lg text-on-surface-variant">Ready for the world's most sophisticated markets.</p>
+</div>
+</section>
+<section class="scroll-section" id="stage-8">
+<div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 08</p>
+<h2 class="font-headline-lg text-4xl mb-4">8. Global Logistics</h2>
+<p class="font-body-lg text-on-surface-variant">Finally delivering market-ready premium fish via our elite network.</p>
+</div>
+</section>
+</main>
+<!-- Trust & Authority Section -->
+<section class="py-section-padding relative z-10 bg-surface/80 backdrop-blur-md" id="authority">
+<div class="max-w-container-max mx-auto px-gutter grid lg:grid-cols-2 gap-16 items-center">
+<div>
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Proven Legacy</p>
+<h2 class="font-headline-lg text-headline-lg mb-8 leading-tight">India’s Trusted Fish Farming Authority</h2>
+<p class="font-body-lg text-on-surface-variant mb-10">We bridge the gap between traditional aquaculture and modern scientific precision, offering a transparent gateway for high-value investment.</p>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-water-glow bg-water-glow/10 p-2 rounded-lg">verified</span>
+<div>
+<h4 class="font-bold text-lg">20+ Years Excellence</h4>
+<p class="text-on-surface-variant">A legacy of proven yield and operational stability.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-water-glow bg-water-glow/10 p-2 rounded-lg">gavel</span>
+<div>
+<h4 class="font-bold text-lg">Fully Compliant</h4>
+<p class="text-on-surface-variant">Government registered with 100% regulatory transparency.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-water-glow bg-water-glow/10 p-2 rounded-lg">eco</span>
+<div>
+<h4 class="font-bold text-lg">Eco-friendly Practices</h4>
+<p class="text-on-surface-variant">Natural farming methods combined with 24/7 scientific monitoring.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="glass-card p-6 rounded-[2rem] border border-white/10 relative overflow-hidden">
+<img class="w-full h-80 object-cover rounded-xl mb-6 border border-white/10" alt="Cinematic water quality testing & high-tech aquaculture diagnostics facility" src="assets/image/realtime_diagnostics.jpg"/>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-water-glow flex items-center justify-center">
+<span class="material-symbols-outlined text-surface-container-lowest">biotech</span>
+</div>
+<div>
+<p class="font-bold">Real-time Diagnostics</p>
+<p class="text-xs text-on-surface-variant font-label-caps">Scientific Water Testing Protocol</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-section-padding relative z-10 bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="grid grid-cols-2 lg:grid-cols-6 gap-8">
+<div class="text-center">
+<div class="font-stat-number text-5xl text-water-glow mb-2" data-count="20">20+</div>
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Years Experience</div>
+</div>
+<div class="text-center">
+<div class="font-stat-number text-5xl text-water-glow mb-2" data-count="85">85+</div>
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Active Ponds</div>
+</div>
+<div class="text-center">
+<div class="font-stat-number text-5xl text-water-glow mb-2" data-count="60">60</div>
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Acres of Water</div>
+</div>
+<div class="text-center">
+<div class="font-stat-number text-5xl text-water-glow mb-2" data-count="1">1M+</div>
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Annual Yield</div>
+</div>
+<div class="text-center">
+<div class="font-stat-number text-5xl text-water-glow mb-2" data-count="500">500+</div>
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Global Investors</div>
+</div>
+<div class="text-center">
+<div class="font-stat-number text-5xl text-water-glow mb-2" data-count="100">100%</div>
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Compliance</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Farm Infrastructure & Video Tour -->
+<section class="py-section-padding relative z-10 overflow-hidden" id="infrastructure">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="text-center mb-16">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">The Facility</p>
+<h2 class="font-headline-lg text-headline-lg">Elite Farm Infrastructure</h2>
+</div>
+
+<div class="relative group aspect-video rounded-[2.5rem] overflow-hidden glass-card border border-white/10 shadow-2xl">
+<!-- Play Button Overlay -->
+<div class="absolute inset-0 flex items-center justify-center z-20 transition-all duration-500 cursor-pointer" id="facility-video-overlay" onclick="toggleFacilityVideo()">
+<button class="w-24 h-24 rounded-full bg-water-glow/90 flex items-center justify-center text-surface-container-lowest hover:scale-110 transition-transform shadow-[0_0_50px_rgba(0,204,255,0.6)] group" id="facility-video-btn">
+<span class="material-symbols-outlined text-4xl fill-1 text-surface-container-lowest" id="facility-video-icon">play_arrow</span>
+</button>
+</div>
+
+<!-- HTML5 Video Player using Local MP4 Videos in assets/video/ -->
+<video class="w-full h-full object-cover" id="facility-video-player" loop muted playsinline>
+<source id="facility-video-src" src="assets/video/103307-662114653.mp4" type="video/mp4"/>
+Your browser does not support the video tag.
+</video>
+
+<!-- Bottom Feature Pills -->
+<div class="absolute bottom-0 left-0 right-0 p-8 md:p-12 bg-gradient-to-t from-background via-background/60 to-transparent z-10 pointer-events-none">
+<div class="grid md:grid-cols-3 gap-6">
+<div class="flex items-center gap-3 glass-card px-4 py-3 rounded-xl border border-white/10">
+<span class="material-symbols-outlined text-water-glow">air</span>
+<span class="text-xs font-label-caps uppercase tracking-wider">Advanced Aeration Systems</span>
+</div>
+<div class="flex items-center gap-3 glass-card px-4 py-3 rounded-xl border border-white/10">
+<span class="material-symbols-outlined text-water-glow">monitoring</span>
+<span class="text-xs font-label-caps uppercase tracking-wider">24/7 Water Diagnostics</span>
+</div>
+<div class="flex items-center gap-3 glass-card px-4 py-3 rounded-xl border border-white/10">
+<span class="material-symbols-outlined text-water-glow">precision_manufacturing</span>
+<span class="text-xs font-label-caps uppercase tracking-wider">Automated Scientific Feeding</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Species Portfolio -->
+<section class="py-section-padding relative z-10 bg-surface-container-lowest" id="portfolio">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+<div class="max-w-2xl">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Core Operations</p>
+<h2 class="font-headline-lg text-headline-lg mb-4">Cultivating Premium Species</h2>
+<p class="text-on-surface-variant font-body-lg">We focus on high-demand, biologically robust species optimized for peak market profitability.</p>
+</div>
+<div class="flex gap-4">
+<button class="w-12 h-12 rounded-full border border-glass-border flex items-center justify-center hover:bg-water-glow hover:text-background transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-12 h-12 rounded-full border border-glass-border flex items-center justify-center hover:bg-water-glow hover:text-background transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+<!-- Species 1: Rohu -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Rohu Fish" src="assets/image/rohu.png"/>
+<div class="absolute top-3 right-3 bg-water-glow/20 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold font-label-caps border border-water-glow/30">Top Seller</div>
+</div>
+<div class="p-5 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-xl mb-3 text-on-surface">Rohu</h3>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between text-[11px] font-label-caps">
+<span class="text-on-surface-variant">Growth Speed</span>
+<span class="text-water-glow font-bold">85% / Fast</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-water-glow h-full w-[85%]"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-on-surface-variant">Target Weight<br/><span class="text-on-surface font-bold">1.5 - 2.5 kg</span></div>
+<div class="text-on-surface-variant">Market Demand<br/><span class="text-on-surface font-bold">Very High</span></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed Metrics</button>
+</div>
+</div>
+
+<!-- Species 2: Katla -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Katla Fish" src="assets/image/katla.png"/>
+<div class="absolute top-3 right-3 bg-water-glow/20 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold font-label-caps border border-water-glow/30">High Yield</div>
+</div>
+<div class="p-5 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-xl mb-3 text-on-surface">Katla</h3>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between text-[11px] font-label-caps">
+<span class="text-on-surface-variant">Growth Speed</span>
+<span class="text-water-glow font-bold">75% / Stable</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-water-glow h-full w-[75%]"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-on-surface-variant">Target Weight<br/><span class="text-on-surface font-bold">2.0 - 4.0 kg</span></div>
+<div class="text-on-surface-variant">Market Demand<br/><span class="text-on-surface font-bold">High</span></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed Metrics</button>
+</div>
+</div>
+
+<!-- Species 3: Mrigal -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Mrigal Fish" src="assets/image/mrigal.png"/>
+</div>
+<div class="p-5 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-xl mb-3 text-on-surface">Mrigal</h3>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between text-[11px] font-label-caps">
+<span class="text-on-surface-variant">Growth Speed</span>
+<span class="text-water-glow font-bold">80% / Optimal</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-water-glow h-full w-[80%]"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-on-surface-variant">Target Weight<br/><span class="text-on-surface font-bold">1.2 - 2.0 kg</span></div>
+<div class="text-on-surface-variant">Market Demand<br/><span class="text-on-surface font-bold">High</span></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed Metrics</button>
+</div>
+</div>
+
+<!-- Species 4: Pangasius -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Pangasius Fish" src="assets/image/pangasius.png"/>
+<div class="absolute top-3 right-3 bg-water-glow/20 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold font-label-caps border border-water-glow/30">Commercial</div>
+</div>
+<div class="p-5 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-xl mb-3 text-on-surface">Pangasius</h3>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between text-[11px] font-label-caps">
+<span class="text-on-surface-variant">Growth Speed</span>
+<span class="text-water-glow font-bold">90% / Fast</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-water-glow h-full w-[90%]"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-on-surface-variant">Target Weight<br/><span class="text-on-surface font-bold">1.5 - 3.0 kg</span></div>
+<div class="text-on-surface-variant">Market Demand<br/><span class="text-on-surface font-bold">Very High</span></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed Metrics</button>
+</div>
+</div>
+
+<!-- Species 5: Tilapia -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Tilapia Fish" src="assets/image/tilapia.png"/>
+<div class="absolute top-3 right-3 bg-water-glow/20 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold font-label-caps border border-water-glow/30">Export Grade</div>
+</div>
+<div class="p-5 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-xl mb-3 text-on-surface">Tilapia</h3>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between text-[11px] font-label-caps">
+<span class="text-on-surface-variant">Growth Speed</span>
+<span class="text-water-glow font-bold">95% / Accelerated</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-water-glow h-full w-[95%]"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-on-surface-variant">Target Weight<br/><span class="text-on-surface font-bold">500g - 800g</span></div>
+<div class="text-on-surface-variant">Market Demand<br/><span class="text-on-surface font-bold">Global</span></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed Metrics</button>
+</div>
+</div>
+
+<!-- Species 6: Common Carp -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Common Carp" src="assets/image/common_carp.png"/>
+</div>
+<div class="p-5 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-xl mb-3 text-on-surface">Common Carp</h3>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between text-[11px] font-label-caps">
+<span class="text-on-surface-variant">Growth Speed</span>
+<span class="text-water-glow font-bold">85% / High</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-water-glow h-full w-[85%]"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-on-surface-variant">Target Weight<br/><span class="text-on-surface font-bold">1.5 - 3.0 kg</span></div>
+<div class="text-on-surface-variant">Market Demand<br/><span class="text-on-surface font-bold">High</span></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed Metrics</button>
+</div>
+</div>
+
+<!-- Species 7: Grass Carp -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Grass Carp" src="assets/image/grass_carp.png"/>
+</div>
+<div class="p-5 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-xl mb-3 text-on-surface">Grass Carp</h3>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between text-[11px] font-label-caps">
+<span class="text-on-surface-variant">Growth Speed</span>
+<span class="text-water-glow font-bold">80% / Stable</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-water-glow h-full w-[80%]"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-on-surface-variant">Target Weight<br/><span class="text-on-surface font-bold">2.0 - 5.0 kg</span></div>
+<div class="text-on-surface-variant">Market Demand<br/><span class="text-on-surface font-bold">High</span></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed Metrics</button>
+</div>
+</div>
+
+<!-- Species 8: Silver Carp -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Silver Carp" src="assets/image/silver_carp.png"/>
+</div>
+<div class="p-5 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-xl mb-3 text-on-surface">Silver Carp</h3>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between text-[11px] font-label-caps">
+<span class="text-on-surface-variant">Growth Speed</span>
+<span class="text-water-glow font-bold">78% / Optimal</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-water-glow h-full w-[78%]"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-on-surface-variant">Target Weight<br/><span class="text-on-surface font-bold">2.0 - 4.5 kg</span></div>
+<div class="text-on-surface-variant">Market Demand<br/><span class="text-on-surface font-bold">High</span></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed Metrics</button>
+</div>
+</div>
+
+<!-- Species 9: Magur -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Magur Fish" src="assets/image/magur.png"/>
+<div class="absolute top-3 right-3 bg-water-glow/20 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold font-label-caps border border-water-glow/30">Premium</div>
+</div>
+<div class="p-5 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-xl mb-3 text-on-surface">Magur</h3>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between text-[11px] font-label-caps">
+<span class="text-on-surface-variant">Growth Speed</span>
+<span class="text-water-glow font-bold">70% / Robust</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-water-glow h-full w-[70%]"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-on-surface-variant">Target Weight<br/><span class="text-on-surface font-bold">300g - 800g</span></div>
+<div class="text-on-surface-variant">Market Demand<br/><span class="text-on-surface font-bold">Very High</span></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed Metrics</button>
+</div>
+</div>
+
+<!-- Species 10: Singhi -->
+<div class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+<div class="h-48 overflow-hidden relative">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Singhi Fish" src="assets/image/singhi.png"/>
+<div class="absolute top-3 right-3 bg-water-glow/20 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold font-label-caps border border-water-glow/30">High Value</div>
+</div>
+<div class="p-5 flex-grow flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-xl mb-3 text-on-surface">Singhi</h3>
+<div class="space-y-3 mb-5">
+<div class="flex justify-between text-[11px] font-label-caps">
+<span class="text-on-surface-variant">Growth Speed</span>
+<span class="text-water-glow font-bold">68% / High Value</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+<div class="bg-water-glow h-full w-[68%]"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-on-surface-variant">Target Weight<br/><span class="text-on-surface font-bold">150g - 400g</span></div>
+<div class="text-on-surface-variant">Market Demand<br/><span class="text-on-surface font-bold">Elite</span></div>
+</div>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed Metrics</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- The Advantage -->
+<section class="py-section-padding relative z-10" id="advantage">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col lg:flex-row gap-16">
+<div class="lg:w-1/3">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Why Choose Us</p>
+<h2 class="font-headline-lg text-headline-lg mb-8">The Scientific Edge</h2>
+<p class="font-body-lg text-on-surface-variant mb-8">Our advantage lies in the perfect synchronization of nature and technology. We don't just farm; we engineer abundance.</p>
+<div class="glass-card p-8 rounded-2xl border-l-4 border-l-water-glow">
+<p class="italic text-on-surface">"Fish Aqua Farming represents the gold standard in operational transparency. Every metric is backed by data, ensuring absolute peace of mind for our partners."</p>
+<div class="mt-4 font-label-caps text-xs text-water-glow">— Chief Biological Officer</div>
+</div>
+</div>
+<div class="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="glass-card p-8 rounded-2xl hover:border-water-glow/50 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-water-glow mb-4 group-hover:scale-110 transition-transform">biotech</span>
+<h4 class="font-bold text-xl mb-2">Genetically Superior Seeds</h4>
+<p class="text-sm text-on-surface-variant">We source only the highest-grade parent stock for maximum growth potential and disease resistance.</p>
+</div>
+<div class="glass-card p-8 rounded-2xl hover:border-water-glow/50 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-water-glow mb-4 group-hover:scale-110 transition-transform">medical_services</span>
+<h4 class="font-bold text-xl mb-2">Scientific Feeding Protocols</h4>
+<p class="text-sm text-on-surface-variant">Custom-formulated nutrition plans tailored to each species' specific developmental stage.</p>
+</div>
+<div class="glass-card p-8 rounded-2xl hover:border-water-glow/50 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-water-glow mb-4 group-hover:scale-110 transition-transform">water_drop</span>
+<h4 class="font-bold text-xl mb-2">Daily Oxygen Testing</h4>
+<p class="text-sm text-on-surface-variant">Continuous monitoring of water chemistry to maintain a perfect, stress-free environment.</p>
+</div>
+<div class="glass-card p-8 rounded-2xl hover:border-water-glow/50 transition-colors group">
+<span class="material-symbols-outlined text-4xl text-water-glow mb-4 group-hover:scale-110 transition-transform">visibility</span>
+<h4 class="font-bold text-xl mb-2">Complete Transparency</h4>
+<p class="text-sm text-on-surface-variant">Our partners receive daily updates and have 24/7 access to farm operational data.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Investment Process -->
+<section class="py-section-padding relative z-10 bg-surface-container-lowest overflow-hidden" id="investment">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="text-center mb-24">
+<p class="font-label-caps text-label-caps text-water-glow mb-4">Partnership Path</p>
+<h2 class="font-headline-lg text-headline-lg">Your Investment Journey</h2>
+</div>
+<div class="relative">
+<!-- Timeline Line -->
+<div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-water-glow/50 via-water-glow/10 to-transparent md:-translate-x-1/2"></div>
+<div class="space-y-12">
+<!-- Step 1 -->
+<div class="relative flex flex-col md:flex-row items-center group">
+<div class="md:w-1/2 md:pr-16 md:text-right mb-4 md:mb-0">
+<div class="glass-card p-6 rounded-xl inline-block group-hover:border-water-glow/30 transition-all">
+<h4 class="font-bold text-lg mb-1">1. Initial Inquiry</h4>
+<p class="text-sm text-on-surface-variant">Connect with our executive investment team.</p>
+</div>
+</div>
+<div class="absolute left-8 md:left-1/2 w-4 h-4 bg-water-glow rounded-full -translate-x-1/2 shadow-[0_0_15px_rgba(0,204,255,0.8)] z-10"></div>
+<div class="md:w-1/2 md:pl-16"></div>
+</div>
+<!-- Step 2 -->
+<div class="relative flex flex-col md:flex-row items-center group">
+<div class="md:w-1/2 md:pr-16"></div>
+<div class="absolute left-8 md:left-1/2 w-4 h-4 bg-water-glow rounded-full -translate-x-1/2 shadow-[0_0_15px_rgba(0,204,255,0.8)] z-10"></div>
+<div class="md:w-1/2 md:pl-16 mb-4 md:mb-0">
+<div class="glass-card p-6 rounded-xl inline-block group-hover:border-water-glow/30 transition-all">
+<h4 class="font-bold text-lg mb-1">2. Luxury Business Meeting</h4>
+<p class="text-sm text-on-surface-variant">Private consultation at Taj Hotel or your preferred venue.</p>
+</div>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative flex flex-col md:flex-row items-center group">
+<div class="md:w-1/2 md:pr-16 md:text-right mb-4 md:mb-0">
+<div class="glass-card p-6 rounded-xl inline-block group-hover:border-water-glow/30 transition-all">
+<h4 class="font-bold text-lg mb-1">3. Physical Inspection</h4>
+<p class="text-sm text-on-surface-variant">Guided drone-assisted tour of our expansive farm sites.</p>
+</div>
+</div>
+<div class="absolute left-8 md:left-1/2 w-4 h-4 bg-water-glow rounded-full -translate-x-1/2 shadow-[0_0_15px_rgba(0,204,255,0.8)] z-10"></div>
+<div class="md:w-1/2 md:pl-16"></div>
+</div>
+<!-- Step 4 -->
+<div class="relative flex flex-col md:flex-row items-center group">
+<div class="md:w-1/2 md:pr-16"></div>
+<div class="absolute left-8 md:left-1/2 w-4 h-4 bg-water-glow rounded-full -translate-x-1/2 shadow-[0_0_15px_rgba(0,204,255,0.8)] z-10"></div>
+<div class="md:w-1/2 md:pl-16 mb-4 md:mb-0">
+<div class="glass-card p-6 rounded-xl inline-block group-hover:border-water-glow/30 transition-all">
+<h4 class="font-bold text-lg mb-1">4. Agreement Signing</h4>
+<p class="text-sm text-on-surface-variant">Formalizing terms with complete legal transparency.</p>
+</div>
+</div>
+</div>
+<!-- Step 5-10 Collapse for brief -->
+<div class="relative flex flex-col md:flex-row items-center">
+<div class="md:w-full text-center py-12">
+<div class="inline-block glass-card px-10 py-8 rounded-[2rem]">
+<div class="grid grid-cols-2 md:grid-cols-6 gap-8">
+<div class="text-center">
+<div class="text-water-glow font-bold mb-1">05</div>
+<div class="text-[10px] uppercase font-label-caps">Compliance</div>
+</div>
+<div class="text-center">
+<div class="text-water-glow font-bold mb-1">06</div>
+<div class="text-[10px] uppercase font-label-caps">Seeding</div>
+</div>
+<div class="text-center">
+<div class="text-water-glow font-bold mb-1">07</div>
+<div class="text-[10px] uppercase font-label-caps">Monitoring</div>
+</div>
+<div class="text-center">
+<div class="text-water-glow font-bold mb-1">08</div>
+<div class="text-[10px] uppercase font-label-caps">Harvest</div>
+</div>
+<div class="text-center">
+<div class="text-water-glow font-bold mb-1">09</div>
+<div class="text-[10px] uppercase font-label-caps">Export</div>
+</div>
+<div class="text-center">
+<div class="text-water-glow font-bold mb-1">10</div>
+<div class="text-[10px] uppercase font-label-caps">Profit Share</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Legal & Compliance -->
+<section class="py-section-padding relative z-10" id="compliance">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="glass-card p-12 rounded-[2.5rem] border border-white/5">
+<div class="grid lg:grid-cols-2 gap-16">
+<div>
+<h3 class="font-headline-md text-3xl mb-8">Institutional Verification</h3>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+<div class="p-6 glass-card rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-water-glow">description</span>
+<p class="text-[10px] font-label-caps uppercase">GST Registration</p>
+</div>
+<div class="p-6 glass-card rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-water-glow">apartment</span>
+<p class="text-[10px] font-label-caps uppercase">Incorporation</p>
+</div>
+<div class="p-6 glass-card rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-water-glow">health_and_safety</span>
+<p class="text-[10px] font-label-caps uppercase">FSSAI Certified</p>
+</div>
+<div class="p-6 glass-card rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-water-glow">water</span>
+<p class="text-[10px] font-label-caps uppercase">Aquaculture Auth.</p>
+</div>
+<div class="p-6 glass-card rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-water-glow">workspace_premium</span>
+<p class="text-[10px] font-label-caps uppercase">ISO 9001:2015</p>
+</div>
+<div class="p-6 glass-card rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+<span class="material-symbols-outlined text-3xl mb-2 text-on-surface-variant group-hover:text-water-glow">download</span>
+<p class="text-[10px] font-label-caps uppercase">Full Dossier</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest/50 p-10 rounded-2xl border border-white/5">
+<h4 class="font-label-caps text-xs text-water-glow mb-4">Legal Framework &amp; Transparency</h4>
+<p class="text-sm leading-relaxed text-on-surface-variant italic mb-6">
+                        "Before initiating any commercial farming project, both parties shall execute a comprehensive legal agreement covering all operational responsibilities, investment terms, and compliance requirements. However, it is explicitly understood that losses caused solely by force majeure events—such as floods, earthquakes, cyclones, sudden government restrictions, or unavoidable aquatic epidemics beyond reasonable human control—shall not be the liability of the company."
+                    </p>
+<div class="flex items-center gap-2 text-xs font-bold text-water-glow">
+<span class="material-symbols-outlined text-sm">info</span>
+                        Standard Liability Disclaimer
+                    </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Luxury Consultation CTA -->
+<section class="py-section-padding relative z-10 bg-surface/80 backdrop-blur-md border-t border-b border-glass-border" id="consultation">
+<div class="max-w-container-max mx-auto px-gutter relative">
+<!-- Ambient Backdrop Glow (Matching Proven Legacy) -->
+<div class="absolute -inset-4 bg-water-glow/10 blur-3xl rounded-full pointer-events-none"></div>
+
+<div class="relative z-10 max-w-4xl mx-auto text-center">
+<p class="font-label-caps text-label-caps text-water-glow mb-4 uppercase tracking-widest">Business Begins With Trust</p>
+<h2 class="font-headline-lg text-4xl lg:text-6xl mb-6 leading-tight">An Invitation to Global Food Security</h2>
+<p class="font-body-lg text-lg text-on-surface-variant mb-10 leading-relaxed max-w-2xl mx-auto">We treat our investor relations with the same precision we apply to our hatcheries. Schedule an exclusive consultation to discuss ROI, asset allocation, and sustainable aquaculture scaling.</p>
+
+<div class="glass-card p-8 rounded-2xl border-l-4 border-l-water-glow max-w-2xl mx-auto mb-10 text-left">
+<p class="italic text-base text-on-surface">"Our investment framework combines bilateral legal security with 100% biosecurity transparency, ensuring peace of mind for institutional capital."</p>
+<div class="mt-4 font-label-caps text-xs text-water-glow">— Global Investor Relations</div>
+</div>
+
+<div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-lg mx-auto">
+<button class="w-full sm:w-auto bg-water-glow text-surface-container-lowest py-4 px-8 rounded-xl font-label-caps text-xs font-bold hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,204,255,0.3)]">
+<span class="material-symbols-outlined text-lg">calendar_month</span>
+<span>Schedule Luxury Meeting</span>
+</button>
+<button class="w-full sm:w-auto glass-card py-4 px-8 rounded-xl font-label-caps text-xs font-bold text-ocean-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 border border-white/15">
+<span class="material-symbols-outlined text-lg">download</span>
+<span>Download Investor Prospectus</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-glass-border relative z-10">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter py-stack-lg max-w-container-max mx-auto">
+<div class="mb-8 md:mb-0">
+<div class="font-headline-md text-headline-md font-bold text-water-glow mb-2">Fish Aqua Farming</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Pioneering the future of sustainable, high-yield biological asset management.
+        </p>
+</div>
+<div class="flex gap-8">
+<a class="text-ocean-white hover:text-water-glow font-label-caps text-xs" href="#">Privacy Policy</a>
+<a class="text-ocean-white hover:text-water-glow font-label-caps text-xs" href="#">Terms of Service</a>
+<a class="text-ocean-white hover:text-water-glow font-label-caps text-xs" href="#">Compliance</a>
+</div>
+<div class="font-label-caps text-xs text-on-surface-variant">
+            © 2024 Fish Aqua Farming. All rights reserved.
+        </div>
+</div>
+</footer>
+<script>
+    // --- WebGL Shader Background (ANIMATION_28) ---
+    const glContainer = document.getElementById('gl-canvas-container');
+    const glScene = new THREE.Scene();
+    const glCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const glRenderer = new THREE.WebGLRenderer({ antialias: true });
+    glRenderer.setSize(window.innerWidth, window.innerHeight);
+    glContainer.appendChild(glRenderer.domElement);
+
+    const vertexShader = `
+        varying vec2 v_texCoord;
+        void main() {
+            v_texCoord = uv;
+            gl_Position = vec4(position, 1.0);
+        }
+    `;
+
+    const fragmentShader = `
+        precision highp float;
+        varying vec2 v_texCoord;
+        uniform float u_time;
+        uniform vec2 u_resolution;
+        uniform vec2 u_mouse;
+
+        vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+        float snoise(vec2 v){
+          const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+                   -0.577350269189626, 0.024390243902439);
+          vec2 i  = floor(v + dot(v, C.yy) );
+          vec2 x0 = v -   i + dot(i, C.xx);
+          vec2 i1;
+          i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+          vec4 x12 = x0.xyxy + C.xxzz;
+          x12.xy -= i1;
+          i = mod(i, 289.0);
+          vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+          + i.x + vec3(0.0, i1.x, 1.0 ));
+          vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+            dot(x12.zw,x12.zw)), 0.0);
+          m = m*m ;
+          m = m*m ;
+          vec3 x = 2.0 * fract(p * C.www) - 1.0;
+          vec3 h = abs(x) - 0.5;
+          vec3 ox = floor(x + 0.5);
+          vec3 a0 = x - ox;
+          m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+          vec3 g;
+          g.x  = a0.x  * x0.x  + h.x  * x0.y;
+          g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+          return 130.0 * dot(m, g);
+        }
+
+        void main() {
+            vec2 uv = v_texCoord;
+            vec2 mouse = u_mouse / u_resolution;
+            
+            vec3 deepNavy = vec3(0.04, 0.04, 0.09); 
+            vec3 oceanBlue = vec3(0.06, 0.12, 0.25);
+            vec3 waterGlow = vec3(0.0, 0.67, 1.0);
+            
+            float n1 = snoise(uv * 1.5 + u_time * 0.04);
+            float n2 = snoise(uv * 3.0 - u_time * 0.07);
+            float combinedNoise = n1 * 0.7 + n2 * 0.3;
+            
+            float dist = distance(uv, mouse);
+            float ripple = sin(dist * 20.0 - u_time * 3.0) * exp(-dist * 5.0) * 0.03;
+            
+            vec3 color = mix(deepNavy, oceanBlue, uv.y + combinedNoise * 0.2);
+            color = mix(color, waterGlow, ripple + max(0.0, combinedNoise) * 0.06);
+            
+            float rays = pow(max(0.0, snoise(vec2(uv.x * 0.8 + u_time * 0.02, u_time * 0.05))), 4.0) * (1.0 - uv.y);
+            color += rays * 0.12;
+            
+            float vignette = 1.0 - smoothstep(0.5, 1.5, length(uv - 0.5));
+            color *= vignette;
+            
+            gl_FragColor = vec4(color, 1.0);
+        }
+    `;
+
+    const uniforms = {
+        u_time: { value: 1.0 },
+        u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+        u_mouse: { value: new THREE.Vector2(0, 0) }
+    };
+
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const material = new THREE.ShaderMaterial({
+        uniforms,
+        vertexShader,
+        fragmentShader
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    glScene.add(mesh);
+
+    function animateGL(time) {
+        uniforms.u_time.value = time * 0.001;
+        glRenderer.render(glScene, glCamera);
+        requestAnimationFrame(animateGL);
+    }
+    requestAnimationFrame(animateGL);
+
+    window.addEventListener('mousemove', (e) => {
+        uniforms.u_mouse.value.set(e.clientX, window.innerHeight - e.clientY);
+    });
+
+    window.addEventListener('resize', () => {
+        glRenderer.setSize(window.innerWidth, window.innerHeight);
+        uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+    });
+
+    // --- Three.js 3D Scene Layer (ANIMATION_29) ---
+    const container = document.getElementById('three-canvas-container');
+    (function() {
+      if (!container) return;
+
+      const width = container.clientWidth || window.innerWidth;
+      const height = container.clientHeight || window.innerHeight;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambient);
+      
+      const directional = new THREE.DirectionalLight(0x00aaff, 1.5);
+      directional.position.set(5, 10, 7);
+      scene.add(directional);
+
+      const mainGroup = new THREE.Group();
+      scene.add(mainGroup);
+
+      function createSeed() {
+        const geo = new THREE.SphereGeometry(1, 32, 32);
+        const mat = new THREE.MeshPhongMaterial({ color: 0xffffff, transparent: true, opacity: 0.9, shininess: 100, emissive: 0x00aaff, emissiveIntensity: 0.2 });
+        return new THREE.Mesh(geo, mat);
+      }
+
+      function createHatching() {
+        const group = new THREE.Group();
+        const mat = new THREE.MeshPhongMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 });
+        const top = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2.5), mat);
+        top.position.y = 0.4; top.rotation.x = -0.5;
+        const bottom = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32, 0, Math.PI * 2, Math.PI / 2, Math.PI), mat);
+        group.add(top, bottom);
+        return group;
+      }
+
+      function createFish(size = 1, color = 0x00aaff, tailAnim = true) {
+        const group = new THREE.Group();
+        const bodyGeo = new THREE.CapsuleGeometry(0.35 * size, 1.2 * size, 8, 32);
+        const bodyMat = new THREE.MeshPhongMaterial({ color, shininess: 90 });
+        const body = new THREE.Mesh(bodyGeo, bodyMat);
+        body.rotation.z = Math.PI / 2;
+        const tailGeo = new THREE.ConeGeometry(0.3 * size, 0.7 * size, 16);
+        const tailMat = new THREE.MeshPhongMaterial({ color });
+        const tail = new THREE.Mesh(tailGeo, tailMat);
+        tail.position.x = -0.9 * size; tail.rotation.z = -Math.PI / 2;
+        group.add(body, tail);
+        group.userData = { tail, tailAnim };
+        return group;
+      }
+
+      function createTruck() {
+        const group = new THREE.Group();
+        const cab = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.2, 1.2), new THREE.MeshPhongMaterial({ color: 0x222222 }));
+        const trailer = new THREE.Mesh(new THREE.BoxGeometry(3.5, 1.6, 1.2), new THREE.MeshPhongMaterial({ color: 0xeeeeee }));
+        trailer.position.x = -2.5;
+        const wheelGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.3, 16);
+        const wheelMat = new THREE.MeshPhongMaterial({ color: 0x000000 });
+        const w1 = new THREE.Mesh(wheelGeo, wheelMat); w1.rotation.x = Math.PI/2; w1.position.set(0, -0.6, 0.6);
+        const w2 = new THREE.Mesh(wheelGeo, wheelMat); w2.rotation.x = Math.PI/2; w2.position.set(0, -0.6, -0.6);
+        const w3 = new THREE.Mesh(wheelGeo, wheelMat); w3.rotation.x = Math.PI/2; w3.position.set(-2.5, -0.8, 0.6);
+        const w4 = new THREE.Mesh(wheelGeo, wheelMat); w4.rotation.x = Math.PI/2; w4.position.set(-2.5, -0.8, -0.6);
+        group.add(cab, trailer, w1, w2, w3, w4);
+        group.scale.setScalar(0.8);
+        return group;
+      }
+
+      const stages = [
+        { mesh: createSeed() },
+        { mesh: createHatching() },
+        { mesh: createFish(0.6, 0x00ffff) },
+        { mesh: createFish(1.0, 0x00ccff) },
+        { mesh: createFish(1.6, 0x00aaff) },
+        { mesh: createFish(2.3, 0x0077ff) },
+        { mesh: createFish(3.2, 0x0044ff) },
+        { mesh: createTruck() }
+      ];
+
+      stages.forEach(s => { s.mesh.visible = false; mainGroup.add(s.mesh); });
+      camera.position.z = 12;
+
+      let scrollPos = 0;
+      let targetScroll = 0;
+
+      window.addEventListener('scroll', () => {
+        const heroHeight = window.innerHeight * 8; // 8 sections
+        targetScroll = window.scrollY / heroHeight;
+      }, { passive: true });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        const time = Date.now() * 0.001;
+        scrollPos += (targetScroll - scrollPos) * 0.08;
+
+        mainGroup.rotation.y = Math.sin(time * 0.3) * 0.1;
+        mainGroup.position.y = Math.sin(time * 0.5) * 0.3;
+
+        const num = stages.length;
+        stages.forEach((s, i) => {
+          const mid = i / num;
+          const dist = Math.abs(scrollPos - mid);
+          const influence = Math.max(0, 1 - dist * num * 1.5);
+          const eased = Math.pow(influence, 2);
+
+          if (eased > 0.01) {
+            s.mesh.visible = true;
+            s.mesh.scale.setScalar(eased * 1.2);
+            s.mesh.rotation.y = time * 0.5;
+            if (s.mesh.userData && s.mesh.userData.tail) {
+               s.mesh.userData.tail.rotation.y = Math.sin(time * 10) * 0.3;
+            }
+            s.mesh.traverse(c => { if (c.material) { c.material.transparent = true; c.material.opacity = Math.min(1, eased * 2); } });
+          } else {
+            s.mesh.visible = false;
+          }
+        });
+        renderer.render(scene, camera);
+      }
+      animate();
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    })();
+
+    // --- Content Reveal Observer ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const card = entry.target.querySelector('.content-card');
+                if (card) card.classList.add('visible');
+            } else {
+                const card = entry.target.querySelector('.content-card');
+                if (card) card.classList.remove('visible');
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.scroll-section').forEach(section => observer.observe(section));
+
+    // Stats counter logic
+    const stats = document.querySelectorAll('[data-count]');
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                const endValue = target.getAttribute('data-count');
+                let startValue = 0;
+                const duration = 2000;
+                let startTime = null;
+                const step = (timestamp) => {
+                    if (!startTime) startTime = timestamp;
+                    const progress = Math.min((timestamp - startTime) / duration, 1);
+                    target.innerText = Math.floor(progress * parseInt(endValue)) + (endValue.includes('+') ? '+' : (endValue.includes('M+') ? 'M+' : (endValue.includes('%') ? '%' : '')));
+                    if (progress < 1) window.requestAnimationFrame(step);
+                };
+                window.requestAnimationFrame(step);
+                statsObserver.unobserve(target);
+            }
+        });
+    }, { threshold: 0.5 });
+    stats.forEach(stat => statsObserver.observe(stat));
+    // --- Facility Video Player Toggle & Tab Switcher ---
+    function toggleFacilityVideo() {
+        const video = document.getElementById('facility-video-player');
+        const icon = document.getElementById('facility-video-icon');
+        const overlay = document.getElementById('facility-video-overlay');
+        
+        if (video.paused) {
+            video.play();
+            icon.innerText = 'pause';
+            overlay.classList.add('bg-black/0');
+            overlay.classList.remove('bg-black/30');
+            setTimeout(() => overlay.style.opacity = '0.3', 2000);
+        } else {
+            video.pause();
+            icon.innerText = 'play_arrow';
+            overlay.style.opacity = '1';
+            overlay.classList.add('bg-black/30');
+        }
+    }
+
+    function switchFacilityVideo(videoSrc, tabId) {
+        const video = document.getElementById('facility-video-player');
+        const source = document.getElementById('facility-video-src');
+        const icon = document.getElementById('facility-video-icon');
+        const overlay = document.getElementById('facility-video-overlay');
+
+        // Update active tab styles
+        ['v-tab-1', 'v-tab-2', 'v-tab-3'].forEach(id => {
+            const tab = document.getElementById(id);
+            if (tab) {
+                if (id === tabId) {
+                    tab.className = 'px-4 py-2 rounded-xl text-xs font-label-caps font-bold transition-all bg-water-glow text-surface-container-lowest';
+                } else {
+                    tab.className = 'px-4 py-2 rounded-xl text-xs font-label-caps font-bold transition-all text-on-surface-variant hover:text-white';
+                }
+            }
+        });
+
+        // Switch source and play
+        source.src = videoSrc;
+        video.load();
+        video.play();
+        icon.innerText = 'pause';
+        overlay.style.opacity = '0.3';
+    }
+</script>
+</body></html>

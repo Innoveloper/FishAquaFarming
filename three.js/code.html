@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- STITCH_THREEJS_START:ANIMATION_29 class="fixed inset-0 w-full h-full bg-transparent" -->
+<div class="fixed inset-0 w-full h-full bg-transparent" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_29" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_29');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  (function() {
+  if (!container) return;
+
+  const width = container.clientWidth || window.innerWidth;
+  const height = container.clientHeight || window.innerHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  // Lighting
+  const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambient);
+  
+  const directional = new THREE.DirectionalLight(0x00aaff, 1.5);
+  directional.position.set(5, 10, 7);
+  scene.add(directional);
+
+  const backLight = new THREE.PointLight(0xffffff, 1);
+  backLight.position.set(-5, -5, -5);
+  scene.add(backLight);
+
+  const mainGroup = new THREE.Group();
+  scene.add(mainGroup);
+
+  // --- Geometries ---
+  function createSeed() {
+    const geo = new THREE.SphereGeometry(1, 32, 32);
+    const mat = new THREE.MeshPhongMaterial({ 
+      color: 0xffffff, 
+      transparent: true, 
+      opacity: 0.9, 
+      shininess: 100,
+      emissive: 0x00aaff,
+      emissiveIntensity: 0.2
+    });
+    return new THREE.Mesh(geo, mat);
+  }
+
+  function createHatching() {
+    const group = new THREE.Group();
+    const mat = new THREE.MeshPhongMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 });
+    const top = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2.5), mat);
+    top.position.y = 0.4;
+    top.rotation.x = -0.5;
+    const bottom = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32, 0, Math.PI * 2, Math.PI / 2, Math.PI), mat);
+    group.add(top, bottom);
+    return group;
+  }
+
+  function createFish(size = 1, color = 0x00aaff, tailAnim = true) {
+    const group = new THREE.Group();
+    const bodyGeo = new THREE.CapsuleGeometry(0.35 * size, 1.2 * size, 8, 32);
+    const bodyMat = new THREE.MeshPhongMaterial({ color, shininess: 90 });
+    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    body.rotation.z = Math.PI / 2;
+    
+    const tailGeo = new THREE.ConeGeometry(0.3 * size, 0.7 * size, 16);
+    const tailMat = new THREE.MeshPhongMaterial({ color });
+    const tail = new THREE.Mesh(tailGeo, tailMat);
+    tail.position.x = -0.9 * size;
+    tail.rotation.z = -Math.PI / 2;
+    
+    group.add(body, tail);
+    group.userData = { tail, tailAnim, initialTailX: tail.position.x };
+    return group;
+  }
+
+  function createTruck() {
+    const group = new THREE.Group();
+    const cab = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.2, 1.2), new THREE.MeshPhongMaterial({ color: 0x222222 }));
+    const trailer = new THREE.Mesh(new THREE.BoxGeometry(3.5, 1.6, 1.2), new THREE.MeshPhongMaterial({ color: 0xeeeeee }));
+    trailer.position.x = -2.5;
+    
+    // Wheels
+    const wheelGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.3, 16);
+    const wheelMat = new THREE.MeshPhongMaterial({ color: 0x000000 });
+    const w1 = new THREE.Mesh(wheelGeo, wheelMat); w1.rotation.x = Math.PI/2; w1.position.set(0, -0.6, 0.6);
+    const w2 = new THREE.Mesh(wheelGeo, wheelMat); w2.rotation.x = Math.PI/2; w2.position.set(0, -0.6, -0.6);
+    const w3 = new THREE.Mesh(wheelGeo, wheelMat); w3.rotation.x = Math.PI/2; w3.position.set(-2.5, -0.8, 0.6);
+    const w4 = new THREE.Mesh(wheelGeo, wheelMat); w4.rotation.x = Math.PI/2; w4.position.set(-2.5, -0.8, -0.6);
+    
+    group.add(cab, trailer, w1, w2, w3, w4);
+    group.scale.setScalar(0.8);
+    return group;
+  }
+
+  const stages = [
+    { mesh: createSeed() },
+    { mesh: createHatching() },
+    { mesh: createFish(0.6, 0x00ffff) }, // Baby
+    { mesh: createFish(1.0, 0x00ccff) }, // Juvenile
+    { mesh: createFish(1.6, 0x00aaff) }, // Growth
+    { mesh: createFish(2.3, 0x0077ff) }, // Adult
+    { mesh: createFish(3.2, 0x0044ff) }, // Harvest
+    { mesh: createTruck() }             // Market
+  ];
+
+  stages.forEach(s => {
+    s.mesh.visible = false;
+    mainGroup.add(s.mesh);
+  });
+
+  camera.position.z = 12;
+
+  let scrollPos = 0;
+  let targetScroll = 0;
+
+  window.addEventListener('scroll', () => {
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    targetScroll = window.scrollY / (maxScroll || 1);
+  }, { passive: true });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+    scrollPos += (targetScroll - scrollPos) * 0.1;
+
+    mainGroup.rotation.y = Math.sin(time * 0.3) * 0.1;
+    mainGroup.position.y = Math.sin(time * 0.5) * 0.3;
+
+    const num = stages.length;
+    stages.forEach((s, i) => {
+      const mid = (i + 0.5) / num;
+      const dist = Math.abs(scrollPos - mid);
+      const influence = Math.max(0, 1 - dist * num * 1.5);
+      const eased = Math.pow(influence, 2);
+
+      if (eased > 0.01) {
+        s.mesh.visible = true;
+        s.mesh.scale.setScalar(eased * 1.2);
+        s.mesh.rotation.y = time * 0.5;
+        
+        // Tail animation for fish
+        if (s.mesh.userData && s.mesh.userData.tailAnim) {
+           s.mesh.userData.tail.rotation.y = Math.sin(time * 10) * 0.3;
+        }
+
+        s.mesh.traverse(c => { 
+          if (c.material) {
+            c.material.transparent = true;
+            c.material.opacity = Math.min(1, eased * 2); 
+          }
+        });
+      } else {
+        s.mesh.visible = false;
+      }
+    });
+
+    renderer.render(scene, camera);
+  }
+
+  function onResize() {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  }
+
+  window.addEventListener('resize', onResize);
+  animate();
+})();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_29 -->
+</body>
+</html>

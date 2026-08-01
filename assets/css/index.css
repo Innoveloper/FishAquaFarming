@@ -1,0 +1,108 @@
+:root {
+  --surface: #111124;
+  --surface-dim: #111124;
+  --surface-bright: #38374b;
+  --surface-container-lowest: #0c0c1e;
+  --surface-container-low: #1a1a2c;
+  --surface-container: #1e1e31;
+  --surface-container-high: #28283b;
+  --surface-container-highest: #333347;
+  --on-surface: #e2e0fa;
+  --on-surface-variant: #bec7d3;
+  --inverse-surface: #e2e0fa;
+  --inverse-on-surface: #2f2f42;
+  --outline: #88929d;
+  --outline-variant: #3e4851;
+  --surface-tint: #93ccff;
+  --primary: #93ccff;
+  --on-primary: #003351;
+  --primary-container: #00aaff;
+  --on-primary-container: #003c5d;
+  --inverse-primary: #006398;
+  --secondary: #c4c3eb;
+  --on-secondary: #2d2d4d;
+  --secondary-container: #464667;
+  --on-secondary-container: #b6b5dc;
+  --tertiary: #91cdfe;
+  --on-tertiary: #003350;
+  --tertiary-container: #6ca8d7;
+  --on-tertiary-container: #003c5c;
+  --background: #111124;
+  --on-background: #e2e0fa;
+  --surface-variant: #333347;
+  --ocean-white: #E0E0E0;
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --water-glow: #00CCFF;
+}
+
+body {
+  background-color: var(--surface-container-lowest);
+  color: var(--on-surface);
+  font-family: 'Hanken Grotesk', sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Oceanic Abundance Glassmorphism */
+.glass-card {
+  background: rgba(6, 6, 37, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.text-glow {
+  text-shadow: 0 0 20px rgba(0, 204, 255, 0.4);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--surface-container-lowest); }
+::-webkit-scrollbar-thumb { background: var(--surface-container); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--water-glow); }
+
+/* Scroll-telling layers */
+#gl-canvas-container, #three-canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+}
+#gl-canvas-container { z-index: -2; }
+#three-canvas-container { z-index: -1; }
+
+.scroll-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.content-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.content-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Timeline Nodes */
+.timeline-step::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--water-glow);
+  box-shadow: 0 0 10px var(--water-glow);
+}

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fish Aqua Farming | The Visionary Journey of Precision Aquaculture</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Hanken+Grotesk:wght@300;400;500&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+        :root {
+            --water-glow: #00CCFF;
+            --deep-sea: #0c0c1e;
+        }
+        body {
+            background-color: var(--deep-sea);
+            color: #e2e0fa;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            font-family: 'Hanken Grotesk', sans-serif;
+            letter-spacing: 0.02em;
+        }
+        .serif-heading {
+            font-family: 'Playfair Display', serif;
+        }
+        .high-kerning {
+            letter-spacing: 0.15em;
+        }
+        .glass-editorial {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+        .text-glow-soft {
+            text-shadow: 0 0 30px rgba(0, 204, 255, 0.3);
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0c0c1e; }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 204, 255, 0.2); border-radius: 10px; }
+
+        #gl-canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -2;
+            pointer-events: none;
+        }
+        #three-canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .scroll-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 10vw;
+            position: relative;
+        }
+        .content-card {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .content-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .full-bleed-image {
+            position: absolute;
+            right: 0;
+            top: 10%;
+            width: 45%;
+            height: 80%;
+            object-fit: cover;
+            mask-image: linear-gradient(to left, black 60%, transparent);
+            z-index: -1;
+            opacity: 0.6;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#93ccff",
+                      "water-glow": "#00CCFF",
+                      "secondary": "#c4c3eb",
+                      "surface": "#111124",
+                      "background": "#0c0c1e",
+                      "on-surface": "#e2e0fa",
+                      "ocean-white": "#E0E0E0",
+                      "glass-border": "rgba(255, 255, 255, 0.15)"
+              },
+              "spacing": {
+                      "container-max": "1440px",
+                      "section-padding": "12rem",
+                      "gutter": "4rem"
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="selection:bg-water-glow/30 selection:text-white">
+<div id="gl-canvas-container"></div>
+<div id="three-canvas-container"></div>
+<!-- Navigation: Simplified & Elegant -->
+<nav class="fixed top-0 w-full z-50 py-8 px-gutter">
+<div class="max-w-container-max mx-auto flex justify-between items-center">
+<div class="serif-heading text-3xl font-bold tracking-tighter text-white">Fish Aqua Farming<span class="text-water-glow italic">.</span></div>
+<div class="hidden md:flex gap-12 items-center">
+<a class="text-xs high-kerning uppercase text-ocean-white hover:text-water-glow transition-all" href="#stage-1">The Journey</a>
+<a class="text-xs high-kerning uppercase text-ocean-white hover:text-water-glow transition-all" href="#portfolio">Our Heritage</a>
+<a class="text-xs high-kerning uppercase text-ocean-white hover:text-water-glow transition-all" href="#advantage">Vision</a>
+<button class="border border-white/20 hover:border-water-glow px-8 py-3 text-[10px] high-kerning uppercase transition-all rounded-full bg-white/5 backdrop-blur-md">
+                Private Consultation
+            </button>
+</div>
+</div>
+</nav>
+<!-- Immersive Storytelling Sections -->
+<main>
+<section class="scroll-section" id="stage-1">
+<img alt="Editorial View" class="full-bleed-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYk3H7nF8wL2J_zP2P3y7S6V6G5pQ8w1e9r0t1y2u3i4o5p6a7s8d9f0g1h2j3k4l5"/>
+<div class="max-w-xl content-card">
+<p class="text-[10px] high-kerning uppercase text-water-glow mb-6 font-bold">Chapter One</p>
+<h2 class="serif-heading text-7xl mb-8 leading-[1.1] text-white">The Genesis of <br/><span class="italic">Pure Intent.</span></h2>
+<p class="text-lg text-on-surface/70 leading-relaxed font-light">Every legacy begins with a single selection. We curate seeds not just for yield, but for the resilience that defines a premium global asset.</p>
+</div>
+</section>
+<section class="scroll-section justify-end" id="stage-2">
+<div class="max-w-xl content-card text-right">
+<p class="text-[10px] high-kerning uppercase text-water-glow mb-6 font-bold">Chapter Two</p>
+<h2 class="serif-heading text-7xl mb-8 leading-[1.1] text-white">The Art of <br/><span class="italic">Incubation.</span></h2>
+<p class="text-lg text-on-surface/70 leading-relaxed font-light">In our state-of-the-art hatcheries, life is nurtured through scientific poetry. Precision environments ensure the first signs of biological excellence.</p>
+</div>
+</section>
+<section class="scroll-section" id="stage-3">
+<div class="max-w-xl content-card">
+<p class="text-[10px] high-kerning uppercase text-water-glow mb-6 font-bold">Chapter Three</p>
+<h2 class="serif-heading text-7xl mb-8 leading-[1.1] text-white">Biological <br/><span class="italic">Symphony.</span></h2>
+<p class="text-lg text-on-surface/70 leading-relaxed font-light">As juvenile species emerge, they enter a world of monitored equilibrium. Scientific feeding protocols meet the natural rhythm of the deep.</p>
+</div>
+</section>
+<!-- Additional sections condensed for editorial flow -->
+<section class="scroll-section justify-center text-center" id="stage-8">
+<div class="max-w-3xl content-card">
+<p class="text-[10px] high-kerning uppercase text-water-glow mb-6 font-bold">Final Chapter</p>
+<h2 class="serif-heading text-7xl mb-8 leading-[1.1] text-white">A Global <br/><span class="italic">Arrival.</span></h2>
+<p class="text-xl text-on-surface/80 leading-relaxed font-light mb-12">From our waters to the world's most sophisticated tables. We deliver more than fish; we deliver a standard of excellence that spans continents.</p>
+<div class="h-px w-24 bg-water-glow mx-auto opacity-50"></div>
+</div>
+</section>
+</main>
+<!-- Authority: Asymmetrical Editorial Layout -->
+<section class="py-section-padding bg-background relative z-10 overflow-hidden" id="authority">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="flex flex-col lg:flex-row gap-24 items-center">
+<div class="lg:w-1/2">
+<p class="text-[10px] high-kerning uppercase text-water-glow mb-6 font-bold">Legacy &amp; Compliance</p>
+<h2 class="serif-heading text-6xl mb-10 text-white leading-tight">India’s Premier <br/>Aquaculture <span class="italic">Guardian.</span></h2>
+<p class="text-lg text-on-surface/70 mb-12 max-w-lg leading-relaxed">Two decades of operational stability have positioned Fish Aqua Farming as the trusted bridge between traditional farming and elite scientific investment.</p>
+<div class="space-y-12">
+<div class="flex gap-8 group">
+<span class="material-symbols-outlined text-4xl text-water-glow/40 group-hover:text-water-glow transition-all">verified_user</span>
+<div>
+<h4 class="serif-heading text-2xl text-white mb-2 italic">Institutional Trust</h4>
+<p class="text-sm text-on-surface/50 leading-relaxed">Government registered with 100% regulatory transparency and fiscal integrity.</p>
+</div>
+</div>
+<div class="flex gap-8 group">
+<span class="material-symbols-outlined text-4xl text-water-glow/40 group-hover:text-water-glow transition-all">eco</span>
+<div>
+<h4 class="serif-heading text-2xl text-white mb-2 italic">Sustainable Horizon</h4>
+<p class="text-sm text-on-surface/50 leading-relaxed">Bridging high-yield production with deep ecological responsibility.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:w-1/2 relative">
+<div class="absolute -top-12 -left-12 w-64 h-64 bg-water-glow/5 blur-[120px] rounded-full"></div>
+<div class="glass-editorial p-4 rounded-[4rem] relative overflow-hidden rotate-2 hover:rotate-0 transition-transform duration-1000">
+<img alt="Infrastructure" class="w-full h-[600px] object-cover rounded-[3rem]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAn-pI6N7R9X0Y1U2V3W4X5Y6Z7A8B9C0D1E2F3G4H5I6J7K8L9M0N1O2P3Q4"/>
+<div class="absolute bottom-12 left-12 right-12 glass-editorial p-8 rounded-3xl">
+<p class="serif-heading text-xl italic text-white">"We don't just farm; we engineer abundance."</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfolio: Clean Magazine Grid -->
+<section class="py-section-padding bg-background/50" id="portfolio">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="text-center mb-24">
+<h2 class="serif-heading text-5xl mb-6 text-white">The Collection</h2>
+<p class="text-sm high-kerning uppercase text-on-surface/50">Cultivating high-value biological assets</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+<!-- Species Item -->
+<div class="group cursor-pointer">
+<div class="overflow-hidden rounded-2xl mb-8 aspect-[3/4]">
+<img alt="Rohu" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU2G21ydJ4tiwbnuq3fW7OrevO-OIM4ULv2NqPHwi7iwZ0-L-j-499D6BpwnFUiIUa_cf0HJlfMGTnwBsrQc-MQjG0Y9M5xFZ_VodciZ0NFD_mEC_Ihd46aWW_vtZbGYUTXHP0kdin9r5ILf0jgEPJBas_VpC2khCvLHudMmtq-_eVYP1np7cd_g5r_ymaIttniuXq6zdnC9kc0crPBvQX9TeP38P1hoLtBPKOqcmb3j2x4BsABHTE"/>
+</div>
+<h3 class="serif-heading text-3xl text-white mb-2">Rohu</h3>
+<p class="text-[10px] high-kerning uppercase text-water-glow mb-4">Prime Commercial Asset</p>
+<div class="h-px w-full bg-white/10 group-hover:bg-water-glow/50 transition-all"></div>
+</div>
+<div class="group cursor-pointer translate-y-12">
+<div class="overflow-hidden rounded-2xl mb-8 aspect-[3/4]">
+<img alt="Katla" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcfyH_co0gu7Md_qrq36GkZT9Yzr0e-vRimfVgrgK2nRZX-TbmhfBqr0cBXak6uLQhsrtQUNM15i3SgVOERVmv0bYhFTVGvWoouKzfvHBsljznwszJF-7pZ2HUICsabrTzYEnf7ileHZF9G69ukvvQLcm5T5_wnwV3PtLI9P2WM1s-XZVdGz9Wk3J_STRW6U88QGXyf3_99fYvD5cDebOgWvtjhuJaKMKSgfVO8yXmdxpmZFvKLdDc"/>
+</div>
+<h3 class="serif-heading text-3xl text-white mb-2">Katla</h3>
+<p class="text-[10px] high-kerning uppercase text-water-glow mb-4">Stable Yield Portfolio</p>
+<div class="h-px w-full bg-white/10 group-hover:bg-water-glow/50 transition-all"></div>
+</div>
+<div class="group cursor-pointer">
+<div class="overflow-hidden rounded-2xl mb-8 aspect-[3/4]">
+<img alt="Tilapia" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEzSBLWj2HWGJ4E08f9Oo-La7EVgJy9WlpMBiXNERWwJpXYNpxNtQB-Fjlw2CzgWs5Eh9wqDj2t6eGBPWEvJhx4_Bl3Jy18ILODWx3D97tS7TcwdC3Fe44se8xbY_6EW5RScgr1IGeZYeFX-VAXjUWSz097DuDvcCp-r6cjtxGGzc2zNQZq4bbgW_YXP1n7GoY_HKriKPcSLT74efdezkmDMJjWR0v8YkelU_8R-5Sa7zT5IoaQYL1"/>
+</div>
+<h3 class="serif-heading text-3xl text-white mb-2">Tilapia</h3>
+<p class="text-[10px] high-kerning uppercase text-water-glow mb-4">Global Demand Grade</p>
+<div class="h-px w-full bg-white/10 group-hover:bg-water-glow/50 transition-all"></div>
+</div>
+<div class="group cursor-pointer translate-y-12">
+<div class="overflow-hidden rounded-2xl mb-8 aspect-[3/4]">
+<img alt="Vannamei" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ8HQEpNmm3LgBz9vEkhF80vGr_jf3nf_w4nIJFRHm2BdddZjMRC5Wrg5v8qHy8zxF4MhsB5_Sg0uV6RkgCAdZHdLfZDO4ANGt64ETh1UNP51HQBibZhksOyq-310SgZAtwu9Sva8SNhbQ3hHIOWGZKPCwjdNPGM79J10nuJkGqBMRNLA6_aHvaIRFjzmkCDNgBPGlT-jrqZgz_FxnWVIDpaqmxk8vr3raGW1sgAoy_xMQEsfu8Efg"/>
+</div>
+<h3 class="serif-heading text-3xl text-white mb-2">Vannamei</h3>
+<p class="text-[10px] high-kerning uppercase text-water-glow mb-4">Elite Export Class</p>
+<div class="h-px w-full bg-white/10 group-hover:bg-water-glow/50 transition-all"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Visionary Path: Simplified Timeline -->
+<section class="py-section-padding bg-background relative z-10" id="investment">
+<div class="max-w-4xl mx-auto px-gutter text-center">
+<p class="text-[10px] high-kerning uppercase text-water-glow mb-6 font-bold">The Partnership</p>
+<h2 class="serif-heading text-6xl mb-16 text-white leading-tight">Your Journey to <br/><span class="italic">Global Food Security.</span></h2>
+<div class="space-y-24 text-left">
+<div class="flex items-center gap-12 group">
+<div class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center text-2xl serif-heading italic group-hover:bg-water-glow group-hover:text-background transition-all">01</div>
+<div>
+<h4 class="serif-heading text-2xl text-white mb-2">Initial Selection</h4>
+<p class="text-on-surface/50 font-light">Connect with our executive investment team for a bespoke briefing.</p>
+</div>
+</div>
+<div class="flex items-center gap-12 group ml-12 lg:ml-24">
+<div class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center text-2xl serif-heading italic group-hover:bg-water-glow group-hover:text-background transition-all">02</div>
+<div>
+<h4 class="serif-heading text-2xl text-white mb-2">Luxury Consultation</h4>
+<p class="text-on-surface/50 font-light">Private strategic sessions held at premier global venues.</p>
+</div>
+</div>
+<div class="flex items-center gap-12 group">
+<div class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center text-2xl serif-heading italic group-hover:bg-water-glow group-hover:text-background transition-all">03</div>
+<div>
+<h4 class="serif-heading text-2xl text-white mb-2">Physical Onboarding</h4>
+<p class="text-on-surface/50 font-light">Direct inspection of our expansive infrastructure and biological assets.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Luxury CTA -->
+<section class="py-section-padding bg-background relative z-10">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="glass-editorial rounded-[4rem] p-16 md:p-32 text-center relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-tr from-water-glow/10 via-transparent to-transparent"></div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="serif-heading text-7xl mb-12 text-white leading-none italic">Begin the <br/>Vision.</h2>
+<p class="text-lg text-on-surface/70 mb-16 font-light">We treat our investor relations with the same precision we apply to our hatcheries. Enter the circle of elite aquaculture.</p>
+<div class="flex flex-col sm:flex-row gap-8 justify-center">
+<button class="bg-white text-background px-12 py-5 rounded-full font-bold text-xs high-kerning uppercase hover:scale-105 transition-transform shadow-2xl">Request Prospectus</button>
+<button class="border border-white/20 px-12 py-5 rounded-full font-bold text-xs high-kerning uppercase hover:bg-white/5 transition-all">Private Inquiry</button>
+</div>
+<p class="mt-12 text-[10px] high-kerning uppercase text-on-surface/40">Exclusive meeting venues: Taj Hotel · Oberoi · Virtual Secure Channel</p>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-background py-24 border-t border-white/5 relative z-10">
+<div class="max-w-container-max mx-auto px-gutter flex flex-col md:flex-row justify-between items-center gap-12">
+<div class="serif-heading text-2xl font-bold text-white">Fish Aqua Farming<span class="text-water-glow italic">.</span></div>
+<div class="flex gap-12">
+<a class="text-[10px] high-kerning uppercase text-on-surface/40 hover:text-white transition-colors" href="#">Privacy</a>
+<a class="text-[10px] high-kerning uppercase text-on-surface/40 hover:text-white transition-colors" href="#">Terms</a>
+<a class="text-[10px] high-kerning uppercase text-on-surface/40 hover:text-white transition-colors" href="#">Heritage</a>
+</div>
+<div class="text-[10px] high-kerning uppercase text-on-surface/30">
+            © 2024 Fish Aqua Farming · Cinematic Transparency
+        </div>
+</div>
+</footer>
+<script>
+    // --- WebGL Background ---
+    const glContainer = document.getElementById('gl-canvas-container');
+    const glScene = new THREE.Scene();
+    const glCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const glRenderer = new THREE.WebGLRenderer({ antialias: true });
+    glRenderer.setSize(window.innerWidth, window.innerHeight);
+    glContainer.appendChild(glRenderer.domElement);
+
+    const vertexShader = `varying vec2 v_texCoord; void main() { v_texCoord = uv; gl_Position = vec4(position, 1.0); }`;
+    const fragmentShader = `
+        precision highp float;
+        varying vec2 v_texCoord;
+        uniform float u_time;
+        uniform vec2 u_resolution;
+
+        void main() {
+            vec2 uv = v_texCoord;
+            vec3 deepNavy = vec3(0.04, 0.04, 0.08);
+            vec3 lighterNavy = vec3(0.06, 0.08, 0.15);
+            float noise = sin(uv.x * 2.0 + u_time * 0.1) * cos(uv.y * 3.0 - u_time * 0.15);
+            vec3 color = mix(deepNavy, lighterNavy, uv.y + noise * 0.1);
+            gl_FragColor = vec4(color, 1.0);
+        }
+    `;
+
+    const uniforms = {
+        u_time: { value: 1.0 },
+        u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+    };
+
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader });
+    const mesh = new THREE.Mesh(geometry, material);
+    glScene.add(mesh);
+
+    function animateGL(time) {
+        uniforms.u_time.value = time * 0.001;
+        glRenderer.render(glScene, glCamera);
+        requestAnimationFrame(animateGL);
+    }
+    requestAnimationFrame(animateGL);
+
+    // --- Observer for Editorial Reveal ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const card = entry.target.querySelector('.content-card');
+            if (entry.isIntersecting) {
+                if (card) card.classList.add('visible');
+            } else {
+                if (card) card.classList.remove('visible');
+            }
+        });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.scroll-section').forEach(section => observer.observe(section));
+
+    window.addEventListener('resize', () => {
+        glRenderer.setSize(window.innerWidth, window.innerHeight);
+        uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+    });
+
+    // Three.js Fish Animation Layer (Simplified Stage Transition)
+    const container = document.getElementById('three-canvas-container');
+    (function() {
+      if (!container) return;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(width, height);
+      container.appendChild(renderer.domElement);
+
+      const light = new THREE.PointLight(0x00ccff, 2, 100);
+      light.position.set(0, 5, 10);
+      scene.add(light);
+
+      const fishGroup = new THREE.Group();
+      scene.add(fishGroup);
+
+      // Simple proxy geometry for stage elements
+      const stageGeo = new THREE.TorusKnotGeometry(2, 0.3, 100, 16);
+      const stageMat = new THREE.MeshPhongMaterial({ color: 0x00ccff, wireframe: true, transparent: true, opacity: 0.1 });
+      const stageMesh = new THREE.Mesh(stageGeo, stageMat);
+      fishGroup.add(stageMesh);
+
+      camera.position.z = 10;
+
+      let targetScroll = 0;
+      window.addEventListener('scroll', () => {
+        targetScroll = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      }, { passive: true });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        stageMesh.rotation.y += 0.005;
+        stageMesh.rotation.x += 0.003;
+        fishGroup.position.y = Math.sin(Date.now() * 0.001) * 0.5;
+        renderer.render(scene, camera);
+      }
+      animate();
+    })();
+</script>
+</body></html>
