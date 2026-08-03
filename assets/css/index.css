@@ -174,3 +174,141 @@ html, body {
   background: var(--water-glow);
   box-shadow: 0 0 10px var(--water-glow);
 }
+
+/* Inline SVG Fish Animation */
+@keyframes swim {
+  0%, 100% { transform: rotate(0deg) translateX(0); }
+  50% { transform: rotate(6deg) translateY(1.5px) translateX(1px); }
+}
+.svg-fish-icon {
+  animation: swim 3s ease-in-out infinite;
+  transform-origin: center left;
+}
+
+/* Floating Pill Navigation Bar styles */
+#main-nav {
+  position: fixed;
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 1.5rem);
+  max-width: 1040px;
+  background: rgba(17, 17, 36, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  z-index: 50;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#main-nav .nav-container {
+  padding: 0.55rem 0.85rem;
+  transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#main-nav .logo-text {
+  transition: font-size 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#main-nav.nav-scrolled {
+  top: 0.5rem;
+  background: rgba(12, 12, 30, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-color: rgba(0, 204, 255, 0.3); /* Glowing accent border */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 204, 255, 0.15);
+}
+
+#main-nav.nav-scrolled .nav-container {
+  padding: 0.45rem 0.85rem;
+}
+
+#main-nav.nav-scrolled .logo-text {
+  font-size: 1.1rem !important;
+}
+
+/* On mobile/tablet, when scrolled, snap logo-text back to start (no centering) */
+@media (max-width: 1023px) {
+  #main-nav.nav-scrolled .logo-text {
+    position: static !important;
+    transform: none !important;
+  }
+}
+
+/* Responsive Desktop Layout Upgrades */
+@media (min-width: 1024px) {
+  #main-nav {
+    top: 1.5rem;
+    width: calc(100% - 2.5rem);
+  }
+  #main-nav.nav-scrolled {
+    top: 1rem;
+  }
+  #main-nav .nav-container {
+    padding: 0.9rem 2.25rem;
+  }
+  #main-nav.nav-scrolled .nav-container {
+    padding: 0.6rem 1.75rem;
+  }
+  #main-nav.nav-scrolled .logo-text {
+    font-size: 1.125rem !important;
+  }
+}
+
+/* Animated Nav Underlines */
+.nav-link-underline {
+  position: relative;
+}
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: linear-gradient(90deg, transparent, var(--water-glow), transparent);
+  transform-origin: bottom center;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.nav-link-underline:hover::after,
+.nav-link-active::after {
+  transform: scaleX(1);
+}
+.nav-link-active {
+  color: var(--water-glow) !important;
+  font-weight: 700 !important;
+}
+
+/* Mobile Nav Panel Active Style */
+#mobile-nav-panel {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-out;
+}
+#mobile-nav-panel.active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto !important;
+}
+
+/* Floating bubble animation for Back-to-Top Button */
+@keyframes floatBubble {
+  0% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-6px) scale(1.04); }
+  100% { transform: translateY(0px) scale(1); }
+}
+.floating-bubble {
+  animation: floatBubble 3s ease-in-out infinite;
+}
+
+/* Social link buttons outer glow */
+.social-glow {
+  transition: all 0.3s ease;
+}
+.social-glow:hover {
+  box-shadow: 0 0 15px rgba(0, 204, 255, 0.4);
+  border-color: var(--water-glow);
+  color: var(--water-glow);
+}
+

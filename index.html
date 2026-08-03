@@ -235,40 +235,60 @@
     <div id="loading-percentage" class="text-[10px] font-mono font-bold text-water-glow">0%</div>
   </div>
 
-  <!-- Floating Sound Toggle Button -->
-  <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
-    <button id="sound-toggle-btn" 
-            class="w-12 h-12 bg-surface-container-high/80 border border-glass-border hover:border-water-glow/50 text-water-glow rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all group pointer-events-auto"
-            onclick="toggleAmbientSound()">
-      <span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">volume_off</span>
-    </button>
-  </div>
 
   <!-- Background Layers -->
   <div id="gl-canvas-container"></div>
   <div id="three-canvas-container"></div>
   <!-- Navigation -->
-  <nav class="fixed top-0 w-full z-50 bg-surface/15 backdrop-blur-xl border-b border-glass-border">
-    <div class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
-      <div class="font-headline-md text-headline-md font-bold text-water-glow tracking-tight">Fish Aqua Farming</div>
-      <div class="hidden md:flex gap-6 items-center">
-        <a class="text-water-glow font-bold border-b-2 border-water-glow pb-1 font-label-caps text-label-caps"
-          href="#stage-1">Lifecycle</a>
-        <a class="text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
-          href="#portfolio">Species</a>
-        <a class="text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
-          href="#advantage">Advantage</a>
-        <a class="text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
-          href="#investment">Investment</a>
-        <a class="text-ocean-white/70 hover:text-water-glow transition-colors duration-300 font-label-caps text-[11px]"
-          href="pages/investment-portal/code.html">Portal</a>
+  <nav id="main-nav" class="z-50">
+    <div class="nav-container flex justify-between items-center w-full relative">
+      <!-- Logo (start-center aligned) -->
+      <div class="flex items-center">
+        <a href="#" class="flex items-center gap-2 group pointer-events-auto leading-none">
+          <svg class="svg-fish-icon w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-water-glow flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 12c-4-4-9-4-13-2C7 9 5 9 3 7c1 3 1 5-1 7 2 2 2 4 1 7 2-2 4-2 6-3 4 2 9 2 13-2z"></path>
+            <circle cx="17" cy="11" r="1" fill="currentColor"></circle>
+            <path d="M9 13c.5-1.5 2-2.5 3.5-2.5"></path>
+          </svg>
+          <span class="logo-text font-headline-md text-base sm:text-xl lg:text-2xl font-bold text-ocean-white group-hover:text-water-glow transition-all tracking-tight whitespace-nowrap leading-none absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0">Fish Aqua Farming</span>
+        </a>
       </div>
-      <button
-        class="bg-water-glow text-surface-container-lowest px-6 py-2 rounded-full font-label-caps text-label-caps font-bold hover:scale-105 transition-transform">
-        Consultation
-      </button>
+      <div class="hidden lg:flex gap-8 items-center">
+        <a id="nav-lifecycle" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+          href="#stage-1">Lifecycle</a>
+        <a id="nav-species" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+          href="#portfolio">Species</a>
+        <a id="nav-advantage" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+          href="#advantage">Advantage</a>
+        <a id="nav-investment" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+          href="#investment">Investment</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })"
+          class="hidden lg:inline-block bg-water-glow text-surface-container-lowest px-5 py-1.5 rounded-full font-label-caps text-label-caps font-bold hover:scale-105 hover:shadow-[0_0_15px_rgba(0,204,255,0.4)] transition-all pointer-events-auto whitespace-nowrap flex-shrink-0">
+          Consultation
+        </button>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="flex lg:hidden w-8 h-8 border border-glass-border/60 rounded-full items-center justify-center text-ocean-white hover:text-water-glow hover:border-water-glow/50 transition-all focus:outline-none pointer-events-auto">
+          <span class="material-symbols-outlined text-lg" id="mobile-menu-icon">menu</span>
+        </button>
+      </div>
     </div>
   </nav>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-nav-panel" class="fixed inset-0 z-40 bg-surface-container-lowest/98 backdrop-blur-3xl transition-all duration-500 ease-in-out transform -translate-y-full flex flex-col justify-center px-8 md:hidden opacity-0 pointer-events-none">
+    <div class="flex flex-col gap-8 text-center">
+      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#stage-1">Lifecycle</a>
+      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#portfolio">Species</a>
+      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#advantage">Advantage</a>
+      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#investment">Investment</a>
+      <button onclick="document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })"
+        class="bg-water-glow text-surface-container-lowest px-8 py-3 rounded-full font-label-caps text-label-caps font-bold hover:scale-105 transition-transform self-center mt-6 shadow-[0_0_20px_rgba(0,204,255,0.3)]">
+        Book Consultation
+      </button>
+    </div>
+  </div>
   <!-- Hero Scroll-telling Sections -->
   <main>
     <div id="lifecycle-track">
@@ -1488,25 +1508,116 @@
     </div>
   </section>
   <!-- Footer -->
-  <footer class="bg-surface-container-lowest border-t border-glass-border relative z-10">
-    <div
-      class="flex flex-col md:flex-row justify-between items-center px-gutter py-stack-lg max-w-container-max mx-auto">
-      <div class="mb-8 md:mb-0">
-        <div class="font-headline-md text-headline-md font-bold text-water-glow mb-2">Fish Aqua Farming</div>
-        <p class="font-body-md text-body-md text-on-surface-variant">
-          Pioneering the future of sustainable, high-yield biological asset management.
-        </p>
+  <footer class="relative z-10 bg-surface-container-lowest border-t border-glass-border/40 overflow-hidden">
+    <!-- Ambient Bottom Glow -->
+    <div class="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-water-glow/5 to-transparent pointer-events-none z-0"></div>
+
+    <div class="relative z-10 max-w-container-max mx-auto px-gutter pt-16 pb-8">
+      <!-- 4-Column Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-glass-border/20">
+        
+        <!-- Col 1: Brand & Socials -->
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <svg class="svg-fish-icon w-8 h-8 text-water-glow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12c-4-4-9-4-13-2C7 9 5 9 3 7c1 3 1 5-1 7 2 2 2 4 1 7 2-2 4-2 6-3 4 2 9 2 13-2z"></path>
+              <circle cx="17" cy="11" r="1" fill="currentColor"></circle>
+              <path d="M9 13c.5-1.5 2-2.5 3.5-2.5"></path>
+            </svg>
+            <span class="font-headline-md text-xl font-bold text-ocean-white tracking-tight">Fish Aqua Farming</span>
+          </div>
+          <p class="font-body-md text-sm text-on-surface-variant leading-relaxed mb-6">
+            Pioneering the future of sustainable, high-yield biological asset management. Blending precision science with absolute transparency.
+          </p>
+          <!-- Social Icons -->
+          <div class="flex gap-4">
+            <a href="#" class="social-glow w-10 h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all" aria-label="LinkedIn">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a href="#" class="social-glow w-10 h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all" aria-label="YouTube">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.524 3.545 12 3.545 12 3.545s-7.525 0-9.388.51a3.003 3.003 0 0 0-2.11 2.108C0 8.026 0 12 0 12s0 3.974.502 5.837a3.003 3.003 0 0 0 2.11 2.108C4.475 20.455 12 20.455 12 20.455s7.524 0 9.388-.51a3.002 3.002 0 0 0 2.11-2.108C24 15.974 24 12 24 12s0-3.974-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="#" class="social-glow w-10 h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all" aria-label="Twitter X">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="social-glow w-10 h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all" aria-label="Instagram">
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation -->
+        <div class="flex flex-col">
+          <span class="font-label-caps text-xs font-bold text-water-glow uppercase tracking-wider mb-5">Quick Links</span>
+          <div class="flex flex-col gap-3.5 text-sm">
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="#stage-1">Aquatic Lifecycle</a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="#portfolio">Premium Species</a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="#advantage">Our Advantage</a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="#investment">Investment Framework</a>
+            <a class="text-water-glow/85 hover:text-water-glow transition-colors font-label-caps text-xs tracking-wider" href="pages/investment-portal/code.html">Investor Portal</a>
+          </div>
+        </div>
+
+        <!-- Col 3: Compliance & Certifications -->
+        <div class="flex flex-col">
+          <span class="font-label-caps text-xs font-bold text-water-glow uppercase tracking-wider mb-5">Certifications</span>
+          <div class="flex flex-col gap-3.5 text-sm">
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="#compliance">
+              <span class="material-symbols-outlined text-base">description</span>
+              <span>GST Registration (PDF)</span>
+            </a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="#compliance">
+              <span class="material-symbols-outlined text-base">description</span>
+              <span>Company Incorporation</span>
+            </a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="#compliance">
+              <span class="material-symbols-outlined text-base">description</span>
+              <span>Pollution Control Clearance</span>
+            </a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="#compliance">
+              <span class="material-symbols-outlined text-base">description</span>
+              <span>Aquaculture Authority Reg</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 4: Consultation Card -->
+        <div class="flex flex-col bg-surface-container-high/40 p-5 rounded-2xl border border-glass-border/30 shadow-[inset_0_0_15px_rgba(255,255,255,0.02)]">
+          <span class="font-label-caps text-xs font-bold text-water-glow uppercase tracking-wider mb-3 block">Luxury Consultation</span>
+          <p class="font-body-md text-xs text-on-surface-variant leading-relaxed mb-4">
+            Bilateral legal security & biosecurity transparency. Inperson consultations arranged at exclusive venues (Taj Hotel).
+          </p>
+          <button onclick="document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })" class="w-full bg-water-glow/20 border border-water-glow/30 hover:bg-water-glow hover:text-surface-container-lowest text-water-glow py-3 px-4 rounded-xl font-label-caps text-[10px] font-bold tracking-widest transition-all text-center flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,204,255,0.15)]">
+            <span class="material-symbols-outlined text-sm">calendar_month</span>
+            <span>BOOK TAJ MEETING</span>
+          </button>
+        </div>
+
       </div>
-      <div class="flex gap-8">
-        <a class="text-ocean-white hover:text-water-glow font-label-caps text-xs" href="#">Privacy Policy</a>
-        <a class="text-ocean-white hover:text-water-glow font-label-caps text-xs" href="#">Terms of Service</a>
-        <a class="text-ocean-white hover:text-water-glow font-label-caps text-xs" href="#">Compliance</a>
-      </div>
-      <div class="font-label-caps text-xs text-on-surface-variant">
-        © 2024 Fish Aqua Farming. All rights reserved.
+
+      <!-- Bottom Details -->
+      <div class="pt-8 flex flex-col lg:flex-row justify-between items-center gap-6">
+        <div class="flex flex-col gap-2 items-center lg:items-start">
+          <p class="font-label-caps text-[11px] text-on-surface-variant text-center lg:text-left">
+            © 2024 Fish Aqua Farming. All rights reserved.
+          </p>
+          <p class="text-[10px] text-on-surface-variant/60 max-w-xl text-center lg:text-left leading-relaxed">
+            Disclaimer: Biological asset aquaculture processes involve standard agricultural & market risks. Legal assurances and force majeure exclusions are detail-specified in executed contracts.
+          </p>
+        </div>
+        <div class="flex gap-6 text-[11px] font-label-caps tracking-widest shrink-0">
+          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="#">Privacy Policy</a>
+          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="#">Terms of Service</a>
+          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="#">Compliance</a>
+        </div>
       </div>
     </div>
   </footer>
+
+  <!-- Floating Back-to-Top Bubble -->
+  <button id="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="fixed bottom-8 right-8 w-14 h-14 bg-surface-container-high/80 border border-glass-border hover:border-water-glow/50 text-water-glow rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all z-40 opacity-0 pointer-events-none floating-bubble group hover:scale-110">
+    <span class="material-symbols-outlined text-2xl group-hover:-translate-y-1 transition-transform">arrow_upward</span>
+  </button>
 
   <!-- Premium Interactive 3D Fish Metrics Modal -->
   <div id="fish-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-background/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
@@ -3299,134 +3410,6 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       }
     }
 
-    // --- Ambient Underwater Audio Synthesizer ---
-    class UnderwaterAudio {
-      constructor() {
-        this.ctx = null;
-        this.osc1 = null;
-        this.osc2 = null;
-        this.filter = null;
-        this.gain = null;
-        this.bubbleInterval = null;
-        this.isPlaying = false;
-      }
-
-      init() {
-        this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Deep water hum (sub-bass sine)
-        this.osc1 = this.ctx.createOscillator();
-        this.osc1.type = 'sine';
-        this.osc1.frequency.value = 32.7; // C1 note
-        
-        // Soft rolling triangle wave hum
-        this.osc2 = this.ctx.createOscillator();
-        this.osc2.type = 'triangle';
-        this.osc2.frequency.value = 48.9; // G1 note
-        
-        // Low-pass filter to muffle hum
-        this.filter = this.ctx.createBiquadFilter();
-        this.filter.type = 'lowpass';
-        this.filter.frequency.value = 80;
-        this.filter.Q.value = 1.0;
-        
-        // Slow LFO simulating rolling ocean swells
-        this.lfo = this.ctx.createOscillator();
-        this.lfo.type = 'sine';
-        this.lfo.frequency.value = 0.15; // 6.6s cycle
-        
-        this.lfoGain = this.ctx.createGain();
-        this.lfoGain.gain.value = 4;
-        
-        this.lfo.connect(this.lfoGain);
-        this.lfoGain.connect(this.osc1.frequency);
-        this.lfoGain.connect(this.osc2.frequency);
-        
-        // Master volume
-        this.gain = this.ctx.createGain();
-        this.gain.gain.value = 0.35;
-        
-        this.osc1.connect(this.filter);
-        this.osc2.connect(this.filter);
-        this.filter.connect(this.gain);
-        this.gain.connect(this.ctx.destination);
-        
-        this.osc1.start(0);
-        this.osc2.start(0);
-        this.lfo.start(0);
-        
-        this.startBubbles();
-        this.isPlaying = true;
-      }
-      
-      startBubbles() {
-        this.bubbleInterval = setInterval(() => {
-          if (!this.isPlaying) return;
-          this.playBubbleSound();
-        }, 2000 + Math.random() * 4000);
-      }
-      
-      playBubbleSound() {
-        try {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          const filter = this.ctx.createBiquadFilter();
-          
-          osc.type = 'sine';
-          const baseFreq = 160 + Math.random() * 220;
-          osc.frequency.setValueAtTime(baseFreq, this.ctx.currentTime);
-          osc.frequency.exponentialRampToValueAtTime(baseFreq * 2.8, this.ctx.currentTime + 0.35);
-          
-          filter.type = 'bandpass';
-          filter.frequency.value = baseFreq * 1.5;
-          
-          gain.gain.setValueAtTime(0.0, this.ctx.currentTime);
-          gain.gain.linearRampToValueAtTime(0.03, this.ctx.currentTime + 0.05);
-          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.35);
-          
-          osc.connect(filter);
-          filter.connect(gain);
-          gain.connect(this.ctx.destination);
-          
-          osc.start();
-          osc.stop(this.ctx.currentTime + 0.4);
-        } catch(e) {}
-      }
-      
-      toggle() {
-        if (!this.ctx) {
-          this.init();
-          return true;
-        }
-        
-        if (this.isPlaying) {
-          this.ctx.suspend();
-          this.isPlaying = false;
-          return false;
-        } else {
-          this.ctx.resume();
-          this.isPlaying = true;
-          return true;
-        }
-      }
-    }
-
-    const ambientAudio = new UnderwaterAudio();
-
-    window.toggleAmbientSound = function() {
-      const btn = document.getElementById('sound-toggle-btn');
-      const isPlaying = ambientAudio.toggle();
-      
-      if (isPlaying) {
-        btn.innerHTML = `<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">volume_up</span>`;
-        btn.classList.add('border-water-glow/80', 'text-water-glow');
-        btn.classList.remove('text-on-surface-variant');
-      } else {
-        btn.innerHTML = `<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">volume_off</span>`;
-        btn.classList.remove('border-water-glow/80');
-      }
-    };
-
     window.scrollSpecies = function(direction) {
       const track = document.getElementById('species-carousel-track');
       if (!track) return;
@@ -3724,6 +3707,101 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
         }
       });
     }
+
+    // --- Redesigned Navigation & Back-to-Top Button Logic ---
+    (function() {
+      const nav = document.getElementById('main-nav');
+      const backToTopBtn = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        // 1. Morph Navbar to Floating Capsule
+        if (currentScrollY > 50) {
+          nav.classList.add('nav-scrolled');
+        } else {
+          nav.classList.remove('nav-scrolled');
+        }
+
+        // 3. Back-to-Top Button Visibility Toggle
+        if (currentScrollY > 300) {
+          backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+          backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+        } else {
+          backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+          backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+        }
+      }, { passive: true });
+
+      // 4. Mobile Menu Drawer Navigation toggles
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+      const mobileNavPanel = document.getElementById('mobile-nav-panel');
+
+      if (mobileMenuBtn && mobileNavPanel && mobileMenuIcon) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = mobileNavPanel.classList.contains('active');
+          if (isOpen) {
+            mobileNavPanel.classList.remove('active');
+            mobileMenuIcon.textContent = 'menu';
+            document.body.style.overflow = '';
+          } else {
+            mobileNavPanel.classList.add('active');
+            mobileMenuIcon.textContent = 'close';
+            document.body.style.overflow = 'hidden';
+          }
+        });
+
+        // Close mobile drawer when clicking menu links or buttons
+        document.querySelectorAll('.mobile-nav-link, #mobile-nav-panel button').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileNavPanel.classList.remove('active');
+            mobileMenuIcon.textContent = 'menu';
+            document.body.style.overflow = '';
+          });
+        });
+      }
+
+      // 5. ScrollSpy Integration - Highlight navigation item on active viewport
+      const sections = [
+        { id: 'lifecycle-track', linkId: 'nav-lifecycle' },
+        { id: 'portfolio', linkId: 'nav-species' },
+        { id: 'advantage', linkId: 'nav-advantage' },
+        { id: 'investment', linkId: 'nav-investment' }
+      ];
+
+      window.addEventListener('scroll', () => {
+        let currentActiveSectionId = '';
+        const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+        sections.forEach(sec => {
+          const el = document.getElementById(sec.id);
+          if (el) {
+            const top = el.offsetTop;
+            const height = el.offsetHeight;
+            if (scrollPosition >= top && scrollPosition < top + height) {
+              currentActiveSectionId = sec.linkId;
+            }
+          }
+        });
+
+        // Default to Lifecycle if we're near the top
+        if (window.scrollY < 100) {
+          currentActiveSectionId = 'nav-lifecycle';
+        }
+
+        sections.forEach(sec => {
+          const link = document.getElementById(sec.linkId);
+          if (link) {
+            if (sec.linkId === currentActiveSectionId) {
+              link.classList.add('nav-link-active');
+            } else {
+              link.classList.remove('nav-link-active');
+            }
+          }
+        });
+      }, { passive: true });
+    })();
   </script>
 </body>
 </html>
