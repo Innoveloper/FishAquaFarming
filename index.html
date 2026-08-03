@@ -15,6 +15,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js"></script>
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <link href="assets/css/index.css" rel="stylesheet" />
   <script id="tailwind-config">
     tailwind.config = {
@@ -148,12 +153,96 @@
       height: 54px;
       border-color: rgba(56, 189, 248, 0.9);
     }
+
+    /* Global Custom Scrollbar Styling */
+    #global-scrollbar-track {
+      position: fixed !important;
+      right: 4px !important;
+      top: 40px !important;
+      bottom: 40px !important;
+      width: 12px !important;
+      z-index: 9999999 !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      background: transparent !important;
+      pointer-events: auto !important;
+      display: none; /* Controlled dynamically by JS */
+    }
+    #global-scrollbar-track::before {
+      content: '' !important;
+      position: absolute !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      width: 2px !important;
+      background: rgba(255, 255, 255, 0.15) !important;
+      border-radius: 9999px !important;
+      transition: background 0.3s ease !important;
+    }
+    #global-scrollbar-track:hover::before {
+      background: rgba(0, 204, 255, 0.4) !important;
+    }
+    #global-scrollbar-thumb {
+      position: absolute !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      width: 6px !important;
+      background: linear-gradient(180deg, rgba(0, 204, 255, 0.5), rgba(0, 204, 255, 0.8)) !important;
+      border-radius: 9999px !important;
+      box-shadow: 0 0 10px rgba(0, 204, 255, 0.5) !important;
+      cursor: grab !important;
+      pointer-events: auto !important;
+      transition: width 0.2s ease, background 0.3s ease, box-shadow 0.3s ease !important;
+    }
+    #global-scrollbar-thumb:active,
+    #global-scrollbar-thumb.dragging {
+      cursor: grabbing !important;
+    }
+    #global-scrollbar-track:hover #global-scrollbar-thumb,
+    #global-scrollbar-thumb.dragging {
+      width: 10px !important;
+      background: linear-gradient(180deg, rgba(0, 204, 255, 0.8), rgba(0, 204, 255, 1)) !important;
+      box-shadow: 0 0 15px rgba(0, 204, 255, 0.8) !important;
+    }
   </style>
 </head>
 <body class="font-body-md text-on-surface selection:bg-water-glow selection:text-surface-container-lowest">
   <!-- Custom Aquatic Cursor Markup -->
   <div id="custom-cursor-dot"></div>
   <div id="custom-cursor-ring"></div>
+
+  <!-- Interactive Loading Screen (Animated Fish Egg) -->
+  <div id="loading-screen" class="fixed inset-0 bg-[#0a0a1a] z-[9999] flex flex-col items-center justify-center transition-all duration-700 ease-out">
+    <div class="relative flex items-center justify-center mb-8">
+      <!-- Outer ripple waves -->
+      <div class="absolute w-32 h-32 border border-water-glow/20 rounded-full animate-ping duration-[3s]"></div>
+      <div class="absolute w-24 h-24 border border-water-glow/30 rounded-full animate-pulse duration-[1.5s]"></div>
+      
+      <!-- Styled Fish Egg (Luminous glass orb with inner seed) -->
+      <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-water-glow/20 via-water-glow/50 to-white/40 border border-water-glow/60 shadow-[0_0_30px_rgba(0,204,255,0.6)] flex items-center justify-center relative overflow-hidden group">
+        <!-- Floating core inside the egg -->
+        <div class="w-6 h-8 bg-water-glow rounded-full blur-[1px] shadow-[0_0_15px_#00CCFF] animate-pulse duration-1000"></div>
+        <!-- Light reflection -->
+        <div class="absolute top-1 left-2 w-4 h-2 bg-white/50 rounded-full transform rotate-[-30deg]"></div>
+      </div>
+    </div>
+    <h3 class="font-headline-md text-xl font-bold tracking-widest text-water-glow uppercase mb-2 font-label-caps">Oceanic Abundance</h3>
+    <p id="loading-subtext" class="text-xs text-on-surface-variant font-label-caps tracking-wider mb-6 animate-pulse">Initializing biosecure telemetry...</p>
+    <div class="w-48 h-1 bg-white/10 rounded-full overflow-hidden mb-2">
+      <div id="loading-bar-fill" class="h-full bg-water-glow w-0 transition-all duration-100 ease-out"></div>
+    </div>
+    <div id="loading-percentage" class="text-[10px] font-mono font-bold text-water-glow">0%</div>
+  </div>
+
+  <!-- Floating Sound Toggle Button -->
+  <div class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    <button id="sound-toggle-btn" 
+            class="w-12 h-12 bg-surface-container-high/80 border border-glass-border hover:border-water-glow/50 text-water-glow rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)] backdrop-blur-md transition-all group pointer-events-auto"
+            onclick="toggleAmbientSound()">
+      <span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">volume_off</span>
+    </button>
+  </div>
 
   <!-- Background Layers -->
   <div id="gl-canvas-container"></div>
@@ -461,20 +550,72 @@
             for peak market profitability.</p>
         </div>
         <div class="flex gap-4">
-          <button
+          <button onclick="scrollSpecies('left')"
             class="w-12 h-12 rounded-full border border-glass-border flex items-center justify-center hover:bg-water-glow hover:text-background transition-all">
             <span class="material-symbols-outlined">chevron_left</span>
           </button>
-          <button
+          <button onclick="scrollSpecies('right')"
             class="w-12 h-12 rounded-full border border-glass-border flex items-center justify-center hover:bg-water-glow hover:text-background transition-all">
             <span class="material-symbols-outlined">chevron_right</span>
           </button>
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+      <!-- Hide browser default scrollbars and style custom glass scrollbar -->
+      <style>
+        #species-carousel-track::-webkit-scrollbar {
+          display: none !important;
+          width: 0 !important;
+          height: 0 !important;
+        }
+        #species-carousel-track {
+          -ms-overflow-style: none !important;
+          scrollbar-width: none !important;
+        }
+        #species-scrollbar-track {
+          background: transparent !important;
+          border: none !important;
+          box-shadow: none !important;
+          height: 14px !important;
+          position: relative !important;
+          overflow: visible !important;
+        }
+        #species-scrollbar-track::before {
+          content: '' !important;
+          position: absolute !important;
+          left: 0 !important;
+          right: 0 !important;
+          top: 50% !important;
+          transform: translateY(-50%) !important;
+          height: 2px !important;
+          background: rgba(255, 255, 255, 0.15) !important;
+          border-radius: 9999px !important;
+          transition: background 0.3s ease !important;
+        }
+        #species-scrollbar-track:hover::before {
+          background: rgba(0, 204, 255, 0.35) !important;
+        }
+        #species-scrollbar-thumb {
+          position: absolute !important;
+          top: 50% !important;
+          transform: translateY(-50%) !important;
+          height: 6px !important;
+          background: linear-gradient(90deg, rgba(0, 204, 255, 0.5), rgba(0, 204, 255, 0.8)) !important;
+          border-radius: 9999px !important;
+          box-shadow: 0 0 10px rgba(0, 204, 255, 0.4) !important;
+          transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease, opacity 0.2s ease !important;
+        }
+        #species-scrollbar-track:hover #species-scrollbar-thumb,
+        #species-scrollbar-thumb.dragging {
+          background: linear-gradient(90deg, rgba(0, 204, 255, 0.8), rgba(0, 204, 255, 1)) !important;
+          box-shadow: 0 0 14px rgba(0, 204, 255, 0.8) !important;
+          transform: translateY(-50%) scaleY(1.3) !important;
+        }
+      </style>
+
+      <div id="species-carousel-track" class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6">
         <!-- Species 1: Rohu -->
         <div
-          class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+          class="glass-card w-[310px] flex-shrink-0 rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Rohu Fish" src="assets/image/rohu.png" />
@@ -509,7 +650,7 @@
 
         <!-- Species 2: Katla -->
         <div
-          class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+          class="glass-card w-[310px] flex-shrink-0 rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Katla Fish" src="assets/image/katla.png" />
@@ -544,7 +685,7 @@
 
         <!-- Species 3: Mrigal -->
         <div
-          class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+          class="glass-card w-[310px] flex-shrink-0 rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Mrigal Fish" src="assets/image/mrigal.png" />
@@ -576,7 +717,7 @@
 
         <!-- Species 4: Pangasius -->
         <div
-          class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+          class="glass-card w-[310px] flex-shrink-0 rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Pangasius Fish" src="assets/image/pangasius.png" />
@@ -611,7 +752,7 @@
 
         <!-- Species 5: Tilapia -->
         <div
-          class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+          class="glass-card w-[310px] flex-shrink-0 rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Tilapia Fish" src="assets/image/tilapia.png" />
@@ -646,7 +787,7 @@
 
         <!-- Species 6: Common Carp -->
         <div
-          class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+          class="glass-card w-[310px] flex-shrink-0 rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Common Carp" src="assets/image/common_carp.png" />
@@ -678,7 +819,7 @@
 
         <!-- Species 7: Grass Carp -->
         <div
-          class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+          class="glass-card w-[310px] flex-shrink-0 rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Grass Carp" src="assets/image/grass_carp.png" />
@@ -710,7 +851,7 @@
 
         <!-- Species 8: Silver Carp -->
         <div
-          class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+          class="glass-card w-[310px] flex-shrink-0 rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Silver Carp" src="assets/image/silver_carp.png" />
@@ -742,7 +883,7 @@
 
         <!-- Species 9: Magur -->
         <div
-          class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+          class="glass-card w-[310px] flex-shrink-0 rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Magur Fish" src="assets/image/magur.png" />
@@ -777,7 +918,7 @@
 
         <!-- Species 10: Singhi -->
         <div
-          class="glass-card rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between">
+          class="glass-card w-[310px] flex-shrink-0 rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               alt="Singhi Fish" src="assets/image/singhi.png" />
@@ -808,6 +949,12 @@
               class="w-full py-2.5 rounded-lg border border-water-glow/20 text-water-glow font-label-caps text-[11px] hover:bg-water-glow hover:text-surface-container-lowest transition-all">Detailed
               Metrics</button>
           </div>
+        </div>
+      </div>
+      <!-- Custom Glass Scrollbar HTML -->
+      <div class="max-w-xs mx-auto mt-8 px-4">
+        <div id="species-scrollbar-track" class="w-full rounded-full relative overflow-hidden cursor-pointer">
+          <div id="species-scrollbar-thumb" class="absolute top-0 left-0 h-full bg-gradient-to-r from-water-glow/60 to-water-glow w-1/5 rounded-full shadow-[0_0_10px_rgba(0,204,255,0.6)] transition-all duration-75"></div>
         </div>
       </div>
     </div>
@@ -1473,6 +1620,12 @@
       </div>
     </div>
   </div>
+
+  <!-- Global Custom Scrollbar Component -->
+  <div id="global-scrollbar-track">
+    <div id="global-scrollbar-thumb"></div>
+  </div>
+
   <script>
     // --- Global Custom Cursor Coordinates ---
     var cursorX = window.innerWidth / 2, cursorY = window.innerHeight / 2;
@@ -3041,6 +3194,536 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
+
+    // --- Interactive Loading Screen Progress simulation ---
+    const loadingScreen = document.getElementById('loading-screen');
+    const loadingBarFill = document.getElementById('loading-bar-fill');
+    const loadingPercentage = document.getElementById('loading-percentage');
+    const loadingSubtext = document.getElementById('loading-subtext');
+    
+    const subtexts = [
+      "Initializing biosecure telemetry...",
+      "Analyzing water parameters...",
+      "Nurturing premium fish seeds...",
+      "Loading 3D asset profiles...",
+      "Calibrating oxygen sensors...",
+      "Preparing international logistics..."
+    ];
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.floor(Math.random() * 8) + 2;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        
+        loadingBarFill.style.width = '100%';
+        loadingPercentage.innerText = '100%';
+        loadingSubtext.innerText = 'Fully loaded.';
+        
+        setTimeout(() => {
+          loadingScreen.classList.add('opacity-0', 'pointer-events-none');
+          // Initialize GSAP animations after loader is gone
+          initGSAPScrollAnimations();
+        }, 400);
+      } else {
+        loadingBarFill.style.width = `${progress}%`;
+        loadingPercentage.innerText = `${progress}%`;
+        
+        const textIdx = Math.floor((progress / 100) * subtexts.length);
+        if (subtexts[textIdx]) {
+          loadingSubtext.innerText = subtexts[textIdx];
+        }
+      }
+    }, 60);
+
+    // --- Lenis Inertia Smooth Scroll Initialization ---
+    let lenis;
+    try {
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    } catch (e) {
+      console.warn("Lenis library not loaded or failed to initialize", e);
+    }
+
+    // --- GSAP & ScrollTrigger Animations ---
+    function initGSAPScrollAnimations() {
+      try {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate Timeline Steps on Scroll
+        gsap.utils.toArray('.relative.flex.flex-col.md\\:flex-row').forEach((step, index) => {
+          gsap.from(step, {
+            scrollTrigger: {
+              trigger: step,
+              start: "top 85%",
+              toggleActions: "play none none none"
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            ease: "power2.out",
+            delay: (index % 2) * 0.1
+          });
+        });
+
+        // Parallax Effect on Background WebGL Caustics Canvas
+        gsap.to("#gl-canvas-container", {
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true
+          },
+          y: -100,
+          ease: "none"
+        });
+      } catch (e) {
+        console.warn("GSAP/ScrollTrigger failed to initialize", e);
+      }
+    }
+
+    // --- Ambient Underwater Audio Synthesizer ---
+    class UnderwaterAudio {
+      constructor() {
+        this.ctx = null;
+        this.osc1 = null;
+        this.osc2 = null;
+        this.filter = null;
+        this.gain = null;
+        this.bubbleInterval = null;
+        this.isPlaying = false;
+      }
+
+      init() {
+        this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // Deep water hum (sub-bass sine)
+        this.osc1 = this.ctx.createOscillator();
+        this.osc1.type = 'sine';
+        this.osc1.frequency.value = 32.7; // C1 note
+        
+        // Soft rolling triangle wave hum
+        this.osc2 = this.ctx.createOscillator();
+        this.osc2.type = 'triangle';
+        this.osc2.frequency.value = 48.9; // G1 note
+        
+        // Low-pass filter to muffle hum
+        this.filter = this.ctx.createBiquadFilter();
+        this.filter.type = 'lowpass';
+        this.filter.frequency.value = 80;
+        this.filter.Q.value = 1.0;
+        
+        // Slow LFO simulating rolling ocean swells
+        this.lfo = this.ctx.createOscillator();
+        this.lfo.type = 'sine';
+        this.lfo.frequency.value = 0.15; // 6.6s cycle
+        
+        this.lfoGain = this.ctx.createGain();
+        this.lfoGain.gain.value = 4;
+        
+        this.lfo.connect(this.lfoGain);
+        this.lfoGain.connect(this.osc1.frequency);
+        this.lfoGain.connect(this.osc2.frequency);
+        
+        // Master volume
+        this.gain = this.ctx.createGain();
+        this.gain.gain.value = 0.35;
+        
+        this.osc1.connect(this.filter);
+        this.osc2.connect(this.filter);
+        this.filter.connect(this.gain);
+        this.gain.connect(this.ctx.destination);
+        
+        this.osc1.start(0);
+        this.osc2.start(0);
+        this.lfo.start(0);
+        
+        this.startBubbles();
+        this.isPlaying = true;
+      }
+      
+      startBubbles() {
+        this.bubbleInterval = setInterval(() => {
+          if (!this.isPlaying) return;
+          this.playBubbleSound();
+        }, 2000 + Math.random() * 4000);
+      }
+      
+      playBubbleSound() {
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const filter = this.ctx.createBiquadFilter();
+          
+          osc.type = 'sine';
+          const baseFreq = 160 + Math.random() * 220;
+          osc.frequency.setValueAtTime(baseFreq, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(baseFreq * 2.8, this.ctx.currentTime + 0.35);
+          
+          filter.type = 'bandpass';
+          filter.frequency.value = baseFreq * 1.5;
+          
+          gain.gain.setValueAtTime(0.0, this.ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.03, this.ctx.currentTime + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.35);
+          
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(this.ctx.destination);
+          
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.4);
+        } catch(e) {}
+      }
+      
+      toggle() {
+        if (!this.ctx) {
+          this.init();
+          return true;
+        }
+        
+        if (this.isPlaying) {
+          this.ctx.suspend();
+          this.isPlaying = false;
+          return false;
+        } else {
+          this.ctx.resume();
+          this.isPlaying = true;
+          return true;
+        }
+      }
+    }
+
+    const ambientAudio = new UnderwaterAudio();
+
+    window.toggleAmbientSound = function() {
+      const btn = document.getElementById('sound-toggle-btn');
+      const isPlaying = ambientAudio.toggle();
+      
+      if (isPlaying) {
+        btn.innerHTML = `<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">volume_up</span>`;
+        btn.classList.add('border-water-glow/80', 'text-water-glow');
+        btn.classList.remove('text-on-surface-variant');
+      } else {
+        btn.innerHTML = `<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">volume_off</span>`;
+        btn.classList.remove('border-water-glow/80');
+      }
+    };
+
+    window.scrollSpecies = function(direction) {
+      const track = document.getElementById('species-carousel-track');
+      if (!track) return;
+      const cardWidth = track.firstElementChild.getBoundingClientRect().width + 24;
+      const scrollAmount = direction === 'left' ? -cardWidth * 2 : cardWidth * 2;
+      track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    };
+
+    // --- Custom Scrollbar Synchronization ---
+    const speciesTrack = document.getElementById('species-carousel-track');
+    const speciesThumb = document.getElementById('species-scrollbar-thumb');
+    const speciesScrollbarTrack = document.getElementById('species-scrollbar-track');
+
+    function updateCustomScrollbar() {
+      if (!speciesTrack || !speciesThumb) return;
+      const scrollWidth = speciesTrack.scrollWidth;
+      const clientWidth = speciesTrack.clientWidth;
+      const scrollLeft = speciesTrack.scrollLeft;
+
+      if (scrollWidth <= clientWidth) {
+        if (speciesScrollbarTrack) speciesScrollbarTrack.parentElement.classList.add('hidden');
+        return;
+      } else {
+        if (speciesScrollbarTrack) speciesScrollbarTrack.parentElement.classList.remove('hidden');
+      }
+
+      const widthRatio = clientWidth / scrollWidth;
+      const thumbWidthPercent = Math.max(12, widthRatio * 100);
+      speciesThumb.style.width = `${thumbWidthPercent}%`;
+
+      const maxScrollLeft = scrollWidth - clientWidth;
+      const scrollPercentage = scrollLeft / maxScrollLeft;
+      const maxLeftPercent = 100 - thumbWidthPercent;
+      speciesThumb.style.left = `${scrollPercentage * maxLeftPercent}%`;
+    }
+
+    if (speciesTrack) {
+      speciesTrack.addEventListener('scroll', updateCustomScrollbar);
+      window.addEventListener('resize', updateCustomScrollbar);
+      updateCustomScrollbar();
+      window.addEventListener('load', updateCustomScrollbar);
+      setTimeout(updateCustomScrollbar, 500);
+    }
+
+    if (speciesScrollbarTrack && speciesTrack) {
+      // 1. Click on Track to Scroll
+      speciesScrollbarTrack.addEventListener('click', (e) => {
+        if (e.target === speciesThumb) return;
+        const rect = speciesScrollbarTrack.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickPercentage = clickX / rect.width;
+        const maxScrollLeft = speciesTrack.scrollWidth - speciesTrack.clientWidth;
+        speciesTrack.scrollTo({
+          left: (clickPercentage - (parseFloat(speciesThumb.style.width) / 200)) * maxScrollLeft,
+          behavior: 'smooth'
+        });
+      });
+
+      // 2. Drag Thumb to Scroll
+      let isDragging = false;
+      let startX = 0;
+      let startScrollLeft = 0;
+
+      const onDragStart = (clientX) => {
+        isDragging = true;
+        startX = clientX;
+        startScrollLeft = speciesTrack.scrollLeft;
+        document.body.classList.add('select-none');
+        speciesThumb.classList.add('dragging');
+      };
+
+      const onDragMove = (clientX) => {
+        if (!isDragging) return;
+        const deltaX = clientX - startX;
+        const trackWidth = speciesScrollbarTrack.clientWidth;
+        const thumbWidth = speciesThumb.clientWidth;
+        const maxThumbLeft = trackWidth - thumbWidth;
+
+        if (maxThumbLeft <= 0) return;
+
+        const maxScrollLeft = speciesTrack.scrollWidth - speciesTrack.clientWidth;
+        const scrollDelta = (deltaX / maxThumbLeft) * maxScrollLeft;
+        
+        speciesTrack.scrollLeft = startScrollLeft + scrollDelta;
+      };
+
+      const onDragEnd = () => {
+        if (isDragging) {
+          isDragging = false;
+          document.body.classList.remove('select-none');
+          speciesThumb.classList.remove('dragging');
+        }
+      };
+
+      speciesThumb.addEventListener('mousedown', (e) => {
+        onDragStart(e.clientX);
+        e.preventDefault();
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        onDragMove(e.clientX);
+      });
+
+      window.addEventListener('mouseup', onDragEnd);
+
+      // Mobile Touch Drag for Thumb
+      speciesThumb.addEventListener('touchstart', (e) => {
+        onDragStart(e.touches[0].clientX);
+      });
+
+      window.addEventListener('touchmove', (e) => {
+        onDragMove(e.touches[0].clientX);
+      });
+
+      window.addEventListener('touchend', onDragEnd);
+    }
+
+    // 3. Mouse Grab and Drag Scroll on Carousel Track (Desktop Swipe)
+    if (speciesTrack) {
+      let isGrabDragging = false;
+      let grabStartX = 0;
+      let grabStartScrollLeft = 0;
+
+      speciesTrack.addEventListener('mousedown', (e) => {
+        if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+        isGrabDragging = true;
+        grabStartX = e.clientX;
+        grabStartScrollLeft = speciesTrack.scrollLeft;
+        speciesTrack.style.scrollBehavior = 'auto';
+        speciesTrack.style.cursor = 'grabbing';
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isGrabDragging) return;
+        const deltaX = e.clientX - grabStartX;
+        speciesTrack.scrollLeft = grabStartScrollLeft - deltaX;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (isGrabDragging) {
+          isGrabDragging = false;
+          speciesTrack.style.scrollBehavior = 'smooth';
+          speciesTrack.style.cursor = '';
+        }
+      });
+
+      speciesTrack.addEventListener('mouseleave', () => {
+        if (isGrabDragging) {
+          isGrabDragging = false;
+          speciesTrack.style.scrollBehavior = 'smooth';
+          speciesTrack.style.cursor = '';
+        }
+      });
+    }
+
+    // --- Global Custom Scrollbar Synchronization ---
+    const globalTrack = document.getElementById('global-scrollbar-track');
+    const globalThumb = document.getElementById('global-scrollbar-thumb');
+
+    function getDocumentScrollHeight() {
+      return Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.offsetHeight,
+        document.body.clientHeight,
+        document.documentElement.clientHeight
+      );
+    }
+
+    function updateGlobalScrollbar() {
+      if (!globalTrack || !globalThumb) return;
+      const scrollHeight = getDocumentScrollHeight();
+      const clientHeight = window.innerHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+      if (window.innerWidth < 768 || scrollHeight <= clientHeight + 5) {
+        globalTrack.style.setProperty('display', 'none', 'important');
+        return;
+      } else {
+        globalTrack.style.setProperty('display', 'block', 'important');
+      }
+
+      const trackHeight = globalTrack.clientHeight || (window.innerHeight - 80);
+      const thumbHeight = Math.max(45, (clientHeight / scrollHeight) * trackHeight);
+      globalThumb.style.height = `${thumbHeight}px`;
+
+      const maxScrollTop = scrollHeight - clientHeight;
+      const scrollPercentage = Math.min(1, Math.max(0, scrollTop / maxScrollTop));
+      const maxThumbTop = trackHeight - thumbHeight;
+      globalThumb.style.top = `${scrollPercentage * maxThumbTop}px`;
+    }
+
+    window.addEventListener('scroll', updateGlobalScrollbar);
+    window.addEventListener('resize', updateGlobalScrollbar);
+    
+    if (typeof lenis !== 'undefined') {
+      lenis.on('scroll', updateGlobalScrollbar);
+    } else {
+      const checkLenis = setInterval(() => {
+        if (typeof lenis !== 'undefined') {
+          lenis.on('scroll', updateGlobalScrollbar);
+          clearInterval(checkLenis);
+        }
+      }, 200);
+      setTimeout(() => clearInterval(checkLenis), 5000);
+    }
+    
+    setTimeout(updateGlobalScrollbar, 200);
+    setTimeout(updateGlobalScrollbar, 800);
+    window.addEventListener('load', updateGlobalScrollbar);
+
+    // Drag-to-Scroll on Global Custom Scrollbar
+    let isGlobalDragging = false;
+    let globalStartY = 0;
+    let globalStartScrollTop = 0;
+
+    if (globalThumb && globalTrack) {
+      const onGlobalDragStart = (clientY) => {
+        isGlobalDragging = true;
+        globalStartY = clientY;
+        globalStartScrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        document.body.classList.add('select-none');
+        globalThumb.classList.add('dragging');
+      };
+
+      const onGlobalDragMove = (clientY) => {
+        if (!isGlobalDragging) return;
+        const deltaY = clientY - globalStartY;
+        const trackHeight = globalTrack.clientHeight || (window.innerHeight - 80);
+        const thumbHeight = globalThumb.clientHeight;
+        const maxThumbTop = trackHeight - thumbHeight;
+
+        if (maxThumbTop <= 0) return;
+
+        const scrollHeight = getDocumentScrollHeight();
+        const maxScroll = scrollHeight - window.innerHeight;
+        const scrollDelta = (deltaY / maxThumbTop) * maxScroll;
+        const targetScroll = globalStartScrollTop + scrollDelta;
+
+        if (typeof lenis !== 'undefined') {
+          lenis.scrollTo(targetScroll, { immediate: true });
+        } else {
+          window.scrollTo(0, targetScroll);
+        }
+      };
+
+      const onGlobalDragEnd = () => {
+        if (isGlobalDragging) {
+          isGlobalDragging = false;
+          document.body.classList.remove('select-none');
+          globalThumb.classList.remove('dragging');
+        }
+      };
+
+      globalThumb.addEventListener('mousedown', (e) => {
+        onGlobalDragStart(e.clientY);
+        e.preventDefault();
+        e.stopPropagation();
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        onGlobalDragMove(e.clientY);
+      });
+
+      window.addEventListener('mouseup', onGlobalDragEnd);
+
+      globalThumb.addEventListener('touchstart', (e) => {
+        onGlobalDragStart(e.touches[0].clientY);
+        e.stopPropagation();
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        onGlobalDragMove(e.touches[0].clientY);
+      }, { passive: true });
+
+      window.addEventListener('touchend', onGlobalDragEnd);
+
+      globalTrack.addEventListener('click', (e) => {
+        if (e.target === globalThumb) return;
+        const rect = globalTrack.getBoundingClientRect();
+        const clickY = e.clientY - rect.top;
+        const clickPercentage = clickY / rect.height;
+        const scrollHeight = getDocumentScrollHeight();
+        const maxScroll = scrollHeight - window.innerHeight;
+        const targetScroll = clickPercentage * maxScroll;
+
+        if (typeof lenis !== 'undefined') {
+          lenis.scrollTo(targetScroll, { duration: 1.2 });
+        } else {
+          window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+          });
+        }
+      });
+    }
   </script>
 </body>
 </html>
