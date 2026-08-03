@@ -78,20 +78,28 @@ body {
   height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 2rem;
+  justify-content: flex-start;
+  padding-left: 8%;
   position: relative;
+  box-sizing: border-box;
 }
 
 .content-card {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  opacity: 0.12;
+  transform: translateY(40px);
+  filter: blur(4px);
+  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  border-left: 3px solid rgba(0, 204, 255, 0.15);
+  padding-left: 2rem;
+  max-width: 480px;
 }
 
 .content-card.visible {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
+  border-left-color: #00ccff;
+  text-shadow: 0 0 10px rgba(0, 204, 255, 0.1);
 }
 
 /* Timeline Nodes */

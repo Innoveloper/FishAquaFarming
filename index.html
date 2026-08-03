@@ -183,56 +183,56 @@
   <!-- Hero Scroll-telling Sections -->
   <main>
     <section class="scroll-section" id="stage-1">
-      <div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+      <div class="content-card text-left">
         <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 01</p>
         <h2 class="font-headline-lg text-4xl mb-4">1. Seed Selection</h2>
         <p class="font-body-lg text-on-surface-variant">Every successful harvest starts from a single healthy seed.</p>
       </div>
     </section>
     <section class="scroll-section" id="stage-2">
-      <div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+      <div class="content-card text-left">
         <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 02</p>
         <h2 class="font-headline-lg text-4xl mb-4">2. Hatchery Incubation</h2>
         <p class="font-body-lg text-on-surface-variant">Precision environments for the first signs of life.</p>
       </div>
     </section>
     <section class="scroll-section" id="stage-3">
-      <div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+      <div class="content-card text-left">
         <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 03</p>
         <h2 class="font-headline-lg text-4xl mb-4">3. Emergence</h2>
         <p class="font-body-lg text-on-surface-variant">Vibrant baby fish begin their journey in pure water.</p>
       </div>
     </section>
     <section class="scroll-section" id="stage-4">
-      <div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+      <div class="content-card text-left">
         <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 04</p>
         <h2 class="font-headline-lg text-4xl mb-4">4. Juvenile Development</h2>
         <p class="font-body-lg text-on-surface-variant">Nurturing strength through scientific feeding protocols.</p>
       </div>
     </section>
     <section class="scroll-section" id="stage-5">
-      <div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+      <div class="content-card text-left">
         <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 05</p>
         <h2 class="font-headline-lg text-4xl mb-4">5. Active Growth</h2>
         <p class="font-body-lg text-on-surface-variant">Continuous monitoring ensures optimal biological health.</p>
       </div>
     </section>
     <section class="scroll-section" id="stage-6">
-      <div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+      <div class="content-card text-left">
         <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 06</p>
         <h2 class="font-headline-lg text-4xl mb-4">6. Maturity</h2>
         <p class="font-body-lg text-on-surface-variant">Reaching the peak characteristics of premium species.</p>
       </div>
     </section>
     <section class="scroll-section" id="stage-7">
-      <div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+      <div class="content-card text-left">
         <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 07</p>
         <h2 class="font-headline-lg text-4xl mb-4">7. Premium Harvest</h2>
         <p class="font-body-lg text-on-surface-variant">Ready for the world's most sophisticated markets.</p>
       </div>
     </section>
     <section class="scroll-section" id="stage-8">
-      <div class="glass-card p-12 rounded-3xl max-w-lg content-card text-center">
+      <div class="content-card text-left">
         <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 08</p>
         <h2 class="font-headline-lg text-4xl mb-4">8. Global Logistics</h2>
         <p class="font-body-lg text-on-surface-variant">Finally delivering market-ready premium fish via our elite
@@ -1593,6 +1593,7 @@
 
         mainGroup.rotation.y = Math.sin(time * 0.6) * 0.15;
         mainGroup.position.y = Math.sin(time * 0.9) * 0.3;
+        mainGroup.position.x = 2.8;
 
         // Animate central scroll stage models
         const num = stages.length;
@@ -1604,7 +1605,7 @@
 
           if (eased > 0.01) {
             s.mesh.visible = true;
-            s.mesh.scale.setScalar(eased * 1.1);
+            s.mesh.scale.setScalar(eased * 1.65);
             s.mesh.rotation.y = time * 0.9;
 
             // Tail wiggle for current active fish stage
