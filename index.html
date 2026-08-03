@@ -182,63 +182,141 @@
   </nav>
   <!-- Hero Scroll-telling Sections -->
   <main>
-    <section class="scroll-section" id="stage-1">
-      <div class="content-card text-left">
-        <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 01</p>
-        <h2 class="font-headline-lg text-4xl mb-4">1. Seed Selection</h2>
-        <p class="font-body-lg text-on-surface-variant">Every successful harvest starts from a single healthy seed.</p>
+    <div id="lifecycle-track">
+      <div class="sticky-container w-full flex items-center justify-center">
+        <div class="relative w-full h-full max-w-container-max mx-auto px-gutter flex items-center justify-center pointer-events-none">
+          
+          <div class="narrative-overlay justify-center text-center px-8" id="narrative-1" style="display: none; opacity: 0;">
+            <div class="content-card max-w-lg mx-auto flex flex-col items-center">
+              <div class="watermark-num">01</div>
+              <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 01</p>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">1. Seed Selection</h2>
+              <div class="flex justify-center gap-3 mb-6">
+                <span class="tech-chip">
+                  <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
+                  EGG SIZE: 0.8mm
+                </span>
+                <span class="tech-chip tech-chip-secondary">VIABILITY: &gt;96%</span>
+              </div>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Every successful harvest starts from a single healthy seed.</p>
+            </div>
+          </div>
+
+          <div class="narrative-overlay justify-end pr-[12%]" id="narrative-2" style="display: none; opacity: 0;">
+            <div class="content-card text-left">
+              <div class="watermark-num">02</div>
+              <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 02</p>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">2. Hatchery Incubation</h2>
+              <div class="flex gap-3 mb-6">
+                <span class="tech-chip">
+                  <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
+                  TEMP: 26.5°C
+                </span>
+                <span class="tech-chip tech-chip-secondary">OXYGEN: 6.8 mg/L</span>
+              </div>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Precision environments for the first signs of life.</p>
+            </div>
+          </div>
+
+          <div class="narrative-overlay justify-start pl-[12%]" id="narrative-3" style="display: none; opacity: 0;">
+            <div class="content-card text-left">
+              <div class="watermark-num">03</div>
+              <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 03</p>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">3. Emergence</h2>
+              <div class="flex gap-3 mb-6">
+                <span class="tech-chip">
+                  <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
+                  SIZE: 4.2mm
+                </span>
+                <span class="tech-chip tech-chip-secondary">FEED: Micro-plankton</span>
+              </div>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Vibrant baby fish begin their journey in pure water.</p>
+            </div>
+          </div>
+
+          <div class="narrative-overlay justify-end pr-[12%]" id="narrative-4" style="display: none; opacity: 0;">
+            <div class="content-card text-left">
+              <div class="watermark-num">04</div>
+              <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 04</p>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">4. Juvenile Development</h2>
+              <div class="flex gap-3 mb-6">
+                <span class="tech-chip">
+                  <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
+                  WEIGHT: 12g
+                </span>
+                <span class="tech-chip tech-chip-secondary">STOCK DENSITY: 120/m³</span>
+              </div>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Nurturing strength through scientific feeding protocols.</p>
+            </div>
+          </div>
+
+          <div class="narrative-overlay justify-start pl-[12%]" id="narrative-5" style="display: none; opacity: 0;">
+            <div class="content-card text-left">
+              <div class="watermark-num">05</div>
+              <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 05</p>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">5. Active Growth</h2>
+              <div class="flex gap-3 mb-6">
+                <span class="tech-chip">
+                  <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
+                  SWIMMING SPEED: 0.8 m/s
+                </span>
+                <span class="tech-chip tech-chip-secondary">BIO-MASS: +14%/wk</span>
+              </div>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Continuous monitoring ensures optimal biological health.</p>
+            </div>
+          </div>
+
+          <div class="narrative-overlay justify-end pr-[12%]" id="narrative-6" style="display: none; opacity: 0;">
+            <div class="content-card text-left">
+              <div class="watermark-num">06</div>
+              <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 06</p>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">6. Maturity</h2>
+              <div class="flex gap-3 mb-6">
+                <span class="tech-chip">
+                  <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
+                  TARGET WEIGHT: 1.2kg
+                </span>
+                <span class="tech-chip tech-chip-secondary">FCR: 1.15</span>
+              </div>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Reaching the peak characteristics of premium species.</p>
+            </div>
+          </div>
+
+          <div class="narrative-overlay justify-center text-center px-8" id="narrative-7" style="display: none; opacity: 0;">
+            <div class="content-card max-w-lg mx-auto flex flex-col items-center">
+              <div class="watermark-num">07</div>
+              <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 07</p>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">7. Premium Harvest</h2>
+              <div class="flex justify-center gap-3 mb-6">
+                <span class="tech-chip">
+                  <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
+                  PURITY: Grade A
+                </span>
+                <span class="tech-chip tech-chip-secondary">FAT CONTENT: 3.8%</span>
+              </div>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Ready for the world's most sophisticated markets.</p>
+            </div>
+          </div>
+
+          <div class="narrative-overlay justify-start pl-[12%]" id="narrative-8" style="display: none; opacity: 0;">
+            <div class="content-card text-left">
+              <div class="watermark-num">08</div>
+              <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 08</p>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">8. Global Logistics</h2>
+              <div class="flex gap-3 mb-6">
+                <span class="tech-chip">
+                  <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
+                  CO2 OUTLET: -35%
+                </span>
+                <span class="tech-chip tech-chip-secondary">TEMP LOCK: -2°C</span>
+              </div>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Finally delivering market-ready premium fish via our elite network.</p>
+            </div>
+          </div>
+
+        </div>
       </div>
-    </section>
-    <section class="scroll-section" id="stage-2">
-      <div class="content-card text-left">
-        <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 02</p>
-        <h2 class="font-headline-lg text-4xl mb-4">2. Hatchery Incubation</h2>
-        <p class="font-body-lg text-on-surface-variant">Precision environments for the first signs of life.</p>
-      </div>
-    </section>
-    <section class="scroll-section" id="stage-3">
-      <div class="content-card text-left">
-        <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 03</p>
-        <h2 class="font-headline-lg text-4xl mb-4">3. Emergence</h2>
-        <p class="font-body-lg text-on-surface-variant">Vibrant baby fish begin their journey in pure water.</p>
-      </div>
-    </section>
-    <section class="scroll-section" id="stage-4">
-      <div class="content-card text-left">
-        <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 04</p>
-        <h2 class="font-headline-lg text-4xl mb-4">4. Juvenile Development</h2>
-        <p class="font-body-lg text-on-surface-variant">Nurturing strength through scientific feeding protocols.</p>
-      </div>
-    </section>
-    <section class="scroll-section" id="stage-5">
-      <div class="content-card text-left">
-        <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 05</p>
-        <h2 class="font-headline-lg text-4xl mb-4">5. Active Growth</h2>
-        <p class="font-body-lg text-on-surface-variant">Continuous monitoring ensures optimal biological health.</p>
-      </div>
-    </section>
-    <section class="scroll-section" id="stage-6">
-      <div class="content-card text-left">
-        <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 06</p>
-        <h2 class="font-headline-lg text-4xl mb-4">6. Maturity</h2>
-        <p class="font-body-lg text-on-surface-variant">Reaching the peak characteristics of premium species.</p>
-      </div>
-    </section>
-    <section class="scroll-section" id="stage-7">
-      <div class="content-card text-left">
-        <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 07</p>
-        <h2 class="font-headline-lg text-4xl mb-4">7. Premium Harvest</h2>
-        <p class="font-body-lg text-on-surface-variant">Ready for the world's most sophisticated markets.</p>
-      </div>
-    </section>
-    <section class="scroll-section" id="stage-8">
-      <div class="content-card text-left">
-        <p class="font-label-caps text-label-caps text-water-glow mb-4">Phase 08</p>
-        <h2 class="font-headline-lg text-4xl mb-4">8. Global Logistics</h2>
-        <p class="font-body-lg text-on-surface-variant">Finally delivering market-ready premium fish via our elite
-          network.</p>
-      </div>
-    </section>
+    </div>
   </main>
   <!-- Trust & Authority Section -->
   <section class="py-section-padding relative z-10 bg-surface/80 backdrop-blur-md" id="authority">
@@ -1432,16 +1510,16 @@
         return group;
       }
 
-      // Main interactive aquaculture showcase stages
+      // Main interactive aquaculture showcase stages with choreographed positions and scales
       const stages = [
-        { mesh: createEggSeed() },
-        { mesh: createHatchingLarva() },
-        { mesh: createRealisticFish(0.6, 0x00f0ff, 0x70f0ff) },
-        { mesh: createRealisticFish(1.0, 0x00c8ff, 0x38bdf8) },
-        { mesh: createRealisticFish(1.5, 0x0284c7, 0x38bdf8) },
-        { mesh: createRealisticFish(2.1, 0x0369a1, 0x0284c7) },
-        { mesh: createRealisticFish(2.7, 0x075985, 0x0369a1) },
-        { mesh: createTruckModel() }
+        { mesh: createEggSeed(), posX: 0, posY: 0, scale: 2.4 },
+        { mesh: createHatchingLarva(), posX: -2.3, posY: 0.5, scale: 1.8 },
+        { mesh: createRealisticFish(0.6, 0x00f0ff, 0x70f0ff), posX: 2.5, posY: -0.5, scale: 2.5 },
+        { mesh: createRealisticFish(1.0, 0x00c8ff, 0x38bdf8), posX: -2.7, posY: 0.2, scale: 2.3 },
+        { mesh: createRealisticFish(1.5, 0x0284c7, 0x38bdf8), posX: 2.3, posY: 0.6, scale: 2.0 },
+        { mesh: createRealisticFish(2.1, 0x0369a1, 0x0284c7), posX: -2.5, posY: -0.6, scale: 2.2 },
+        { mesh: createRealisticFish(2.7, 0x075985, 0x0369a1), posX: 0, posY: -0.5, scale: 2.6 },
+        { mesh: createTruckModel(), posX: 2.5, posY: 0.2, scale: 1.9 }
       ];
 
       stages.forEach(s => { s.mesh.visible = false; mainGroup.add(s.mesh); });
@@ -1568,7 +1646,7 @@
       // Load all 5 GLB species into the live 3D aquatic shoal with realistic relative sizes & counts
       loadFishModel('assets/models/betta_splendens.glb', 4, 0.85); // medium size, solitary
       loadFishModel('assets/models/guppy.glb', 12, 0.35);          // small size, schooling swarm
-      loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large goldfish
+loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large goldfish
       loadFishModel('assets/models/tosakin_goldfish.glb', 4, 1.2);  // larger fancy goldfish
       loadFishModel('assets/models/koi_fish.glb', 4, 2.0);          // massive majestic koi
 
@@ -1576,8 +1654,15 @@
       let targetScroll = 0;
 
       window.addEventListener('scroll', () => {
-        const heroHeight = window.innerHeight * 8;
-        targetScroll = window.scrollY / heroHeight;
+        const track = document.getElementById('lifecycle-track');
+        if (track) {
+          const trackHeight = track.clientHeight - window.innerHeight;
+          // Calculate target scroll between 0 and 1 over the track's scrollable range
+          targetScroll = Math.max(0, Math.min(1, window.scrollY / (trackHeight || 1)));
+        } else {
+          const heroHeight = window.innerHeight * 4.5;
+          targetScroll = Math.max(0, Math.min(1, window.scrollY / heroHeight));
+        }
       }, { passive: true });
 
       const clock = new THREE.Clock();
@@ -1591,21 +1676,91 @@
         // Update skeletal GLTF animation mixers
         mixers.forEach(mixer => mixer.update(delta));
 
-        mainGroup.rotation.y = Math.sin(time * 0.6) * 0.15;
-        mainGroup.position.y = Math.sin(time * 0.9) * 0.3;
-        mainGroup.position.x = 2.8;
-
-        // Animate central scroll stage models
+        // Calculate interpolated layout position based on scroll position
+        let targetX = 0;
+        let targetY = 0;
         const num = stages.length;
+        // Use (num - 1) as divisor so we land exactly on stage index 7 at scrollPos = 1.0
+        const divisor = num - 1;
+        const rawIdx = scrollPos * divisor;
+        const idx1 = Math.floor(rawIdx);
+        const idx2 = Math.min(num - 1, idx1 + 1);
+        const ratio = rawIdx - idx1;
+
+        // Calculate a sticky plateau curve (stays 100% at phase for first/last 40%, transitions in middle 20%)
+        let fadeRatio = 0;
+        if (ratio <= 0.4) {
+          fadeRatio = 0;
+        } else if (ratio >= 0.6) {
+          fadeRatio = 1;
+        } else {
+          const t = (ratio - 0.4) / 0.2;
+          fadeRatio = t * t * (3 - 2 * t); // smoothstep ease
+        }
+
+        if (stages[idx1] && stages[idx2]) {
+          targetX = THREE.MathUtils.lerp(stages[idx1].posX, stages[idx2].posX, fadeRatio);
+          targetY = THREE.MathUtils.lerp(stages[idx1].posY, stages[idx2].posY, fadeRatio);
+        }
+
+        mainGroup.rotation.y = Math.sin(time * 0.6) * 0.15;
+        mainGroup.position.y = targetY + Math.sin(time * 0.9) * 0.3;
+        mainGroup.position.x = targetX;
+
+        // Calculate active and next narrative indices for linear cross-fade
+        const activeIdx1 = idx1;
+        const activeIdx2 = idx2;
+
+        // Animate central scroll stage models and stacked narrative overlays
         stages.forEach((s, i) => {
-          const mid = i / num;
+          const mid = i / divisor;
           const dist = Math.abs(scrollPos - mid);
-          const influence = Math.max(0, 1 - dist * num * 1.5);
+          const influence = Math.max(0, 1 - dist * divisor * 1.3);
           const eased = Math.pow(influence, 2);
+
+          // Update Narrative Text overlays using linear cross-fade
+          const el = document.getElementById('narrative-' + (i + 1));
+          if (el) {
+            let opacity = 0;
+            let offsetY = 0;
+            let blurVal = 8;
+            let isVisible = false;
+
+            if (i === activeIdx1) {
+              isVisible = true;
+              opacity = activeIdx1 === activeIdx2 ? 1.0 : (1.0 - fadeRatio);
+              offsetY = -fadeRatio * 45; // slide up as it exits
+              blurVal = fadeRatio * 6;
+            } else if (i === activeIdx2) {
+              isVisible = true;
+              opacity = fadeRatio;
+              offsetY = (1.0 - fadeRatio) * 45; // slide in from below
+              blurVal = (1.0 - fadeRatio) * 6;
+            }
+
+            if (isVisible && opacity > 0.005) {
+              el.style.display = 'flex';
+              el.style.opacity = opacity;
+              
+              const card = el.querySelector('.content-card');
+              if (card) {
+                card.style.transform = `translateY(${offsetY}px)`;
+                card.style.opacity = opacity;
+                card.style.filter = `blur(${blurVal}px)`;
+              }
+              const watermark = el.querySelector('.watermark-num');
+              if (watermark) {
+                watermark.style.opacity = opacity * 0.9;
+                watermark.style.transform = `scale(${0.88 + opacity * 0.12}) translateY(${offsetY * 0.3}px)`;
+              }
+            } else {
+              el.style.display = 'none';
+            }
+          }
 
           if (eased > 0.01) {
             s.mesh.visible = true;
-            s.mesh.scale.setScalar(eased * 1.65);
+            s.mesh.scale.setScalar(eased * (s.scale || 1.65));
             s.mesh.rotation.y = time * 0.9;
 
             // Tail wiggle for current active fish stage
