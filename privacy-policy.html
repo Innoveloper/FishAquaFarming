@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Privacy Policy | Fish Aqua Farming</title>
+  <meta name="description" content="Privacy Policy for Fish Aqua Farming - Precision & Biosecure Aquaculture Management. Learn how we collect, process, and protect investor and partner data." />
+  
+  <!-- Favicon & App Manifest Links -->
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png?v=20260804" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg?v=20260804" />
+  <link rel="shortcut icon" href="favicon/favicon.ico?v=20260804" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png?v=20260804" />
+  <meta name="apple-mobile-web-app-title" content="Fish Aqua Farming" />
+  <link rel="manifest" href="favicon/site.webmanifest?v=20260804" />
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Hanken+Grotesk:wght@300;400;600&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+  <link href="assets/css/index.css" rel="stylesheet" />
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#111124",
+            "surface-dim": "#111124",
+            "surface-bright": "#38374b",
+            "surface-container-lowest": "#0c0c1e",
+            "surface-container-low": "#1a1a2c",
+            "surface-container": "#1e1e31",
+            "surface-container-high": "#28283b",
+            "surface-container-highest": "#333347",
+            "on-surface": "#e2e0fa",
+            "on-surface-variant": "#bec7d3",
+            "inverse-surface": "#e2e0fa",
+            "inverse-on-surface": "#2f2f42",
+            "outline": "#88929d",
+            "outline-variant": "#3e4851",
+            "surface-tint": "#93ccff",
+            "primary": "#93ccff",
+            "on-primary": "#003351",
+            "primary-container": "#00aaff",
+            "on-primary-container": "#003c5d",
+            "inverse-primary": "#006398",
+            "secondary": "#c4c3eb",
+            "on-secondary": "#2d2d4d",
+            "secondary-container": "#464667",
+            "on-secondary-container": "#b6b5dc",
+            "tertiary": "#91cdfe",
+            "on-tertiary": "#003350",
+            "tertiary-container": "#6ca8d7",
+            "on-tertiary-container": "#003c5c",
+            "background": "#111124",
+            "on-background": "#e2e0fa",
+            "surface-variant": "#333347",
+            "ocean-white": "#E0E0E0",
+            "glass-border": "rgba(255, 255, 255, 0.15)",
+            "water-glow": "#00CCFF"
+          },
+          borderRadius: {
+            "sm": "0.25rem",
+            "DEFAULT": "0.5rem",
+            "md": "0.75rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "container-max": "1440px",
+            "gutter": "2rem",
+            "section-padding": "8rem",
+            "stack-sm": "0.5rem",
+            "stack-md": "1.5rem",
+            "stack-lg": "3rem"
+          },
+          fontFamily: {
+            "headline-display": ["Sora", "sans-serif"],
+            "headline-lg": ["Sora", "sans-serif"],
+            "headline-lg-mobile": ["Sora", "sans-serif"],
+            "headline-md": ["Sora", "sans-serif"],
+            "body-lg": ["Hanken Grotesk", "sans-serif"],
+            "body-md": ["Hanken Grotesk", "sans-serif"],
+            "label-caps": ["Space Mono", "monospace"],
+            "stat-number": ["Sora", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Aquatic Cursor */
+    #custom-cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: #00ccff;
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 999999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background-color 0.2s;
+      box-shadow: 0 0 12px #00ccff, 0 0 24px #0066ff;
+    }
+
+    #custom-cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(0, 204, 255, 0.5);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 999998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out, width 0.25s, height 0.25s, border-color 0.25s;
+    }
+
+    body.cursor-hover #custom-cursor-dot {
+      width: 16px;
+      height: 16px;
+      background: #38bdf8;
+      box-shadow: 0 0 18px #38bdf8, 0 0 35px #0284c7;
+    }
+
+    body.cursor-hover #custom-cursor-ring {
+      width: 54px;
+      height: 54px;
+      border-color: rgba(56, 189, 248, 0.9);
+    }
+
+    .policy-glow {
+      background: radial-gradient(circle at 50% 0%, rgba(0, 204, 255, 0.12) 0%, rgba(17, 17, 36, 0) 70%);
+    }
+  </style>
+</head>
+<body class="font-body-md text-on-surface bg-surface-container-lowest selection:bg-water-glow selection:text-surface-container-lowest min-h-screen flex flex-col">
+  <!-- Top Page Symmetrical Scroll Progress Indicator -->
+  <div id="top-progress-bar" style="width: 0%;"></div>
+
+  <!-- Custom Aquatic Cursor -->
+  <div id="custom-cursor-dot"></div>
+  <div id="custom-cursor-ring"></div>
+
+  <!-- Navigation (Exact Navbar from index.html) -->
+  <nav id="main-nav" class="z-50">
+    <div class="nav-container flex justify-between items-center w-full relative">
+      <!-- Logo (start-center aligned) -->
+      <div class="flex items-center">
+        <a href="index.html" class="flex items-center gap-2 group pointer-events-auto leading-none">
+          <img src="assets/image/logo.png" alt="Fish Aqua Farming Logo"
+            class="h-7 sm:h-8 lg:h-9 w-auto object-contain flex-shrink-0 group-hover:scale-105 transition-transform" />
+          <span
+            class="logo-text font-headline-md text-base sm:text-xl lg:text-2xl font-bold text-ocean-white group-hover:text-water-glow transition-all tracking-tight whitespace-nowrap leading-none">Fish
+            Aqua Farming</span>
+        </a>
+      </div>
+      <div class="hidden lg:flex gap-8 items-center">
+        <a class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+          href="index.html#lifecycle-track">Lifecycle</a>
+        <a class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+          href="index.html#portfolio">Species</a>
+        <a class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+          href="index.html#advantage">Advantage</a>
+        <a class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+          href="index.html#investment">Investment</a>
+        <a class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+          href="compliance.html">Compliance</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="index.html#consultation"
+          class="hidden lg:inline-block bg-water-glow text-surface-container-lowest px-3.5 py-1.5 rounded-full font-label-caps text-label-caps font-bold hover:scale-105 hover:shadow-[0_0_15px_rgba(0,204,255,0.4)] transition-all pointer-events-auto whitespace-nowrap flex-shrink-0">
+          Consultation
+        </a>
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn"
+          class="flex lg:hidden w-8 h-8 border border-glass-border/60 rounded-full items-center justify-center text-ocean-white hover:text-water-glow hover:border-water-glow/50 transition-all focus:outline-none pointer-events-auto">
+          <span class="material-symbols-outlined text-lg" id="mobile-menu-icon">menu</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Drawer (Exact Panel from index.html) -->
+  <div id="mobile-nav-panel"
+    class="fixed inset-0 z-40 bg-surface-container-lowest/98 backdrop-blur-3xl transition-all duration-500 ease-in-out transform -translate-y-full flex flex-col justify-center px-6 min-[360px]:px-8 md:hidden opacity-0 pointer-events-none">
+    <div class="flex flex-col gap-6 min-[360px]:gap-8 text-center">
+      <a class="mobile-nav-link text-xl min-[360px]:text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
+        href="index.html#lifecycle-track">Lifecycle</a>
+      <a class="mobile-nav-link text-xl min-[360px]:text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
+        href="index.html#portfolio">Species</a>
+      <a class="mobile-nav-link text-xl min-[360px]:text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
+        href="index.html#advantage">Advantage</a>
+      <a class="mobile-nav-link text-xl min-[360px]:text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
+        href="index.html#investment">Investment</a>
+      <a class="mobile-nav-link text-xl min-[360px]:text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
+        href="compliance.html">Compliance</a>
+      <a href="index.html#consultation"
+        class="bg-water-glow text-surface-container-lowest px-6 min-[360px]:px-8 py-2.5 min-[360px]:py-3 rounded-full font-label-caps text-xs min-[360px]:text-label-caps font-bold hover:scale-105 transition-transform self-center mt-4 shadow-[0_0_20px_rgba(0,204,255,0.3)]">
+        Book Consultation
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content Area (Fully responsive from 300px up) -->
+  <main class="flex-grow pt-28 sm:pt-36 pb-16 sm:pb-24 relative policy-glow">
+    <div class="max-w-5xl mx-auto px-3 min-[360px]:px-4 sm:px-6 lg:px-8">
+      
+      <!-- Breadcrumb & Header -->
+      <div class="mb-8 sm:mb-10 text-center md:text-left">
+        <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-surface-container border border-glass-border/30 text-water-glow font-label-caps text-[10px] min-[360px]:text-xs mb-3 sm:mb-4">
+          <span class="material-symbols-outlined text-xs sm:text-sm">shield</span>
+          <span>Legal & Data Security</span>
+        </div>
+        <h1 class="font-headline-display text-2xl min-[360px]:text-3xl sm:text-5xl font-extrabold text-ocean-white tracking-tight mb-3 sm:mb-4 leading-tight">
+          Privacy Policy
+        </h1>
+        <p class="text-on-surface-variant text-xs min-[360px]:text-sm sm:text-lg max-w-3xl font-body-lg leading-relaxed">
+          Last Updated: August 4, 2026 &bull; Fish Aqua Farming Legal Compliance & Information Security Framework
+        </p>
+      </div>
+
+      <!-- Quick Document Overview Box -->
+      <div class="glass-card p-4 min-[360px]:p-6 sm:p-8 rounded-xl min-[360px]:rounded-2xl mb-8 sm:mb-12 border border-water-glow/20 bg-surface-container/60 relative overflow-hidden">
+        <div class="absolute -right-12 -top-12 w-36 sm:w-48 h-36 sm:h-48 bg-water-glow/10 rounded-full blur-3xl pointer-events-none"></div>
+        <h2 class="font-headline-md text-lg sm:text-xl font-bold text-water-glow mb-2 sm:mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-xl sm:text-2xl">verified_user</span> Executive Summary
+        </h2>
+        <p class="text-on-surface-variant text-xs min-[360px]:text-sm sm:text-base leading-relaxed">
+          At <strong class="text-ocean-white">Fish Aqua Farming</strong>, we operate with 100% transparency across our biosecure commercial aquaculture facilities and investor relations. This Privacy Policy details how we collect, protect, process, and use personal and corporate data submitted through our digital telemetry portals, investor booking forms, and consultation platforms.
+        </p>
+      </div>
+
+      <!-- Policy Body Sections -->
+      <div class="space-y-6 sm:space-y-10 text-on-surface-variant leading-relaxed">
+        
+        <!-- Section 1 -->
+        <section class="glass-card p-4 min-[360px]:p-6 sm:p-8 rounded-xl min-[360px]:rounded-2xl border border-glass-border/20">
+          <h2 class="font-headline-md text-xl sm:text-2xl font-bold text-ocean-white mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
+            <span class="text-water-glow font-label-caps text-sm sm:text-base shrink-0">01.</span> Information We Collect
+          </h2>
+          <p class="text-xs min-[360px]:text-sm sm:text-base mb-3 sm:mb-4">
+            To provide precise aquaculture investment reports, legal contracts, and daily telemetry updates, we collect both personal identifiable information (PII) and institutional data, including:
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-xs min-[360px]:text-sm sm:text-base pl-1 sm:pl-2">
+            <li><strong class="text-ocean-white">Identity & Contact Data:</strong> Full Name, Corporate Entity Details, Phone Number, Email Address, and Physical Communication Address provided during consultation booking or agreement execution.</li>
+            <li><strong class="text-ocean-white">Investor & Financial Telemetry:</strong> Preferred investment tier, pond allocation specifications, harvest revenue payout preferences, and bank verification details for profit distributions.</li>
+            <li><strong class="text-ocean-white">Technical & Usage Logs:</strong> IP address, device fingerprints, browser telemetry, and interaction behavior on our smooth 3D interactive portal.</li>
+          </ul>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="glass-card p-4 min-[360px]:p-6 sm:p-8 rounded-xl min-[360px]:rounded-2xl border border-glass-border/20">
+          <h2 class="font-headline-md text-xl sm:text-2xl font-bold text-ocean-white mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
+            <span class="text-water-glow font-label-caps text-sm sm:text-base shrink-0">02.</span> How We Use Your Data
+          </h2>
+          <p class="text-xs min-[360px]:text-sm sm:text-base mb-3 sm:mb-4">
+            All gathered data is strictly processed to fulfill operational, legal, and fiduciary responsibilities in accordance with Indian government aquaculture and financial norms:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm mt-3 sm:mt-4">
+            <div class="p-3.5 sm:p-4 rounded-xl bg-surface-container-low border border-glass-border/10">
+              <h3 class="font-bold text-ocean-white mb-1 flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-water-glow text-base sm:text-lg">contract</span> Contractual Execution
+              </h3>
+              <p class="text-[11px] min-[360px]:text-xs sm:text-sm text-on-surface-variant/80">Drafting legally binding farming agreements, land allocation records, and notarized joint-venture documents.</p>
+            </div>
+            <div class="p-3.5 sm:p-4 rounded-xl bg-surface-container-low border border-glass-border/10">
+              <h3 class="font-bold text-ocean-white mb-1 flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-water-glow text-base sm:text-lg">sensors</span> Farm Telemetry & Updates
+              </h3>
+              <p class="text-[11px] min-[360px]:text-xs sm:text-sm text-on-surface-variant/80">Delivering daily water parameters, biomass weight metrics, feeding schedules, and live video access.</p>
+            </div>
+            <div class="p-3.5 sm:p-4 rounded-xl bg-surface-container-low border border-glass-border/10">
+              <h3 class="font-bold text-ocean-white mb-1 flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-water-glow text-base sm:text-lg">gavel</span> Government Compliance
+              </h3>
+              <p class="text-[11px] min-[360px]:text-xs sm:text-sm text-on-surface-variant/80">Fulfilling audit requirements for GST, Pollution Control Board (PCB), and Coastal Aquaculture Authority clearances.</p>
+            </div>
+            <div class="p-3.5 sm:p-4 rounded-xl bg-surface-container-low border border-glass-border/10">
+              <h3 class="font-bold text-ocean-white mb-1 flex items-center gap-1.5">
+                <span class="material-symbols-outlined text-water-glow text-base sm:text-lg">shield_lock</span> Fraud Prevention
+              </h3>
+              <p class="text-[11px] min-[360px]:text-xs sm:text-sm text-on-surface-variant/80">Protecting client financial accounts, harvest yield ledgers, and preventing unauthorized entity access.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="glass-card p-4 min-[360px]:p-6 sm:p-8 rounded-xl min-[360px]:rounded-2xl border border-glass-border/20">
+          <h2 class="font-headline-md text-xl sm:text-2xl font-bold text-ocean-white mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
+            <span class="text-water-glow font-label-caps text-sm sm:text-base shrink-0">03.</span> Confidentiality & Non-Disclosure
+          </h2>
+          <p class="text-xs min-[360px]:text-sm sm:text-base leading-relaxed">
+            <strong class="text-ocean-white">Fish Aqua Farming</strong> strictly prohibits the sale, rental, or trade of any client or investor information to third-party marketing entities. Information is only shared with verified legal advisors, banking institutions for profit remittance, and government regulatory inspectors when mandatory by law.
+          </p>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="glass-card p-4 min-[360px]:p-6 sm:p-8 rounded-xl min-[360px]:rounded-2xl border border-glass-border/20">
+          <h2 class="font-headline-md text-xl sm:text-2xl font-bold text-ocean-white mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
+            <span class="text-water-glow font-label-caps text-sm sm:text-base shrink-0">04.</span> Data Security & Storage Standards
+          </h2>
+          <p class="text-xs min-[360px]:text-sm sm:text-base leading-relaxed">
+            We employ bank-grade SSL/TLS 256-bit encryption for all web communications and store investor digital contracts within biometrically restricted, SOC-2 compliant cloud infrastructure. Physical documents are securely archived in fireproof facilities at our corporate office.
+          </p>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="glass-card p-4 min-[360px]:p-6 sm:p-8 rounded-xl min-[360px]:rounded-2xl border border-glass-border/20">
+          <h2 class="font-headline-md text-xl sm:text-2xl font-bold text-ocean-white mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
+            <span class="text-water-glow font-label-caps text-sm sm:text-base shrink-0">05.</span> Contact Privacy Officer
+          </h2>
+          <p class="text-xs min-[360px]:text-sm sm:text-base leading-relaxed mb-3 sm:mb-4">
+            If you have questions regarding this Privacy Policy or wish to request data updating/deletion, please contact our dedicated Legal & Compliance Desk:
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-1 sm:pt-2">
+            <a href="mailto:contact@fishaquafarming.com" class="inline-flex items-center gap-2 text-water-glow hover:underline font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm">
+              <span class="material-symbols-outlined text-sm sm:text-base">mail</span> contact@fishaquafarming.com
+            </a>
+            <span class="hidden sm:inline text-on-surface-variant/40">&bull;</span>
+            <a href="tel:+919510228723" class="inline-flex items-center gap-2 text-water-glow hover:underline font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm">
+              <span class="material-symbols-outlined text-sm sm:text-base">call</span> +91 95102 28723
+            </a>
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer (Exact 4-Column Footer from index.html) -->
+  <footer class="relative z-10 bg-surface-container-lowest border-t border-glass-border/40 overflow-hidden">
+    <!-- Ambient Bottom Glow -->
+    <div class="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-water-glow/5 to-transparent pointer-events-none z-0"></div>
+
+    <div class="relative z-10 max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter pt-10 sm:pt-16 pb-6 sm:pb-8">
+      <!-- 4-Column Grid -->
+      <div class="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 pb-8 sm:pb-12 border-b border-glass-border/20">
+
+        <!-- Col 1: Brand & Socials -->
+        <div>
+          <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+            <img src="assets/image/logo.png" alt="Fish Aqua Farming Logo"
+              class="h-7 sm:h-8 w-auto object-contain flex-shrink-0" />
+            <span class="font-headline-md text-lg sm:text-xl font-bold text-ocean-white tracking-tight">Fish Aqua Farming</span>
+          </div>
+          <p class="font-body-md text-xs sm:text-sm text-on-surface-variant leading-relaxed mb-4 sm:mb-6">
+            Pioneering the future of sustainable, high-yield biological asset management. Blending precision science with absolute transparency.
+          </p>
+          <!-- Social Icons -->
+          <div class="flex gap-2.5 sm:gap-4 mb-4">
+            <a href="#"
+              class="social-glow w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all"
+              aria-label="LinkedIn">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+            </a>
+            <a href="#"
+              class="social-glow w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all"
+              aria-label="YouTube">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.524 3.545 12 3.545 12 3.545s-7.525 0-9.388.51a3.003 3.003 0 0 0-2.11 2.108C0 8.026 0 12 0 12s0 3.974.502 5.837a3.003 3.003 0 0 0 2.11 2.108C4.475 20.455 12 20.455 12 20.455s7.524 0 9.388-.51a3.002 3.002 0 0 0 2.11-2.108C24 15.974 24 12 24 12s0-3.974-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+            </a>
+            <a href="#"
+              class="social-glow w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all"
+              aria-label="Twitter X">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/fishaquafarming"
+              class="social-glow w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all"
+              aria-label="Instagram">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+              </svg>
+            </a>
+          </div>
+          <!-- Direct Contact Info -->
+          <div class="flex flex-col gap-2 font-label-caps text-xs text-on-surface-variant">
+            <a href="tel:+919510228723" class="inline-flex items-center gap-2 hover:text-water-glow transition-colors">
+              <span class="material-symbols-outlined text-water-glow text-sm">call</span>
+              <span>+91 95102 28723</span>
+            </a>
+            <a href="mailto:contact@fishaquafarming.com" class="inline-flex items-center gap-2 hover:text-water-glow transition-colors">
+              <span class="material-symbols-outlined text-water-glow text-sm">mail</span>
+              <span>contact@fishaquafarming.com</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Navigation -->
+        <div class="flex flex-col">
+          <span class="font-label-caps text-xs font-bold text-water-glow uppercase tracking-wider mb-3 sm:mb-5">Quick Links</span>
+          <div class="flex flex-col gap-2.5 sm:gap-3.5 text-xs sm:text-sm">
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="index.html#lifecycle-track">Aquatic Lifecycle</a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="index.html#portfolio">Premium Species</a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="index.html#advantage">Our Advantage</a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="index.html#investment">Investment Framework</a>
+            <a class="text-water-glow/85 hover:text-water-glow transition-colors font-label-caps text-xs tracking-wider font-semibold"
+              href="compliance.html">Compliance Hub</a>
+          </div>
+        </div>
+
+        <!-- Col 3: Compliance & Certifications -->
+        <div class="flex flex-col">
+          <span class="font-label-caps text-xs font-bold text-water-glow uppercase tracking-wider mb-3 sm:mb-5">Certifications</span>
+          <div class="flex flex-col gap-2.5 sm:gap-3.5 text-xs sm:text-sm">
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="compliance.html">
+              <span class="material-symbols-outlined text-sm sm:text-base shrink-0">description</span>
+              <span>GST Registration</span>
+            </a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="compliance.html">
+              <span class="material-symbols-outlined text-sm sm:text-base shrink-0">description</span>
+              <span>Company Incorporation</span>
+            </a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="compliance.html">
+              <span class="material-symbols-outlined text-sm sm:text-base shrink-0">description</span>
+              <span>Pollution Control Clearance</span>
+            </a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="compliance.html">
+              <span class="material-symbols-outlined text-sm sm:text-base shrink-0">description</span>
+              <span>Aquaculture Authority Reg</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 4: Consultation Card -->
+        <div class="flex flex-col bg-surface-container-high/40 p-3.5 min-[360px]:p-4 sm:p-5 rounded-xl min-[360px]:rounded-2xl border border-glass-border/30 shadow-[inset_0_0_15px_rgba(255,255,255,0.02)]">
+          <span class="font-label-caps text-[11px] min-[360px]:text-xs font-bold text-water-glow uppercase tracking-wider mb-2 sm:mb-3 block">Luxury Consultation</span>
+          <p class="font-body-md text-[11px] min-[360px]:text-xs text-on-surface-variant leading-relaxed mb-3 sm:mb-4">
+            Bilateral legal security & biosecurity transparency. In-person consultations arranged at exclusive venues (e.g., Taj Hotel).
+          </p>
+          <a href="index.html#consultation"
+            class="w-full bg-water-glow/20 border border-water-glow/30 hover:bg-water-glow hover:text-surface-container-lowest text-water-glow py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl font-label-caps text-[10px] min-[360px]:text-[11px] font-bold tracking-widest transition-all text-center flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,204,255,0.15)]">
+            <span class="material-symbols-outlined text-sm shrink-0">calendar_month</span>
+            <span>BOOK TAJ MEETING</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Bottom Details -->
+      <div class="pt-6 sm:pt-8 flex flex-col lg:flex-row justify-between items-center gap-4 sm:gap-6 border-b border-glass-border/10 pb-6 mb-4">
+        <div class="flex flex-col gap-1.5 sm:gap-2 items-center lg:items-start">
+          <p class="font-label-caps text-[10px] min-[360px]:text-[11px] text-on-surface-variant text-center lg:text-left">
+            © 2026 Fish Aqua Farming. All rights reserved.
+          </p>
+          <p class="text-[9px] min-[360px]:text-[10px] text-on-surface-variant/60 max-w-xl text-center lg:text-left leading-relaxed">
+            Disclaimer: Biological asset aquaculture processes involve standard agricultural &amp; market risks. Legal assurances and force majeure exclusions are detail-specified in executed contracts.
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-4 sm:gap-6 text-[10px] min-[360px]:text-[11px] font-label-caps tracking-widest shrink-0">
+          <a class="text-water-glow font-bold" href="privacy-policy.html">Privacy Policy</a>
+          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="terms-of-service.html">Terms of Service</a>
+          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="compliance.html">Compliance</a>
+        </div>
+      </div>
+
+      <!-- Developer Credit Bar -->
+      <div class="text-center pt-2">
+        <p class="text-[10px] min-[360px]:text-[11px] text-on-surface-variant/80 font-label-caps tracking-wider">
+          Designed &amp; Developed with <span class="text-water-glow">♥</span> by
+          <a href="https://innoveloper.com" target="_blank" rel="noopener noreferrer" class="text-water-glow font-semibold hover:underline transition-all">
+            Innoveloper Solutions
+          </a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Back-to-Top Bubble -->
+  <button id="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    class="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 w-12 h-12 sm:w-14 sm:h-14 bg-surface-container-high/80 border border-glass-border hover:border-water-glow/50 text-water-glow rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all z-40 opacity-0 pointer-events-none floating-bubble group hover:scale-110">
+    <span class="material-symbols-outlined text-xl sm:text-2xl group-hover:-translate-y-1 transition-transform">arrow_upward</span>
+  </button>
+
+  <script>
+    // Aquatic Cursor & Mobile Navigation JavaScript (Identical to index.html)
+    (function () {
+      // 1. Custom Aquatic Cursor
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      const dot = document.getElementById('custom-cursor-dot');
+      const ring = document.getElementById('custom-cursor-ring');
+
+      if (!isTouchDevice && dot && ring) {
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          dot.style.left = mouseX + 'px';
+          dot.style.top = mouseY + 'px';
+        });
+
+        function render() {
+          if (document.hidden) {
+            requestAnimationFrame(render);
+            return;
+          }
+          ringX += (mouseX - ringX) * 0.15;
+          ringY += (mouseY - ringY) * 0.15;
+
+          ring.style.left = ringX + 'px';
+          ring.style.top = ringY + 'px';
+
+          requestAnimationFrame(render);
+        }
+        render();
+
+        const hoverSelectors = 'a, button, input, select, textarea, [role="button"]';
+        document.querySelectorAll(hoverSelectors).forEach(el => {
+          el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+          el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+      }
+
+      // 2. Navbar Scroll Morphing & Back-to-Top Toggle
+      const nav = document.getElementById('main-nav');
+      const backToTopBtn = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > 50) {
+          nav.classList.add('nav-scrolled');
+        } else {
+          nav.classList.remove('nav-scrolled');
+        }
+
+        if (currentScrollY > 300) {
+          backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+          backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+        } else {
+          backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+          backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+        }
+
+        // Top Page Progress Bar
+        const totalScrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPct = totalScrollableHeight > 0 ? Math.min(100, Math.max(0, (window.scrollY / totalScrollableHeight) * 100)) : 0;
+        const topBar = document.getElementById('top-progress-bar');
+        if (topBar) topBar.style.width = scrollPct + '%';
+      }, { passive: true });
+
+      // 3. Mobile Menu Drawer Navigation
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+      const mobileNavPanel = document.getElementById('mobile-nav-panel');
+
+      if (mobileMenuBtn && mobileNavPanel && mobileMenuIcon) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = mobileNavPanel.classList.contains('active');
+          if (isOpen) {
+            mobileNavPanel.classList.remove('active');
+            mobileMenuIcon.textContent = 'menu';
+            document.body.style.overflow = '';
+          } else {
+            mobileNavPanel.classList.add('active');
+            mobileMenuIcon.textContent = 'close';
+            document.body.style.overflow = 'hidden';
+          }
+        });
+
+        document.querySelectorAll('.mobile-nav-link, #mobile-nav-panel a, #mobile-nav-panel button').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileNavPanel.classList.remove('active');
+            mobileMenuIcon.textContent = 'menu';
+            document.body.style.overflow = '';
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

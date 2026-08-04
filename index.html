@@ -2105,149 +2105,170 @@
     // --- Global Custom Cursor Coordinates ---
     var cursorX = window.innerWidth / 2, cursorY = window.innerHeight / 2;
 
-    // --- WebGL Realistic Water Caustics & Sun Rays Shader Background ---
+    // --- WebGL Realistic Water Caustics & Sun Rays Shader Background (Offscreen Worker Thread) ---
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const targetPixelRatio = (isTouchDevice || window.innerWidth < 768) ? 1.0 : Math.min(window.devicePixelRatio, 1.25);
     const glContainer = document.getElementById('gl-canvas-container');
-    const glScene = new THREE.Scene();
-    const glCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-    const glRenderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
-    glRenderer.setSize(window.innerWidth, window.innerHeight);
-    glRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    glContainer.appendChild(glRenderer.domElement);
 
-    const vertexShader = `
-        varying vec2 v_texCoord;
-        void main() {
-            v_texCoord = uv;
-            gl_Position = vec4(position, 1.0);
-        }
-    `;
+    let causticsWorker = null;
+    let glInView = true;
+    let startGLAnimationInline = null;
+    let stopGLAnimationInline = null;
 
-    const fragmentShader = `
-        precision highp float;
-        varying vec2 v_texCoord;
-        uniform float u_time;
-        uniform vec2 u_resolution;
-        uniform vec2 u_mouse;
-
-        #define MAX_ITER 5
-
-        // Photorealistic liquid water wave & caustic ray-marching distortion algorithm
-        float waterCaustics(vec2 uv, float time) {
-            vec2 p = mod(uv * 6.28318530718, 6.28318530718) - 250.0;
-            vec2 i = vec2(p);
-            float c = 1.0;
-            float inten = 0.0065;
-
-            for (int n = 0; n < MAX_ITER; n++) {
-                float t = time * (1.0 - (3.5 / float(n + 1)));
-                i = p + vec2(cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
-                c += 1.0 / length(vec2(p.x / (sin(i.x + t) / inten), p.y / (cos(i.y + t) / inten)));
-            }
-            c /= float(MAX_ITER);
-            c = 1.17 - pow(c, 1.4);
-            return max(0.0, pow(abs(c), 8.0));
-        }
-
-        // Simplex Noise for volumetric sun shafts & floating underwater plankton
-        vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
-        float snoise(vec2 v){
-            const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
-            vec2 i  = floor(v + dot(v, C.yy) );
-            vec2 x0 = v -   i + dot(i, C.xx);
-            vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-            vec4 x12 = x0.xyxy + C.xxzz;
-            x12.xy -= i1;
-            i = mod(i, 289.0);
-            vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 )) + i.x + vec3(0.0, i1.x, 1.0 ));
-            vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
-            m = m*m; m = m*m;
-            vec3 x = 2.0 * fract(p * C.www) - 1.0;
-            vec3 h = abs(x) - 0.5;
-            vec3 ox = floor(x + 0.5);
-            vec3 a0 = x - ox;
-            m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
-            vec3 g;
-            g.x  = a0.x  * x0.x  + h.x  * x0.y;
-            g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-            return 130.0 * dot(m, g);
-        }
-
-        void main() {
-            vec2 uv = v_texCoord;
-            vec2 aspectUv = (uv - 0.5) * vec2(u_resolution.x / u_resolution.y, 1.0) + 0.5;
-            vec2 mouseUv = u_mouse / u_resolution;
-
-            // Interactive mouse water ripple distortion
-            float mouseDist = distance(uv, mouseUv);
-            float ripple = sin(mouseDist * 30.0 - u_time * 5.0) * exp(-mouseDist * 7.0);
-            vec2 distortedUv = uv + (uv - mouseUv) * ripple * 0.025;
-
-            // Ultra-realistic ocean depth palette (Rich Indigo -> Deep Teal -> Surface Cyan Glow)
-            vec3 abyssDeep   = vec3(0.015, 0.04, 0.10);
-            vec3 oceanMid    = vec3(0.03, 0.15, 0.32);
-            vec3 shallowTurq = vec3(0.0, 0.55, 0.78);
-            vec3 causticGlow = vec3(0.4, 0.95, 1.0);
-            vec3 sunRayColor = vec3(0.65, 0.95, 1.0);
-
-            // Vertical ocean depth gradient with subtle wave motion
-            float waveMotion = snoise(vec2(distortedUv.x * 2.0 + u_time * 0.1, u_time * 0.08)) * 0.04;
-            float depthGrad = clamp(distortedUv.y + waveMotion, 0.0, 1.0);
-            vec3 color = mix(oceanMid, abyssDeep, smoothstep(0.8, 0.0, depthGrad));
-
-            // Layered Fluid Caustic Patterns
-            float caustic1 = waterCaustics(distortedUv * 0.7 + vec2(u_time * 0.01, u_time * 0.015), u_time * 0.9);
-            float caustic2 = waterCaustics(distortedUv * 1.3 - vec2(u_time * 0.015, u_time * 0.01), u_time * 1.3);
-            float causticsCombined = clamp(caustic1 * 0.65 + caustic2 * 0.45, 0.0, 2.5);
-
-            // Attenuate caustics with water depth
-            color += causticGlow * causticsCombined * (0.2 + 0.8 * depthGrad) * 0.45;
-            color = mix(color, shallowTurq, causticsCombined * 0.15 * depthGrad);
-
-            // Realistic Volumetric God Rays (Light shafts radiating from water surface)
-            float ray1 = pow(max(0.0, snoise(vec2(aspectUv.x * 1.5 + aspectUv.y * 0.4 + u_time * 0.03, u_time * 0.02))), 4.0);
-            float ray2 = pow(max(0.0, snoise(vec2(aspectUv.x * 3.0 - aspectUv.y * 0.6 - u_time * 0.04, u_time * 0.03))), 3.0);
-            float godRays = (ray1 * 0.6 + ray2 * 0.4) * (depthGrad * 0.8 + 0.2);
-            color += sunRayColor * godRays * 0.35;
-
-            // Floating luminous micro-plankton / water bubbles
-            float particles = snoise(distortedUv * 25.0 + vec2(u_time * 0.05, u_time * 0.1));
-            particles = pow(max(0.0, particles), 16.0);
-            color += vec3(0.7, 0.95, 1.0) * particles * 0.6;
-
-            // Soft atmospheric vignette
-            float vignette = 1.0 - smoothstep(0.45, 1.4, length(uv - 0.5));
-            color *= vignette;
-
-            gl_FragColor = vec4(color, 1.0);
-        }
-    `;
-
-    const uniforms = {
-      u_time: { value: 1.0 },
-      u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-      u_mouse: { value: new THREE.Vector2(window.innerWidth / 2, window.innerHeight / 2) }
-    };
-
-    const geometry = new THREE.PlaneGeometry(2, 2);
-    const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader });
-    const mesh = new THREE.Mesh(geometry, material);
-    glScene.add(mesh);
-
-    function animateGL(time) {
-      uniforms.u_time.value = time * 0.00045;
-      glRenderer.render(glScene, glCamera);
-      requestAnimationFrame(animateGL);
+    function startGLAnimation() {
+      if (causticsWorker) {
+        causticsWorker.postMessage({ type: 'visibility', inView: glInView, hidden: document.hidden });
+      } else if (typeof startGLAnimationInline === 'function') {
+        startGLAnimationInline();
+      }
     }
-    requestAnimationFrame(animateGL);
 
-    window.addEventListener('mousemove', (e) => {
-      uniforms.u_mouse.value.set(e.clientX, window.innerHeight - e.clientY);
-    });
+    function stopGLAnimation() {
+      if (causticsWorker) {
+        causticsWorker.postMessage({ type: 'visibility', inView: false, hidden: document.hidden });
+      } else if (typeof stopGLAnimationInline === 'function') {
+        stopGLAnimationInline();
+      }
+    }
 
-    window.addEventListener('resize', () => {
+    function setupInlineGLCanvas(glCanvas) {
+      const glScene = new THREE.Scene();
+      const glCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const glRenderer = new THREE.WebGLRenderer({ canvas: glCanvas, antialias: !isTouchDevice, powerPreference: "high-performance" });
       glRenderer.setSize(window.innerWidth, window.innerHeight);
-      uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
-    });
+      glRenderer.setPixelRatio(targetPixelRatio);
+
+      const vertexShader = `
+          varying vec2 v_texCoord;
+          void main() { v_texCoord = uv; gl_Position = vec4(position, 1.0); }
+      `;
+      const fragmentShader = `
+          precision highp float;
+          varying vec2 v_texCoord;
+          uniform float u_time;
+          uniform vec2 u_resolution;
+          uniform vec2 u_mouse;
+          #define MAX_ITER 3
+
+          float waterCaustics(vec2 uv, float time) {
+              vec2 p = mod(uv * 6.28318530718, 6.28318530718) - 250.0;
+              vec2 i = vec2(p); float c = 1.0; float inten = 0.0065;
+              for (int n = 0; n < MAX_ITER; n++) {
+                  float t = time * (1.0 - (3.5 / float(n + 1)));
+                  i = p + vec2(cos(t - i.x) + sin(t + i.y), sin(t - i.y) + cos(t + i.x));
+                  c += 1.0 / length(vec2(p.x / (sin(i.x + t) / inten), p.y / (cos(i.y + t) / inten)));
+              }
+              c /= float(MAX_ITER); return max(0.0, pow(abs(1.17 - pow(c, 1.4)), 8.0));
+          }
+          vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+          float snoise(vec2 v){
+              const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+              vec2 i  = floor(v + dot(v, C.yy) ); vec2 x0 = v - i + dot(i, C.xx);
+              vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+              vec4 x12 = x0.xyxy + C.xxzz; x12.xy -= i1; i = mod(i, 289.0);
+              vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 )) + i.x + vec3(0.0, i1.x, 1.0 ));
+              vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+              m = m*m; m = m*m; vec3 x = 2.0 * fract(p * C.www) - 1.0; vec3 h = abs(x) - 0.5;
+              vec3 ox = floor(x + 0.5); vec3 a0 = x - ox;
+              m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
+              vec3 g; g.x = a0.x * x0.x + h.x * x0.y; g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+              return 130.0 * dot(m, g);
+          }
+          void main() {
+              vec2 uv = v_texCoord;
+              vec2 aspectUv = (uv - 0.5) * vec2(u_resolution.x / u_resolution.y, 1.0) + 0.5;
+              vec2 mouseUv = u_mouse / u_resolution;
+              float mouseDist = distance(uv, mouseUv);
+              float ripple = sin(mouseDist * 30.0 - u_time * 5.0) * exp(-mouseDist * 7.0);
+              vec2 distortedUv = uv + (uv - mouseUv) * ripple * 0.025;
+              vec3 abyssDeep = vec3(0.015, 0.04, 0.10); vec3 oceanMid = vec3(0.03, 0.15, 0.32);
+              vec3 shallowTurq = vec3(0.0, 0.55, 0.78); vec3 causticGlow = vec3(0.4, 0.95, 1.0);
+              vec3 sunRayColor = vec3(0.65, 0.95, 1.0);
+              float waveMotion = snoise(vec2(distortedUv.x * 2.0 + u_time * 0.1, u_time * 0.08)) * 0.04;
+              float depthGrad = clamp(distortedUv.y + waveMotion, 0.0, 1.0);
+              vec3 color = mix(oceanMid, abyssDeep, smoothstep(0.8, 0.0, depthGrad));
+              float caustic1 = waterCaustics(distortedUv * 0.7 + vec2(u_time * 0.01, u_time * 0.015), u_time * 0.9);
+              float caustic2 = waterCaustics(distortedUv * 1.3 - vec2(u_time * 0.015, u_time * 0.01), u_time * 1.3);
+              float causticsCombined = clamp(caustic1 * 0.65 + caustic2 * 0.45, 0.0, 2.5);
+              color += causticGlow * causticsCombined * (0.2 + 0.8 * depthGrad) * 0.45;
+              color = mix(color, shallowTurq, causticsCombined * 0.15 * depthGrad);
+              float ray1 = pow(max(0.0, snoise(vec2(aspectUv.x * 1.5 + aspectUv.y * 0.4 + u_time * 0.03, u_time * 0.02))), 4.0);
+              float ray2 = pow(max(0.0, snoise(vec2(aspectUv.x * 3.0 - aspectUv.y * 0.6 - u_time * 0.04, u_time * 0.03))), 3.0);
+              color += sunRayColor * (ray1 * 0.6 + ray2 * 0.4) * (depthGrad * 0.8 + 0.2) * 0.35;
+              color += vec3(0.7, 0.95, 1.0) * pow(max(0.0, snoise(distortedUv * 25.0 + vec2(u_time * 0.05, u_time * 0.1))), 16.0) * 0.6;
+              gl_FragColor = vec4(color * (1.0 - smoothstep(0.45, 1.4, length(uv - 0.5))), 1.0);
+          }
+      `;
+
+      const uniforms = {
+        u_time: { value: 1.0 },
+        u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+        u_mouse: { value: new THREE.Vector2(window.innerWidth / 2, window.innerHeight / 2) }
+      };
+
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader });
+      glScene.add(new THREE.Mesh(geometry, material));
+
+      let inlineFrameId = null;
+      function animateInline(time) {
+        if (!glInView || document.hidden) { inlineFrameId = null; return; }
+        uniforms.u_time.value = time * 0.00045;
+        glRenderer.render(glScene, glCamera);
+        inlineFrameId = requestAnimationFrame(animateInline);
+      }
+      startGLAnimationInline = function () { if (!inlineFrameId && glInView && !document.hidden) inlineFrameId = requestAnimationFrame(animateInline); };
+      stopGLAnimationInline = function () { if (inlineFrameId) { cancelAnimationFrame(inlineFrameId); inlineFrameId = null; } };
+      startGLAnimationInline();
+
+      window.addEventListener('mousemove', (e) => {
+        if (!glInView || document.hidden) return;
+        uniforms.u_mouse.value.set(e.clientX, window.innerHeight - e.clientY);
+      });
+      window.addEventListener('resize', () => {
+        const newDpr = (window.innerWidth < 768 || isTouchDevice) ? 1.0 : Math.min(window.devicePixelRatio, 1.25);
+        glRenderer.setPixelRatio(newDpr);
+        glRenderer.setSize(window.innerWidth, window.innerHeight);
+        uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+      });
+    }
+
+    if (glContainer) {
+      const glCanvas = document.createElement('canvas');
+      glContainer.appendChild(glCanvas);
+
+      if ('transferControlToOffscreen' in glCanvas && typeof Worker !== 'undefined') {
+        try {
+          const offscreen = glCanvas.transferControlToOffscreen();
+          causticsWorker = new Worker('assets/js/caustics-worker.js');
+          causticsWorker.postMessage({
+            type: 'init',
+            canvas: offscreen,
+            width: window.innerWidth,
+            height: window.innerHeight,
+            pixelRatio: targetPixelRatio
+          }, [offscreen]);
+
+          window.addEventListener('mousemove', (e) => {
+            if (!glInView || document.hidden || !causticsWorker) return;
+            causticsWorker.postMessage({ type: 'mousemove', x: e.clientX, y: window.innerHeight - e.clientY });
+          });
+
+          window.addEventListener('resize', () => {
+            const newDpr = (window.innerWidth < 768 || isTouchDevice) ? 1.0 : Math.min(window.devicePixelRatio, 1.25);
+            if (causticsWorker) {
+              causticsWorker.postMessage({ type: 'resize', width: window.innerWidth, height: window.innerHeight, pixelRatio: newDpr });
+            }
+          });
+        } catch (err) {
+          console.warn('OffscreenCanvas worker initialization fallback:', err);
+          causticsWorker = null;
+          setupInlineGLCanvas(glCanvas);
+        }
+      } else {
+        setupInlineGLCanvas(glCanvas);
+      }
+    }
 
     // --- Three.js 3D Schooling Fish & Aquaculture Journey Scene Layer ---
     const container = document.getElementById('three-canvas-container');
@@ -2265,9 +2286,9 @@
       const camera = new THREE.PerspectiveCamera(65, width / height, 0.1, 1000);
       camera.position.set(0, 0, 14);
 
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isTouchDevice, powerPreference: "high-performance" });
       renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(targetPixelRatio);
       container.appendChild(renderer.domElement);
 
       // Underwater Realistic Lighting (Balanced Natural Sunlight + Subtle Water Rim)
@@ -2768,7 +2789,7 @@
         });
       };
 
-      // Load all 5 GLB species into the live 3D aquatic shoal with realistic relative sizes & counts
+      // Load all 5 GLB species into the live 3D aquatic shoal with realistic relative sizes & counts (Equal 100% full count on mobile & desktop)
       loadFishModel('assets/models/betta_splendens.glb', 4, 0.85); // medium size, solitary
       loadFishModel('assets/models/guppy.glb', 12, 0.35);          // small size, schooling swarm
       loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large goldfish
@@ -2793,8 +2814,15 @@
 
       const clock = new THREE.Clock();
 
+      let threeAnimationFrameId = null;
+      let threeInView = true;
+
       function animate() {
-        requestAnimationFrame(animate);
+        if (!threeInView || document.hidden) {
+          threeAnimationFrameId = null;
+          return;
+        }
+        threeAnimationFrameId = requestAnimationFrame(animate);
         const delta = clock.getDelta();
         const time = Date.now() * 0.00045;
         scrollPos += (targetScroll - scrollPos) * 0.08;
@@ -3081,9 +3109,40 @@
 
         renderer.render(scene, camera);
       }
-      animate();
+
+      function startThreeAnimation() {
+        if (!threeAnimationFrameId && threeInView && !document.hidden) {
+          threeAnimationFrameId = requestAnimationFrame(animate);
+        }
+      }
+
+      function stopThreeAnimation() {
+        if (threeAnimationFrameId) {
+          cancelAnimationFrame(threeAnimationFrameId);
+          threeAnimationFrameId = null;
+        }
+      }
+      startThreeAnimation();
+
+      // Keep 3D aquatic shoal fish swimming continuously across all website sections during active sessions
+      glInView = true;
+      threeInView = true;
+      startGLAnimation();
+      startThreeAnimation();
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopGLAnimation();
+          stopThreeAnimation();
+        } else {
+          startGLAnimation();
+          startThreeAnimation();
+        }
+      });
 
       window.addEventListener('resize', () => {
+        const newDpr = (window.innerWidth < 768 || isTouchDevice) ? 1.0 : Math.min(window.devicePixelRatio, 1.25);
+        renderer.setPixelRatio(newDpr);
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -3174,29 +3233,35 @@
     }
 
     // --- Custom Interactive Aquatic Cursor Script ---
-    const cursorDot = document.getElementById('custom-cursor-dot');
-    const cursorRing = document.getElementById('custom-cursor-ring');
-    let ringX = window.innerWidth / 2, ringY = window.innerHeight / 2;
+    if (!isTouchDevice) {
+      const cursorDot = document.getElementById('custom-cursor-dot');
+      const cursorRing = document.getElementById('custom-cursor-ring');
+      let ringX = window.innerWidth / 2, ringY = window.innerHeight / 2;
 
-    window.addEventListener('mousemove', (e) => {
-      cursorX = e.clientX;
-      cursorY = e.clientY;
-      if (cursorDot) {
-        cursorDot.style.left = `${cursorX}px`;
-        cursorDot.style.top = `${cursorY}px`;
-      }
-    });
+      window.addEventListener('mousemove', (e) => {
+        cursorX = e.clientX;
+        cursorY = e.clientY;
+        if (cursorDot) {
+          cursorDot.style.left = `${cursorX}px`;
+          cursorDot.style.top = `${cursorY}px`;
+        }
+      });
 
-    function renderCursorRing() {
-      ringX += (cursorX - ringX) * 0.18;
-      ringY += (cursorY - ringY) * 0.18;
-      if (cursorRing) {
-        cursorRing.style.left = `${ringX}px`;
-        cursorRing.style.top = `${ringY}px`;
+      function renderCursorRing() {
+        if (document.hidden) {
+          requestAnimationFrame(renderCursorRing);
+          return;
+        }
+        ringX += (cursorX - ringX) * 0.18;
+        ringY += (cursorY - ringY) * 0.18;
+        if (cursorRing) {
+          cursorRing.style.left = `${ringX}px`;
+          cursorRing.style.top = `${ringY}px`;
+        }
+        requestAnimationFrame(renderCursorRing);
       }
       requestAnimationFrame(renderCursorRing);
     }
-    requestAnimationFrame(renderCursorRing);
 
     // --- Premium Interactive 3D Fish Modal Logic ---
     const speciesData = {
