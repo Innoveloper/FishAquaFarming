@@ -222,15 +222,21 @@
   <div id="custom-cursor-dot"></div>
   <div id="custom-cursor-ring"></div>
 
-  <!-- Interactive Loading Screen (Animated 3D Fish Egg GLB) -->
+  <!-- Interactive Loading Screen (Animated 3D Fish Egg GLB with CSS Fallback) -->
   <div id="loading-screen" class="fixed inset-0 bg-[#0a0a1a] z-[9999] flex flex-col items-center justify-center transition-all duration-700 ease-out">
     <div class="relative flex items-center justify-center mb-6">
       <!-- Outer ripple waves -->
       <div class="absolute w-40 h-40 border border-water-glow/20 rounded-full animate-ping duration-[3s]"></div>
       <div class="absolute w-32 h-32 border border-water-glow/30 rounded-full animate-pulse duration-[1.5s]"></div>
       
+      <!-- CSS Fallback Fish Egg (Luminous glass orb with inner seed) -->
+      <div id="loader-fallback-orb" class="w-16 h-16 rounded-full bg-gradient-to-tr from-water-glow/20 via-water-glow/50 to-white/40 border border-water-glow/60 shadow-[0_0_30px_rgba(0,204,255,0.6)] flex items-center justify-center relative overflow-hidden group transition-opacity duration-500">
+        <div class="w-6 h-8 bg-water-glow rounded-full blur-[1px] shadow-[0_0_15px_#00CCFF] animate-pulse duration-1000"></div>
+        <div class="absolute top-1 left-2 w-4 h-2 bg-white/50 rounded-full transform rotate-[-30deg]"></div>
+      </div>
+
       <!-- 3D egg GLB canvas container -->
-      <div id="loader-egg-container" class="w-28 h-28 relative flex items-center justify-center"></div>
+      <div id="loader-egg-container" class="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none"></div>
     </div>
     <h3 class="font-headline-md text-xl font-bold tracking-widest text-water-glow uppercase mb-2 font-label-caps">Oceanic Abundance</h3>
     <p id="loading-subtext" class="text-xs text-on-surface-variant font-label-caps tracking-wider mb-6 animate-pulse">Initializing biosecure telemetry...</p>
@@ -256,7 +262,7 @@
       </div>
       <div class="hidden lg:flex gap-8 items-center">
         <a id="nav-lifecycle" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
-          href="#stage-1">Lifecycle</a>
+          href="#lifecycle-track">Lifecycle</a>
         <a id="nav-species" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
           href="#portfolio">Species</a>
         <a id="nav-advantage" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
@@ -280,7 +286,7 @@
   <!-- Mobile Navigation Drawer -->
   <div id="mobile-nav-panel" class="fixed inset-0 z-40 bg-surface-container-lowest/98 backdrop-blur-3xl transition-all duration-500 ease-in-out transform -translate-y-full flex flex-col justify-center px-8 md:hidden opacity-0 pointer-events-none">
     <div class="flex flex-col gap-8 text-center">
-      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#stage-1">Lifecycle</a>
+      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#lifecycle-track">Lifecycle</a>
       <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#portfolio">Species</a>
       <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#advantage">Advantage</a>
       <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#investment">Investment</a>
@@ -3572,18 +3578,12 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
           model.updateMatrixWorld(true);
 
           const box = new THREE.Box3();
-          let hasMeshes = false;
           model.traverse((child) => {
             if (child.isMesh && child.geometry) {
               if (!child.geometry.boundingBox) child.geometry.computeBoundingBox();
-              const meshBox = child.geometry.boundingBox.clone();
-              child.updateMatrixWorld(true);
-              meshBox.applyMatrix4(child.matrixWorld);
-              if (!hasMeshes) { box.copy(meshBox); hasMeshes = true; }
-              else { box.union(meshBox); }
+              box.union(child.geometry.boundingBox);
             }
           });
-          if (!hasMeshes) box.setFromObject(model);
 
           const center = box.getCenter(new THREE.Vector3());
           const size = box.getSize(new THREE.Vector3());
@@ -3593,7 +3593,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
           const wrapper = new THREE.Group();
           model.position.copy(center).multiplyScalar(-1);
           wrapper.add(model);
-          wrapper.scale.setScalar(normalScale * 2.4); // Scaled up for prominent loader presence
+          wrapper.scale.setScalar(normalScale * 2.2);
 
           model.traverse((child) => {
             if (child.isMesh && child.material) {
@@ -3606,6 +3606,12 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
 
           loaderEggMesh = wrapper;
           scene.add(wrapper);
+
+          // Smoothly fade out CSS fallback orb once 3D GLB model is loaded & ready
+          const fallbackOrb = document.getElementById('loader-fallback-orb');
+          if (fallbackOrb) {
+            fallbackOrb.style.opacity = '0';
+          }
         }, undefined, (err) => {
           console.warn('Loader egg.glb fallback', err);
           const geo = new THREE.SphereGeometry(0.8, 32, 32);
