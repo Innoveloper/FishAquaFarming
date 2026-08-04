@@ -222,20 +222,15 @@
   <div id="custom-cursor-dot"></div>
   <div id="custom-cursor-ring"></div>
 
-  <!-- Interactive Loading Screen (Animated Fish Egg) -->
+  <!-- Interactive Loading Screen (Animated 3D Fish Egg GLB) -->
   <div id="loading-screen" class="fixed inset-0 bg-[#0a0a1a] z-[9999] flex flex-col items-center justify-center transition-all duration-700 ease-out">
-    <div class="relative flex items-center justify-center mb-8">
+    <div class="relative flex items-center justify-center mb-6">
       <!-- Outer ripple waves -->
-      <div class="absolute w-32 h-32 border border-water-glow/20 rounded-full animate-ping duration-[3s]"></div>
-      <div class="absolute w-24 h-24 border border-water-glow/30 rounded-full animate-pulse duration-[1.5s]"></div>
+      <div class="absolute w-40 h-40 border border-water-glow/20 rounded-full animate-ping duration-[3s]"></div>
+      <div class="absolute w-32 h-32 border border-water-glow/30 rounded-full animate-pulse duration-[1.5s]"></div>
       
-      <!-- Styled Fish Egg (Luminous glass orb with inner seed) -->
-      <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-water-glow/20 via-water-glow/50 to-white/40 border border-water-glow/60 shadow-[0_0_30px_rgba(0,204,255,0.6)] flex items-center justify-center relative overflow-hidden group">
-        <!-- Floating core inside the egg -->
-        <div class="w-6 h-8 bg-water-glow rounded-full blur-[1px] shadow-[0_0_15px_#00CCFF] animate-pulse duration-1000"></div>
-        <!-- Light reflection -->
-        <div class="absolute top-1 left-2 w-4 h-2 bg-white/50 rounded-full transform rotate-[-30deg]"></div>
-      </div>
+      <!-- 3D egg GLB canvas container -->
+      <div id="loader-egg-container" class="w-28 h-28 relative flex items-center justify-center"></div>
     </div>
     <h3 class="font-headline-md text-xl font-bold tracking-widest text-water-glow uppercase mb-2 font-label-caps">Oceanic Abundance</h3>
     <p id="loading-subtext" class="text-xs text-on-surface-variant font-label-caps tracking-wider mb-6 animate-pulse">Initializing biosecure telemetry...</p>
@@ -2135,20 +2130,13 @@
             }
           });
 
-          // Emerging baby larva breaking out of the egg GLB model
-          const larva = createRealisticFish(0.4, 0x00ffff, 0x88ffff);
-          larva.position.set(0.35, 0.25, 0.2);
-          larva.rotation.z = 0.4;
-
-          group.add(wrapper, larva);
+          group.add(wrapper);
         }, undefined, (err) => {
           console.warn('Could not load assets/models/egg.glb for hatching stage, fallback', err);
           const eggMat = new THREE.MeshPhongMaterial({ color: 0x88ffff, transparent: true, opacity: 0.7, shininess: 90 });
           const shell = new THREE.Mesh(new THREE.SphereGeometry(0.8, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.5), eggMat);
           shell.rotation.x = -0.5;
-          const larva = createRealisticFish(0.4, 0x00ffff, 0x88ffff);
-          larva.position.set(0.2, 0.2, 0);
-          group.add(shell, larva);
+          group.add(shell);
         });
         return group;
       }
@@ -2286,8 +2274,8 @@
 
       // Main interactive aquaculture showcase stages with choreographed positions and scales
       const stages = [
-        { mesh: createEggSeed(), posX: 2.5, posY: 0, scale: 2.2, keepTransparent: true },                             // Phase 1: Seed Egg (egg.glb)
-        { mesh: createHatchingLarva(), posX: -2.3, posY: 0.5, scale: 2.2, keepTransparent: true },                   // Phase 2: Hatching Incubation (Larva)
+        { mesh: createEggSeed(), posX: 2.5, posY: 0, scale: 2.2 },                                                    // Phase 1: Seed Egg (egg.glb - Solid 100% opacity)
+        { mesh: createHatchingLarva(), posX: -2.3, posY: 0.5, scale: 2.2, keepTransparent: true },                   // Phase 2: Hatching Incubation (Translucent egg membrane)
         { mesh: loadStageGLBModel('assets/models/guppy.glb', 1.0, Math.PI / 2), posX: 2.5, posY: -0.5, scale: 1.8 },          // Phase 3: Emergence (Guppy Fry)
         { mesh: loadStageGLBModel('assets/models/betta_splendens.glb', 1.1, Math.PI), posX: -2.7, posY: 0.2, scale: 1.8 },    // Phase 4: Juvenile (Betta Splendens)
         { mesh: loadStageGLBModel('assets/models/jikin_goldfish.glb', 1.2, -Math.PI / 2), posX: 2.3, posY: 0.6, scale: 1.9 }, // Phase 5: Active Growth (Jikin Goldfish)
@@ -3550,6 +3538,121 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
+
+    // --- 3D Egg GLB Loader Animation Setup ---
+    (function initLoaderEgg3D() {
+      const container = document.getElementById('loader-egg-container');
+      if (!container) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+      camera.position.set(0, 0, 3.5);
+
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setSize(144, 144);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.outputEncoding = THREE.sRGBEncoding;
+      container.appendChild(renderer.domElement);
+
+      const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
+      scene.add(ambientLight);
+
+      const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+      dirLight.position.set(2, 4, 3);
+      scene.add(dirLight);
+
+      let loaderEggMesh = null;
+      let currentLoaderOpacity = 0.0;
+      let loaderStartTime = Date.now();
+
+      if (typeof THREE.GLTFLoader !== 'undefined') {
+        const loader = new THREE.GLTFLoader();
+        loader.load('assets/models/egg.glb', (gltf) => {
+          const model = gltf.scene;
+          model.updateMatrixWorld(true);
+
+          const box = new THREE.Box3();
+          let hasMeshes = false;
+          model.traverse((child) => {
+            if (child.isMesh && child.geometry) {
+              if (!child.geometry.boundingBox) child.geometry.computeBoundingBox();
+              const meshBox = child.geometry.boundingBox.clone();
+              child.updateMatrixWorld(true);
+              meshBox.applyMatrix4(child.matrixWorld);
+              if (!hasMeshes) { box.copy(meshBox); hasMeshes = true; }
+              else { box.union(meshBox); }
+            }
+          });
+          if (!hasMeshes) box.setFromObject(model);
+
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const normalScale = 1.0 / (maxDim || 1.0);
+
+          const wrapper = new THREE.Group();
+          model.position.copy(center).multiplyScalar(-1);
+          wrapper.add(model);
+          wrapper.scale.setScalar(normalScale * 2.4); // Scaled up for prominent loader presence
+
+          model.traverse((child) => {
+            if (child.isMesh && child.material) {
+              if (child.material.map) child.material.map.encoding = THREE.sRGBEncoding;
+              child.material.transparent = true;
+              child.material.opacity = 0.0; // Start at 0% opacity
+              child.material.side = THREE.DoubleSide;
+            }
+          });
+
+          loaderEggMesh = wrapper;
+          scene.add(wrapper);
+        }, undefined, (err) => {
+          console.warn('Loader egg.glb fallback', err);
+          const geo = new THREE.SphereGeometry(0.8, 32, 32);
+          const mat = new THREE.MeshPhongMaterial({ color: 0x00ccff, transparent: true, opacity: 0.0, emissive: 0x0044aa, emissiveIntensity: 0.5 });
+          loaderEggMesh = new THREE.Mesh(geo, mat);
+          scene.add(loaderEggMesh);
+        });
+      }
+
+      let loaderAnimId;
+      function animateLoaderEgg() {
+        loaderAnimId = requestAnimationFrame(animateLoaderEgg);
+        const elapsed = (Date.now() - loaderStartTime) * 0.001;
+        const time = Date.now() * 0.0015;
+
+        // Smoothly fade in opacity from 0% (0.0) up to target 50% (0.5) over 1.2 seconds
+        currentLoaderOpacity = Math.min(0.5, elapsed * 0.42);
+
+        if (loaderEggMesh) {
+          loaderEggMesh.rotation.y = time * 1.2;
+          loaderEggMesh.position.y = Math.sin(time * 2.5) * 0.08;
+
+          loaderEggMesh.traverse((child) => {
+            if (child.isMesh && child.material) {
+              child.material.transparent = true;
+              child.material.opacity = currentLoaderOpacity;
+            }
+          });
+        }
+        renderer.render(scene, camera);
+      }
+      animateLoaderEgg();
+
+      // Clean up loader WebGL resources when screen disappears
+      const checkHidden = setInterval(() => {
+        const screen = document.getElementById('loading-screen');
+        if (screen && screen.classList.contains('opacity-0')) {
+          clearInterval(checkHidden);
+          cancelAnimationFrame(loaderAnimId);
+          renderer.dispose();
+          renderer.forceContextLoss();
+          if (container.contains(renderer.domElement)) {
+            container.removeChild(renderer.domElement);
+          }
+        }
+      }, 300);
+    })();
 
     // --- Interactive Loading Screen Progress simulation ---
     const loadingScreen = document.getElementById('loading-screen');
