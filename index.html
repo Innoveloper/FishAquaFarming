@@ -485,35 +485,32 @@
     </div>
   </section>
   <!-- Stats Section -->
-  <section class="py-section-padding relative z-10 bg-surface-container-lowest overflow-hidden">
+  <section id="stats-section" class="py-6 sm:py-8 lg:py-10 relative z-10 bg-gradient-to-r from-[#061226] via-[#0a1e3b] to-[#061226] border-y border-water-glow/20 shadow-[inset_0_0_80px_rgba(0,204,255,0.07)] overflow-hidden">
     <div class="max-w-container-max mx-auto px-gutter">
-      <div class="grid grid-cols-2 lg:grid-cols-6 gap-8">
-        <div class="text-center">
-          <div class="font-stat-number text-5xl text-water-glow mb-2" data-count="20">20+</div>
-          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Years Experience
-          </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
+        <div class="glass-card p-3 sm:p-4 lg:p-4 rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div class="font-stat-number text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="20" data-suffix="+">20+</div>
+          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest leading-tight">Years Experience</div>
         </div>
-        <div class="text-center">
-          <div class="font-stat-number text-5xl text-water-glow mb-2" data-count="85">85+</div>
-          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Active Ponds</div>
+        <div class="glass-card p-3 sm:p-4 lg:p-4 rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div class="font-stat-number text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="85" data-suffix="+">85+</div>
+          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest leading-tight">Active Ponds</div>
         </div>
-        <div class="text-center">
-          <div class="font-stat-number text-5xl text-water-glow mb-2" data-count="60">60</div>
-          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Acres of Water
-          </div>
+        <div class="glass-card p-3 sm:p-4 lg:p-4 rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div class="font-stat-number text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="60" data-suffix="">60</div>
+          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest leading-tight">Acres of Water</div>
         </div>
-        <div class="text-center">
-          <div class="font-stat-number text-5xl text-water-glow mb-2" data-count="1">1M+</div>
-          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Annual Yield</div>
+        <div class="glass-card p-3 sm:p-4 lg:p-4 rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div class="font-stat-number text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="1" data-suffix="M+">1M+</div>
+          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest leading-tight">Annual Yield</div>
         </div>
-        <div class="text-center">
-          <div class="font-stat-number text-5xl text-water-glow mb-2" data-count="500">500+</div>
-          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Global Investors
-          </div>
+        <div class="glass-card p-3 sm:p-4 lg:p-4 rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div class="font-stat-number text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="500" data-suffix="+">500+</div>
+          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest leading-tight">Global Investors</div>
         </div>
-        <div class="text-center">
-          <div class="font-stat-number text-5xl text-water-glow mb-2" data-count="100">100%</div>
-          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Compliance</div>
+        <div class="glass-card p-3 sm:p-4 lg:p-4 rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div class="font-stat-number text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="100" data-suffix="%">100%</div>
+          <div class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest leading-tight">Compliance</div>
         </div>
       </div>
     </div>
@@ -2469,8 +2466,15 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
         }
 
         mainGroup.rotation.y = Math.sin(time * 0.6) * 0.15;
-        mainGroup.position.y = targetY + Math.sin(time * 0.9) * 0.3;
-        mainGroup.position.x = targetX;
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) {
+          // On mobile screens, position 3D model elevated in upper section of viewport
+          mainGroup.position.x = 0;
+          mainGroup.position.y = 2.2 + Math.sin(time * 0.9) * 0.2;
+        } else {
+          mainGroup.position.x = targetX;
+          mainGroup.position.y = targetY + Math.sin(time * 0.9) * 0.3;
+        }
 
         // Calculate active and next narrative indices for linear cross-fade
         const activeIdx1 = idx1;
@@ -2482,9 +2486,9 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
           let modelOpacity = 0;
           if (scrollPos > 1.05) {
             modelOpacity = 0; // Completely hide all models when scrolled past lifecycle track
-          } else if (scrollPos > 0.95) {
-            // Smoothly fade out Phase 8 model as user scrolls past Phase 8
-            const exitRatio = Math.min(1.0, (scrollPos - 0.95) / 0.1);
+          } else if (scrollPos > 0.98) {
+            // Smoothly fade out Phase 8 model right as next section enters from bottom
+            const exitRatio = Math.min(1.0, (scrollPos - 0.98) / 0.07);
             if (i === 7) modelOpacity = 1.0 - exitRatio;
           } else if (i === activeIdx1) {
             modelOpacity = activeIdx1 === activeIdx2 ? 1.0 : (1.0 - fadeRatio);
@@ -2531,7 +2535,19 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
 
           if (modelOpacity > 0.005) {
             s.mesh.visible = true;
-            s.mesh.scale.setScalar(s.scale || 1.65);
+            
+            // Calculate responsive scale factor for small screens / mobile viewports
+            let responsiveScale = s.scale || 1.65;
+            if (isMobile) {
+              const mobileScaleFactor = Math.min(1.0, window.innerWidth / 480);
+              if (i === 7) {
+                // Phase 8 logistics truck model: scale down based on screen width
+                responsiveScale = (s.scale || 2.2) * 0.55 * mobileScaleFactor;
+              } else {
+                responsiveScale = responsiveScale * 0.8 * mobileScaleFactor;
+              }
+            }
+            s.mesh.scale.setScalar(responsiveScale);
             s.mesh.rotation.y = time * 0.9;
 
             // Tail wiggle for current active fish stage

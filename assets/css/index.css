@@ -89,8 +89,14 @@ body {
 
 #lifecycle-track {
   position: relative;
-  height: 600vh;
+  height: 420vh;
   width: 100%;
+}
+
+@media (max-width: 767px) {
+  #lifecycle-track {
+    height: 380vh;
+  }
 }
 
 #lifecycle-track .sticky-container {
@@ -111,6 +117,21 @@ body {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+}
+
+@media (max-width: 767px) {
+  .narrative-overlay {
+    justify-content: center !important;
+    align-items: flex-end !important;
+    padding-bottom: clamp(4rem, 14vh, 7rem) !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .content-card {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
 }
 
 .content-card {
