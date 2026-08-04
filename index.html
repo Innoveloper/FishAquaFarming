@@ -173,8 +173,10 @@
       user-select: none !important;
       background: transparent !important;
       pointer-events: auto !important;
-      display: none; /* Controlled dynamically by JS */
+      display: none;
+      /* Controlled dynamically by JS */
     }
+
     #global-scrollbar-track::before {
       content: '' !important;
       position: absolute !important;
@@ -187,9 +189,11 @@
       border-radius: 9999px !important;
       transition: background 0.3s ease !important;
     }
+
     #global-scrollbar-track:hover::before {
       background: rgba(0, 204, 255, 0.4) !important;
     }
+
     #global-scrollbar-thumb {
       position: absolute !important;
       left: 50% !important;
@@ -202,10 +206,12 @@
       pointer-events: auto !important;
       transition: width 0.2s ease, background 0.3s ease, box-shadow 0.3s ease !important;
     }
+
     #global-scrollbar-thumb:active,
     #global-scrollbar-thumb.dragging {
       cursor: grabbing !important;
     }
+
     #global-scrollbar-track:hover #global-scrollbar-thumb,
     #global-scrollbar-thumb.dragging {
       width: 10px !important;
@@ -223,23 +229,30 @@
   <div id="custom-cursor-ring"></div>
 
   <!-- Interactive Loading Screen (Animated 3D Fish Egg GLB with CSS Fallback) -->
-  <div id="loading-screen" class="fixed inset-0 bg-[#0a0a1a] z-[9999] flex flex-col items-center justify-center transition-all duration-700 ease-out">
+  <div id="loading-screen"
+    class="fixed inset-0 bg-[#0a0a1a] z-[9999] flex flex-col items-center justify-center transition-all duration-700 ease-out">
     <div class="relative flex items-center justify-center mb-6">
       <!-- Outer ripple waves -->
       <div class="absolute w-40 h-40 border border-water-glow/20 rounded-full animate-ping duration-[3s]"></div>
       <div class="absolute w-32 h-32 border border-water-glow/30 rounded-full animate-pulse duration-[1.5s]"></div>
-      
+
       <!-- CSS Fallback Fish Egg (Luminous glass orb with inner seed) -->
-      <div id="loader-fallback-orb" class="w-16 h-16 rounded-full bg-gradient-to-tr from-water-glow/20 via-water-glow/50 to-white/40 border border-water-glow/60 shadow-[0_0_30px_rgba(0,204,255,0.6)] flex items-center justify-center relative overflow-hidden group transition-opacity duration-500">
-        <div class="w-6 h-8 bg-water-glow rounded-full blur-[1px] shadow-[0_0_15px_#00CCFF] animate-pulse duration-1000"></div>
+      <div id="loader-fallback-orb"
+        class="w-16 h-16 rounded-full bg-gradient-to-tr from-water-glow/20 via-water-glow/50 to-white/40 border border-water-glow/60 shadow-[0_0_30px_rgba(0,204,255,0.6)] flex items-center justify-center relative overflow-hidden group transition-opacity duration-500">
+        <div
+          class="w-6 h-8 bg-water-glow rounded-full blur-[1px] shadow-[0_0_15px_#00CCFF] animate-pulse duration-1000">
+        </div>
         <div class="absolute top-1 left-2 w-4 h-2 bg-white/50 rounded-full transform rotate-[-30deg]"></div>
       </div>
 
       <!-- 3D egg GLB canvas container -->
-      <div id="loader-egg-container" class="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none"></div>
+      <div id="loader-egg-container"
+        class="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none"></div>
     </div>
-    <h3 class="font-headline-md text-xl font-bold tracking-widest text-water-glow uppercase mb-2 font-label-caps">Oceanic Abundance</h3>
-    <p id="loading-subtext" class="text-xs text-on-surface-variant font-label-caps tracking-wider mb-6 animate-pulse">Initializing biosecure telemetry...</p>
+    <h3 class="font-headline-md text-xl font-bold tracking-widest text-water-glow uppercase mb-2 font-label-caps">
+      Oceanic Abundance</h3>
+    <p id="loading-subtext" class="text-xs text-on-surface-variant font-label-caps tracking-wider mb-6 animate-pulse">
+      Initializing biosecure telemetry...</p>
     <div class="w-48 h-1 bg-white/10 rounded-full overflow-hidden mb-2">
       <div id="loading-bar-fill" class="h-full bg-water-glow w-0 transition-all duration-100 ease-out"></div>
     </div>
@@ -256,18 +269,25 @@
       <!-- Logo (start-center aligned) -->
       <div class="flex items-center">
         <a href="#" class="flex items-center gap-2 group pointer-events-auto leading-none">
-          <img src="assets/image/logo.png" alt="Fish Aqua Farming Logo" class="h-7 sm:h-8 lg:h-9 w-auto object-contain flex-shrink-0 group-hover:scale-105 transition-transform" />
-          <span class="logo-text font-headline-md text-base sm:text-xl lg:text-2xl font-bold text-ocean-white group-hover:text-water-glow transition-all tracking-tight whitespace-nowrap leading-none">Fish Aqua Farming</span>
+          <img src="assets/image/logo.png" alt="Fish Aqua Farming Logo"
+            class="h-7 sm:h-8 lg:h-9 w-auto object-contain flex-shrink-0 group-hover:scale-105 transition-transform" />
+          <span
+            class="logo-text font-headline-md text-base sm:text-xl lg:text-2xl font-bold text-ocean-white group-hover:text-water-glow transition-all tracking-tight whitespace-nowrap leading-none">Fish
+            Aqua Farming</span>
         </a>
       </div>
       <div class="hidden lg:flex gap-8 items-center">
-        <a id="nav-lifecycle" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+        <a id="nav-lifecycle"
+          class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
           href="#lifecycle-track">Lifecycle</a>
-        <a id="nav-species" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+        <a id="nav-species"
+          class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
           href="#portfolio">Species</a>
-        <a id="nav-advantage" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+        <a id="nav-advantage"
+          class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
           href="#advantage">Advantage</a>
-        <a id="nav-investment" class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+        <a id="nav-investment"
+          class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
           href="#investment">Investment</a>
       </div>
       <div class="flex items-center gap-3">
@@ -276,7 +296,8 @@
           Consultation
         </button>
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="flex lg:hidden w-8 h-8 border border-glass-border/60 rounded-full items-center justify-center text-ocean-white hover:text-water-glow hover:border-water-glow/50 transition-all focus:outline-none pointer-events-auto">
+        <button id="mobile-menu-btn"
+          class="flex lg:hidden w-8 h-8 border border-glass-border/60 rounded-full items-center justify-center text-ocean-white hover:text-water-glow hover:border-water-glow/50 transition-all focus:outline-none pointer-events-auto">
           <span class="material-symbols-outlined text-lg" id="mobile-menu-icon">menu</span>
         </button>
       </div>
@@ -284,12 +305,17 @@
   </nav>
 
   <!-- Mobile Navigation Drawer -->
-  <div id="mobile-nav-panel" class="fixed inset-0 z-40 bg-surface-container-lowest/98 backdrop-blur-3xl transition-all duration-500 ease-in-out transform -translate-y-full flex flex-col justify-center px-8 md:hidden opacity-0 pointer-events-none">
+  <div id="mobile-nav-panel"
+    class="fixed inset-0 z-40 bg-surface-container-lowest/98 backdrop-blur-3xl transition-all duration-500 ease-in-out transform -translate-y-full flex flex-col justify-center px-8 md:hidden opacity-0 pointer-events-none">
     <div class="flex flex-col gap-8 text-center">
-      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#lifecycle-track">Lifecycle</a>
-      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#portfolio">Species</a>
-      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#advantage">Advantage</a>
-      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors" href="#investment">Investment</a>
+      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
+        href="#lifecycle-track">Lifecycle</a>
+      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
+        href="#portfolio">Species</a>
+      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
+        href="#advantage">Advantage</a>
+      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
+        href="#investment">Investment</a>
       <button onclick="document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })"
         class="bg-water-glow text-surface-container-lowest px-8 py-3 rounded-full font-label-caps text-label-caps font-bold hover:scale-105 transition-transform self-center mt-6 shadow-[0_0_20px_rgba(0,204,255,0.3)]">
         Book Consultation
@@ -300,13 +326,15 @@
   <main>
     <div id="lifecycle-track">
       <div class="sticky-container w-full flex items-center justify-center">
-        <div class="relative w-full h-full max-w-container-max mx-auto px-gutter flex items-center justify-center pointer-events-none">
-          
+        <div
+          class="relative w-full h-full max-w-container-max mx-auto px-gutter flex items-center justify-center pointer-events-none">
+
           <div class="narrative-overlay justify-start pl-[12%]" id="narrative-1" style="display: none; opacity: 0;">
             <div class="content-card text-left">
               <div class="watermark-num">01</div>
               <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 01</p>
-              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">1. Seed Selection</h2>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">1. Seed Selection
+              </h2>
               <div class="flex gap-3 mb-6">
                 <span class="tech-chip">
                   <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
@@ -314,7 +342,8 @@
                 </span>
                 <span class="tech-chip tech-chip-secondary">VIABILITY: &gt;96%</span>
               </div>
-              <p class="font-body-lg text-on-surface-variant leading-relaxed">Every successful harvest starts from a single healthy seed.</p>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Every successful harvest starts from a
+                single healthy seed.</p>
             </div>
           </div>
 
@@ -322,7 +351,8 @@
             <div class="content-card text-left">
               <div class="watermark-num">02</div>
               <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 02</p>
-              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">2. Hatchery Incubation</h2>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">2. Hatchery
+                Incubation</h2>
               <div class="flex gap-3 mb-6">
                 <span class="tech-chip">
                   <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
@@ -330,7 +360,8 @@
                 </span>
                 <span class="tech-chip tech-chip-secondary">OXYGEN: 6.8 mg/L</span>
               </div>
-              <p class="font-body-lg text-on-surface-variant leading-relaxed">Precision environments for the first signs of life.</p>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Precision environments for the first signs
+                of life.</p>
             </div>
           </div>
 
@@ -346,7 +377,8 @@
                 </span>
                 <span class="tech-chip tech-chip-secondary">FEED: Micro-plankton</span>
               </div>
-              <p class="font-body-lg text-on-surface-variant leading-relaxed">Vibrant baby fish begin their journey in pure water.</p>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Vibrant baby fish begin their journey in
+                pure water.</p>
             </div>
           </div>
 
@@ -354,7 +386,8 @@
             <div class="content-card text-left">
               <div class="watermark-num">04</div>
               <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 04</p>
-              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">4. Juvenile Development</h2>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">4. Juvenile
+                Development</h2>
               <div class="flex gap-3 mb-6">
                 <span class="tech-chip">
                   <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
@@ -362,7 +395,8 @@
                 </span>
                 <span class="tech-chip tech-chip-secondary">STOCK DENSITY: 120/m³</span>
               </div>
-              <p class="font-body-lg text-on-surface-variant leading-relaxed">Nurturing strength through scientific feeding protocols.</p>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Nurturing strength through scientific
+                feeding protocols.</p>
             </div>
           </div>
 
@@ -378,7 +412,8 @@
                 </span>
                 <span class="tech-chip tech-chip-secondary">BIO-MASS: +14%/wk</span>
               </div>
-              <p class="font-body-lg text-on-surface-variant leading-relaxed">Continuous monitoring ensures optimal biological health.</p>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Continuous monitoring ensures optimal
+                biological health.</p>
             </div>
           </div>
 
@@ -394,7 +429,8 @@
                 </span>
                 <span class="tech-chip tech-chip-secondary">FCR: 1.15</span>
               </div>
-              <p class="font-body-lg text-on-surface-variant leading-relaxed">Reaching the peak characteristics of premium species.</p>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Reaching the peak characteristics of
+                premium species.</p>
             </div>
           </div>
 
@@ -402,7 +438,8 @@
             <div class="content-card text-left">
               <div class="watermark-num">07</div>
               <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 07</p>
-              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">7. Premium Harvest</h2>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">7. Premium Harvest
+              </h2>
               <div class="flex gap-3 mb-6">
                 <span class="tech-chip">
                   <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
@@ -410,7 +447,8 @@
                 </span>
                 <span class="tech-chip tech-chip-secondary">FAT CONTENT: 3.8%</span>
               </div>
-              <p class="font-body-lg text-on-surface-variant leading-relaxed">Ready for the world's most sophisticated markets.</p>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Ready for the world's most sophisticated
+                markets.</p>
             </div>
           </div>
 
@@ -418,7 +456,8 @@
             <div class="content-card text-left">
               <div class="watermark-num">08</div>
               <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 08</p>
-              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">8. Global Logistics</h2>
+              <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">8. Global Logistics
+              </h2>
               <div class="flex gap-3 mb-6">
                 <span class="tech-chip">
                   <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
@@ -426,7 +465,8 @@
                 </span>
                 <span class="tech-chip tech-chip-secondary">TEMP LOCK: -2°C</span>
               </div>
-              <p class="font-body-lg text-on-surface-variant leading-relaxed">Finally delivering market-ready premium fish via our elite network.</p>
+              <p class="font-body-lg text-on-surface-variant leading-relaxed">Finally delivering market-ready premium
+                fish via our elite network.</p>
             </div>
           </div>
 
@@ -435,80 +475,131 @@
     </div>
   </main>
   <!-- Trust & Authority Section -->
-  <section class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 bg-surface/80 backdrop-blur-md overflow-hidden" id="authority">
-    <div class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+  <section
+    class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 bg-surface/80 backdrop-blur-md overflow-hidden"
+    id="authority">
+    <div
+      class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
       <div>
-        <p class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">Proven Legacy</p>
-        <h2 class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-6 lg:mb-8 leading-tight tracking-tight">India’s Trusted Fish Farming Authority</h2>
-        <p class="font-body-lg text-xs min-[360px]:text-sm sm:text-base lg:text-lg text-on-surface-variant mb-6 sm:mb-8 lg:mb-10 leading-relaxed">We bridge the gap between traditional aquaculture and
+        <p
+          class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">
+          Proven Legacy</p>
+        <h2
+          class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-6 lg:mb-8 leading-tight tracking-tight">
+          India’s Trusted Fish Farming Authority</h2>
+        <p
+          class="font-body-lg text-xs min-[360px]:text-sm sm:text-base lg:text-lg text-on-surface-variant mb-6 sm:mb-8 lg:mb-10 leading-relaxed">
+          We bridge the gap between traditional aquaculture and
           modern scientific precision, offering a transparent gateway for high-value investment.</p>
         <ul class="space-y-4 sm:space-y-6">
           <li class="flex items-start gap-2.5 sm:gap-4">
-            <span class="material-symbols-outlined text-water-glow bg-water-glow/10 rounded-full w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 text-base min-[360px]:text-lg sm:text-xl">verified</span>
+            <span
+              class="material-symbols-outlined text-water-glow bg-water-glow/10 rounded-full w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 text-base min-[360px]:text-lg sm:text-xl">verified</span>
             <div>
               <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg">20+ Years Excellence</h4>
-              <p class="text-[11px] min-[360px]:text-xs sm:text-sm text-on-surface-variant leading-normal">A legacy of proven yield and operational stability.</p>
+              <p class="text-[11px] min-[360px]:text-xs sm:text-sm text-on-surface-variant leading-normal">A legacy of
+                proven yield and operational stability.</p>
             </div>
           </li>
           <li class="flex items-start gap-2.5 sm:gap-4">
-            <span class="material-symbols-outlined text-water-glow bg-water-glow/10 rounded-full w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 text-base min-[360px]:text-lg sm:text-xl">gavel</span>
+            <span
+              class="material-symbols-outlined text-water-glow bg-water-glow/10 rounded-full w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 text-base min-[360px]:text-lg sm:text-xl">gavel</span>
             <div>
               <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg">Fully Compliant</h4>
-              <p class="text-[11px] min-[360px]:text-xs sm:text-sm text-on-surface-variant leading-normal">Government registered with 100% regulatory transparency.</p>
+              <p class="text-[11px] min-[360px]:text-xs sm:text-sm text-on-surface-variant leading-normal">Government
+                registered with 100% regulatory transparency.</p>
             </div>
           </li>
           <li class="flex items-start gap-2.5 sm:gap-4">
-            <span class="material-symbols-outlined text-water-glow bg-water-glow/10 rounded-full w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 text-base min-[360px]:text-lg sm:text-xl">eco</span>
+            <span
+              class="material-symbols-outlined text-water-glow bg-water-glow/10 rounded-full w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 text-base min-[360px]:text-lg sm:text-xl">eco</span>
             <div>
               <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg">Eco-friendly Practices</h4>
-              <p class="text-[11px] min-[360px]:text-xs sm:text-sm text-on-surface-variant leading-normal">Natural farming methods combined with 24/7 scientific monitoring.</p>
+              <p class="text-[11px] min-[360px]:text-xs sm:text-sm text-on-surface-variant leading-normal">Natural
+                farming methods combined with 24/7 scientific monitoring.</p>
             </div>
           </li>
         </ul>
       </div>
-      <div class="glass-card p-3 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl sm:rounded-3xl lg:rounded-[2rem] border border-white/10 relative overflow-hidden">
-        <img class="w-full h-44 min-[360px]:h-56 sm:h-72 md:h-80 lg:h-96 object-cover rounded-lg min-[360px]:rounded-xl lg:rounded-2xl mb-4 sm:mb-6 border border-white/10"
+      <div
+        class="glass-card p-3 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl sm:rounded-3xl lg:rounded-[2rem] border border-white/10 relative overflow-hidden">
+        <img
+          class="w-full h-44 min-[360px]:h-56 sm:h-72 md:h-80 lg:h-96 object-cover rounded-lg min-[360px]:rounded-xl lg:rounded-2xl mb-4 sm:mb-6 border border-white/10"
           alt="Cinematic water quality testing & high-tech aquaculture diagnostics facility"
           src="assets/image/realtime_diagnostics.jpg" />
         <div class="flex items-center gap-2.5 min-[360px]:gap-3 sm:gap-4">
-          <div class="w-9 h-9 min-[360px]:w-10 min-[360px]:h-10 sm:w-12 sm:h-12 rounded-full bg-water-glow flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-surface-container-lowest text-base min-[360px]:text-lg sm:text-xl">biotech</span>
+          <div
+            class="w-9 h-9 min-[360px]:w-10 min-[360px]:h-10 sm:w-12 sm:h-12 rounded-full bg-water-glow flex items-center justify-center shrink-0">
+            <span
+              class="material-symbols-outlined text-surface-container-lowest text-base min-[360px]:text-lg sm:text-xl">biotech</span>
           </div>
           <div>
             <p class="font-bold text-xs min-[360px]:text-sm sm:text-base">Real-time Diagnostics</p>
-            <p class="text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant font-label-caps">Scientific Water Testing Protocol</p>
+            <p class="text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant font-label-caps">Scientific
+              Water Testing Protocol</p>
           </div>
         </div>
       </div>
     </div>
   </section>
   <!-- Stats Section -->
-  <section id="stats-section" class="py-6 sm:py-8 lg:py-12 relative z-10 bg-gradient-to-r from-[#061226] via-[#0a1e3b] to-[#061226] border-y border-water-glow/20 shadow-[inset_0_0_80px_rgba(0,204,255,0.07)] overflow-hidden">
+  <section id="stats-section"
+    class="py-6 sm:py-8 lg:py-12 relative z-10 bg-gradient-to-r from-[#061226] via-[#0a1e3b] to-[#061226] border-y border-water-glow/20 shadow-[inset_0_0_80px_rgba(0,204,255,0.07)] overflow-hidden">
     <div class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter">
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 min-[360px]:gap-3 sm:gap-4 lg:gap-5">
-        <div class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
-          <div class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="20" data-suffix="+">20+</div>
-          <div class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">Years Experience</div>
+        <div
+          class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div
+            class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform"
+            data-count="20" data-suffix="+">20+</div>
+          <div
+            class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">
+            Years Experience</div>
         </div>
-        <div class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
-          <div class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="85" data-suffix="+">85+</div>
-          <div class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">Active Ponds</div>
+        <div
+          class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div
+            class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform"
+            data-count="85" data-suffix="+">85+</div>
+          <div
+            class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">
+            Active Ponds</div>
         </div>
-        <div class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
-          <div class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="60" data-suffix="">60</div>
-          <div class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">Acres of Water</div>
+        <div
+          class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div
+            class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform"
+            data-count="60" data-suffix="">60</div>
+          <div
+            class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">
+            Acres of Water</div>
         </div>
-        <div class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
-          <div class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="1" data-suffix="M+">1M+</div>
-          <div class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">Annual Yield</div>
+        <div
+          class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div
+            class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform"
+            data-count="1" data-suffix="M+">1M+</div>
+          <div
+            class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">
+            Annual Yield</div>
         </div>
-        <div class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
-          <div class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="500" data-suffix="+">500+</div>
-          <div class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">Global Investors</div>
+        <div
+          class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div
+            class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform"
+            data-count="500" data-suffix="+">500+</div>
+          <div
+            class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">
+            Global Investors</div>
         </div>
-        <div class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
-          <div class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform" data-count="100" data-suffix="%">100%</div>
-          <div class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">Compliance</div>
+        <div
+          class="glass-card p-2.5 min-[360px]:p-3 sm:p-4 lg:p-4 rounded-xl min-[360px]:rounded-2xl text-center border border-white/10 hover:border-water-glow/40 transition-all duration-300 group">
+          <div
+            class="font-stat-number text-xl min-[340px]:text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-4xl xl:text-5xl text-water-glow mb-1 group-hover:scale-105 transition-transform"
+            data-count="100" data-suffix="%">100%</div>
+          <div
+            class="font-label-caps text-[9px] min-[360px]:text-[10px] sm:text-xs text-on-surface-variant uppercase tracking-wider min-[360px]:tracking-widest leading-tight">
+            Compliance</div>
         </div>
       </div>
     </div>
@@ -517,8 +608,12 @@
   <section class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 overflow-hidden" id="infrastructure">
     <div class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter">
       <div class="text-center mb-8 sm:mb-12 lg:mb-16">
-        <p class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">The Facility</p>
-        <h2 class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight">Elite Farm Infrastructure</h2>
+        <p
+          class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">
+          The Facility</p>
+        <h2
+          class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight">
+          Elite Farm Infrastructure</h2>
       </div>
 
       <div
@@ -529,7 +624,8 @@
           <button
             class="w-12 h-12 min-[360px]:w-14 min-[360px]:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-water-glow/90 flex items-center justify-center text-surface-container-lowest hover:scale-110 transition-transform shadow-[0_0_25px_rgba(0,204,255,0.5)] sm:shadow-[0_0_50px_rgba(0,204,255,0.6)] group"
             id="facility-video-btn">
-            <span class="material-symbols-outlined text-xl min-[360px]:text-2xl sm:text-3xl md:text-4xl fill-1 text-surface-container-lowest"
+            <span
+              class="material-symbols-outlined text-xl min-[360px]:text-2xl sm:text-3xl md:text-4xl fill-1 text-surface-container-lowest"
               id="facility-video-icon">play_arrow</span>
           </button>
         </div>
@@ -543,29 +639,45 @@
 
       <!-- Feature Pills below video -->
       <div class="mt-4 sm:mt-6 lg:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4 md:gap-6">
-        <div class="flex items-center gap-2.5 sm:gap-3 glass-card px-3 py-2.5 min-[360px]:px-4 min-[360px]:py-3 sm:px-5 sm:py-4 rounded-xl min-[360px]:rounded-2xl border border-white/10 hover:border-water-glow/30 transition-all">
+        <div
+          class="flex items-center gap-2.5 sm:gap-3 glass-card px-3 py-2.5 min-[360px]:px-4 min-[360px]:py-3 sm:px-5 sm:py-4 rounded-xl min-[360px]:rounded-2xl border border-white/10 hover:border-water-glow/30 transition-all">
           <span class="material-symbols-outlined text-water-glow text-base sm:text-xl shrink-0">air</span>
-          <span class="text-[10px] min-[360px]:text-xs sm:text-sm font-label-caps uppercase tracking-wider">Advanced Aeration Systems</span>
+          <span class="text-[10px] min-[360px]:text-xs sm:text-sm font-label-caps uppercase tracking-wider">Advanced
+            Aeration Systems</span>
         </div>
-        <div class="flex items-center gap-2.5 sm:gap-3 glass-card px-3 py-2.5 min-[360px]:px-4 min-[360px]:py-3 sm:px-5 sm:py-4 rounded-xl min-[360px]:rounded-2xl border border-white/10 hover:border-water-glow/30 transition-all">
+        <div
+          class="flex items-center gap-2.5 sm:gap-3 glass-card px-3 py-2.5 min-[360px]:px-4 min-[360px]:py-3 sm:px-5 sm:py-4 rounded-xl min-[360px]:rounded-2xl border border-white/10 hover:border-water-glow/30 transition-all">
           <span class="material-symbols-outlined text-water-glow text-base sm:text-xl shrink-0">monitoring</span>
-          <span class="text-[10px] min-[360px]:text-xs sm:text-sm font-label-caps uppercase tracking-wider">24/7 Water Diagnostics</span>
+          <span class="text-[10px] min-[360px]:text-xs sm:text-sm font-label-caps uppercase tracking-wider">24/7 Water
+            Diagnostics</span>
         </div>
-        <div class="flex items-center gap-2.5 sm:gap-3 glass-card px-3 py-2.5 min-[360px]:px-4 min-[360px]:py-3 sm:px-5 sm:py-4 rounded-xl min-[360px]:rounded-2xl border border-white/10 hover:border-water-glow/30 transition-all">
-          <span class="material-symbols-outlined text-water-glow text-base sm:text-xl shrink-0">precision_manufacturing</span>
-          <span class="text-[10px] min-[360px]:text-xs sm:text-sm font-label-caps uppercase tracking-wider">Automated Scientific Feeding</span>
+        <div
+          class="flex items-center gap-2.5 sm:gap-3 glass-card px-3 py-2.5 min-[360px]:px-4 min-[360px]:py-3 sm:px-5 sm:py-4 rounded-xl min-[360px]:rounded-2xl border border-white/10 hover:border-water-glow/30 transition-all">
+          <span
+            class="material-symbols-outlined text-water-glow text-base sm:text-xl shrink-0">precision_manufacturing</span>
+          <span class="text-[10px] min-[360px]:text-xs sm:text-sm font-label-caps uppercase tracking-wider">Automated
+            Scientific Feeding</span>
         </div>
       </div>
     </div>
   </section>
   <!-- Species Portfolio -->
-  <section class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 bg-surface-container-lowest overflow-hidden" id="portfolio">
+  <section
+    class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 bg-surface-container-lowest overflow-hidden"
+    id="portfolio">
     <div class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 sm:mb-12 lg:mb-16 gap-6 sm:gap-8">
+      <div
+        class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 sm:mb-12 lg:mb-16 gap-6 sm:gap-8">
         <div class="max-w-2xl">
-          <p class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">Core Operations</p>
-          <h2 class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4 tracking-tight">Cultivating Premium Species</h2>
-          <p class="text-xs min-[360px]:text-sm sm:text-base lg:text-lg text-on-surface-variant font-body-lg leading-relaxed">We focus on high-demand, biologically robust species optimized
+          <p
+            class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">
+            Core Operations</p>
+          <h2
+            class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4 tracking-tight">
+            Cultivating Premium Species</h2>
+          <p
+            class="text-xs min-[360px]:text-sm sm:text-base lg:text-lg text-on-surface-variant font-body-lg leading-relaxed">
+            We focus on high-demand, biologically robust species optimized
             for peak market profitability.</p>
         </div>
         <div class="flex gap-3 sm:gap-4 shrink-0">
@@ -586,10 +698,12 @@
           width: 0 !important;
           height: 0 !important;
         }
+
         #species-carousel-track {
           -ms-overflow-style: none !important;
           scrollbar-width: none !important;
         }
+
         #species-scrollbar-track {
           background: transparent !important;
           border: none !important;
@@ -598,6 +712,7 @@
           position: relative !important;
           overflow: visible !important;
         }
+
         #species-scrollbar-track::before {
           content: '' !important;
           position: absolute !important;
@@ -610,9 +725,11 @@
           border-radius: 9999px !important;
           transition: background 0.3s ease !important;
         }
+
         #species-scrollbar-track:hover::before {
           background: rgba(0, 204, 255, 0.35) !important;
         }
+
         #species-scrollbar-thumb {
           position: absolute !important;
           top: 50% !important;
@@ -623,6 +740,7 @@
           box-shadow: 0 0 10px rgba(0, 204, 255, 0.4) !important;
           transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease, opacity 0.2s ease !important;
         }
+
         #species-scrollbar-track:hover #species-scrollbar-thumb,
         #species-scrollbar-thumb.dragging {
           background: linear-gradient(90deg, rgba(0, 204, 255, 0.8), rgba(0, 204, 255, 1)) !important;
@@ -631,7 +749,8 @@
         }
       </style>
 
-      <div id="species-carousel-track" class="flex gap-3 min-[360px]:gap-4 sm:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6">
+      <div id="species-carousel-track"
+        class="flex gap-3 min-[360px]:gap-4 sm:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6">
         <!-- Species 1: Rohu -->
         <div
           class="glass-card w-[250px] min-[360px]:w-[280px] sm:w-[310px] flex-shrink-0 rounded-xl min-[360px]:rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
@@ -973,7 +1092,9 @@
       <!-- Custom Glass Scrollbar HTML -->
       <div class="max-w-xs mx-auto mt-8 px-4">
         <div id="species-scrollbar-track" class="w-full rounded-full relative overflow-hidden cursor-pointer">
-          <div id="species-scrollbar-thumb" class="absolute top-0 left-0 h-full bg-gradient-to-r from-water-glow/60 to-water-glow w-1/5 rounded-full shadow-[0_0_10px_rgba(0,204,255,0.6)] transition-all duration-75"></div>
+          <div id="species-scrollbar-thumb"
+            class="absolute top-0 left-0 h-full bg-gradient-to-r from-water-glow/60 to-water-glow w-1/5 rounded-full shadow-[0_0_10px_rgba(0,204,255,0.6)] transition-all duration-75">
+          </div>
         </div>
       </div>
     </div>
@@ -983,43 +1104,62 @@
     <div class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter">
       <div class="flex flex-col lg:flex-row gap-8 sm:gap-12 lg:gap-16">
         <div class="lg:w-1/3">
-          <p class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">Why Choose Us</p>
-          <h2 class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-6 lg:mb-8 leading-tight tracking-tight">The Scientific Edge</h2>
-          <p class="font-body-lg text-xs min-[360px]:text-sm sm:text-base lg:text-lg text-on-surface-variant mb-6 sm:mb-8 leading-relaxed">Our advantage lies in the perfect synchronization of
+          <p
+            class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">
+            Why Choose Us</p>
+          <h2
+            class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-6 lg:mb-8 leading-tight tracking-tight">
+            The Scientific Edge</h2>
+          <p
+            class="font-body-lg text-xs min-[360px]:text-sm sm:text-base lg:text-lg text-on-surface-variant mb-6 sm:mb-8 leading-relaxed">
+            Our advantage lies in the perfect synchronization of
             nature and technology. We don't just farm; we engineer abundance.</p>
-          <div class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl border-l-4 border-l-water-glow">
-            <p class="italic text-xs min-[360px]:text-sm sm:text-base text-on-surface leading-relaxed">"Fish Aqua Farming represents the gold standard in operational
+          <div
+            class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl border-l-4 border-l-water-glow">
+            <p class="italic text-xs min-[360px]:text-sm sm:text-base text-on-surface leading-relaxed">"Fish Aqua
+              Farming represents the gold standard in operational
               transparency. Every metric is backed by data, ensuring absolute peace of mind for our partners."</p>
-            <div class="mt-3 sm:mt-4 font-label-caps text-[10px] min-[360px]:text-xs text-water-glow">— Chief Biological Officer</div>
+            <div class="mt-3 sm:mt-4 font-label-caps text-[10px] min-[360px]:text-xs text-water-glow">— Chief Biological
+              Officer</div>
           </div>
         </div>
         <div class="lg:w-2/3 grid grid-cols-1 min-[500px]:grid-cols-2 gap-3 min-[360px]:gap-4 sm:gap-6">
-          <div class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl hover:border-water-glow/50 transition-all group">
+          <div
+            class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl hover:border-water-glow/50 transition-all group">
             <span
               class="material-symbols-outlined text-2xl min-[360px]:text-3xl sm:text-4xl text-water-glow mb-2.5 sm:mb-4 group-hover:scale-110 transition-transform">biotech</span>
-            <h4 class="font-bold text-base min-[360px]:text-lg sm:text-xl mb-1.5 sm:mb-2">Genetically Superior Seeds</h4>
-            <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">We source only the highest-grade parent stock for maximum growth
+            <h4 class="font-bold text-base min-[360px]:text-lg sm:text-xl mb-1.5 sm:mb-2">Genetically Superior Seeds
+            </h4>
+            <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">We source only the
+              highest-grade parent stock for maximum growth
               potential and disease resistance.</p>
           </div>
-          <div class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl hover:border-water-glow/50 transition-all group">
+          <div
+            class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl hover:border-water-glow/50 transition-all group">
             <span
               class="material-symbols-outlined text-2xl min-[360px]:text-3xl sm:text-4xl text-water-glow mb-2.5 sm:mb-4 group-hover:scale-110 transition-transform">medical_services</span>
-            <h4 class="font-bold text-base min-[360px]:text-lg sm:text-xl mb-1.5 sm:mb-2">Scientific Feeding Protocols</h4>
-            <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Custom-formulated nutrition plans tailored to each species'
+            <h4 class="font-bold text-base min-[360px]:text-lg sm:text-xl mb-1.5 sm:mb-2">Scientific Feeding Protocols
+            </h4>
+            <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Custom-formulated nutrition
+              plans tailored to each species'
               specific developmental stage.</p>
           </div>
-          <div class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl hover:border-water-glow/50 transition-all group">
+          <div
+            class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl hover:border-water-glow/50 transition-all group">
             <span
               class="material-symbols-outlined text-2xl min-[360px]:text-3xl sm:text-4xl text-water-glow mb-2.5 sm:mb-4 group-hover:scale-110 transition-transform">water_drop</span>
             <h4 class="font-bold text-base min-[360px]:text-lg sm:text-xl mb-1.5 sm:mb-2">Daily Oxygen Testing</h4>
-            <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Continuous monitoring of water chemistry to maintain a perfect,
+            <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Continuous monitoring of
+              water chemistry to maintain a perfect,
               stress-free environment.</p>
           </div>
-          <div class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl hover:border-water-glow/50 transition-all group">
+          <div
+            class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl hover:border-water-glow/50 transition-all group">
             <span
               class="material-symbols-outlined text-2xl min-[360px]:text-3xl sm:text-4xl text-water-glow mb-2.5 sm:mb-4 group-hover:scale-110 transition-transform">visibility</span>
             <h4 class="font-bold text-base min-[360px]:text-lg sm:text-xl mb-1.5 sm:mb-2">Complete Transparency</h4>
-            <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Our partners receive daily updates and have 24/7 access to farm
+            <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Our partners receive daily
+              updates and have 24/7 access to farm
               operational data.</p>
           </div>
         </div>
@@ -1027,13 +1167,19 @@
     </div>
   </section>
   <!-- Investment Process -->
-  <section class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 bg-surface-container-lowest overflow-hidden" id="investment">
+  <section
+    class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 bg-surface-container-lowest overflow-hidden"
+    id="investment">
     <div class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter">
       <div class="text-center mb-10 sm:mb-16 lg:mb-24">
-        <p class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">Partnership Path</p>
-        <h2 class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight">Your Investment Journey</h2>
+        <p
+          class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">
+          Partnership Path</p>
+        <h2
+          class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight">
+          Your Investment Journey</h2>
       </div>
-       <div class="relative">
+      <div class="relative">
         <!-- Timeline Line -->
         <div
           class="absolute left-4 min-[360px]:left-6 md:left-1/2 top-[32px] bottom-[32px] sm:top-[48px] sm:bottom-[48px] w-[2px] bg-gradient-to-b from-water-glow via-water-glow/60 to-water-glow/15 md:-translate-x-1/2">
@@ -1042,9 +1188,12 @@
           <!-- Step 1 -->
           <div class="relative flex flex-col md:flex-row items-stretch md:items-center group">
             <div class="w-full md:w-1/2 pl-9 min-[360px]:pl-12 md:pl-0 md:pr-16 md:text-right mb-4 sm:mb-8 md:mb-0">
-              <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left md:text-right">
-                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">1. Initial Inquiry</h4>
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Connect with our executive investment team to initiate a professional relationship.</p>
+              <div
+                class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left md:text-right">
+                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">1. Initial
+                  Inquiry</h4>
+                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Connect with our
+                  executive investment team to initiate a professional relationship.</p>
               </div>
             </div>
             <div
@@ -1059,18 +1208,24 @@
               class="absolute left-4 min-[360px]:left-6 md:left-1/2 top-6 md:top-1/2 w-3 h-3 min-[360px]:w-4 min-[360px]:h-4 bg-water-glow rounded-full -translate-x-1/2 md:-translate-y-1/2 shadow-[0_0_15px_rgba(0,204,255,0.8)] z-10">
             </div>
             <div class="w-full md:w-1/2 pl-9 min-[360px]:pl-12 md:pl-16 mb-4 sm:mb-8 md:mb-0">
-              <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left">
-                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">2. Luxury Business Meeting</h4>
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Private consultation at premium venues (e.g., Taj Hotel) to discuss customized ROI and planning.</p>
+              <div
+                class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left">
+                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">2. Luxury
+                  Business Meeting</h4>
+                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Private consultation at
+                  premium venues (e.g., Taj Hotel) to discuss customized ROI and planning.</p>
               </div>
             </div>
           </div>
           <!-- Step 3 -->
           <div class="relative flex flex-col md:flex-row items-stretch md:items-center group">
             <div class="w-full md:w-1/2 pl-9 min-[360px]:pl-12 md:pl-0 md:pr-16 md:text-right mb-4 sm:mb-8 md:mb-0">
-              <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left md:text-right">
-                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">3. Farm Visit & Physical Inspection</h4>
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Experience our operations firsthand with a guided drone-assisted tour of our expansive farm sites and infrastructure.</p>
+              <div
+                class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left md:text-right">
+                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">3. Farm
+                  Visit & Physical Inspection</h4>
+                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Experience our operations
+                  firsthand with a guided drone-assisted tour of our expansive farm sites and infrastructure.</p>
               </div>
             </div>
             <div
@@ -1085,18 +1240,24 @@
               class="absolute left-4 min-[360px]:left-6 md:left-1/2 top-6 md:top-1/2 w-3 h-3 min-[360px]:w-4 min-[360px]:h-4 bg-water-glow rounded-full -translate-x-1/2 md:-translate-y-1/2 shadow-[0_0_15px_rgba(0,204,255,0.8)] z-10">
             </div>
             <div class="w-full md:w-1/2 pl-9 min-[360px]:pl-12 md:pl-16 mb-4 sm:mb-8 md:mb-0">
-              <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left">
-                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">4. Agreement Signing</h4>
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Formalizing all terms with complete legal transparency and executing mutual, binding agreements.</p>
+              <div
+                class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left">
+                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">4.
+                  Agreement Signing</h4>
+                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Formalizing all terms
+                  with complete legal transparency and executing mutual, binding agreements.</p>
               </div>
             </div>
           </div>
           <!-- Step 5 -->
           <div class="relative flex flex-col md:flex-row items-stretch md:items-center group">
             <div class="w-full md:w-1/2 pl-9 min-[360px]:pl-12 md:pl-0 md:pr-16 md:text-right mb-4 sm:mb-8 md:mb-0">
-              <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left md:text-right">
-                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">5. Government Documentation & Clearances</h4>
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Securing all necessary government permissions, environmental approvals, and licensing dossiers.</p>
+              <div
+                class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left md:text-right">
+                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">5.
+                  Government Documentation & Clearances</h4>
+                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Securing all necessary
+                  government permissions, environmental approvals, and licensing dossiers.</p>
               </div>
             </div>
             <div
@@ -1111,18 +1272,24 @@
               class="absolute left-4 min-[360px]:left-6 md:left-1/2 top-6 md:top-1/2 w-3 h-3 min-[360px]:w-4 min-[360px]:h-4 bg-water-glow rounded-full -translate-x-1/2 md:-translate-y-1/2 shadow-[0_0_15px_rgba(0,204,255,0.8)] z-10">
             </div>
             <div class="w-full md:w-1/2 pl-9 min-[360px]:pl-12 md:pl-16 mb-4 sm:mb-8 md:mb-0">
-              <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left">
-                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">6. Fish Seed Introduction</h4>
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Introducing high-grade, genetically superior fish seeds into carefully prepared biosecure nursery ponds.</p>
+              <div
+                class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left">
+                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">6. Fish
+                  Seed Introduction</h4>
+                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Introducing high-grade,
+                  genetically superior fish seeds into carefully prepared biosecure nursery ponds.</p>
               </div>
             </div>
           </div>
           <!-- Step 7 -->
           <div class="relative flex flex-col md:flex-row items-stretch md:items-center group">
             <div class="w-full md:w-1/2 pl-9 min-[360px]:pl-12 md:pl-0 md:pr-16 md:text-right mb-4 sm:mb-8 md:mb-0">
-              <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left md:text-right">
-                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">7. Daily Monitoring & Reporting</h4>
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Continuous scientific testing of water quality, automated feeding, and daily digital reporting.</p>
+              <div
+                class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left md:text-right">
+                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">7. Daily
+                  Monitoring & Reporting</h4>
+                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Continuous scientific
+                  testing of water quality, automated feeding, and daily digital reporting.</p>
               </div>
             </div>
             <div
@@ -1137,18 +1304,24 @@
               class="absolute left-4 min-[360px]:left-6 md:left-1/2 top-6 md:top-1/2 w-3 h-3 min-[360px]:w-4 min-[360px]:h-4 bg-water-glow rounded-full -translate-x-1/2 md:-translate-y-1/2 shadow-[0_0_15px_rgba(0,204,255,0.8)] z-10">
             </div>
             <div class="w-full md:w-1/2 pl-9 min-[360px]:pl-12 md:pl-16 mb-4 sm:mb-8 md:mb-0">
-              <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left">
-                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">8. Harvest Execution</h4>
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Harvesting fully grown, healthy fish under strict quality standards and veteran supervision.</p>
+              <div
+                class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left">
+                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">8. Harvest
+                  Execution</h4>
+                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Harvesting fully grown,
+                  healthy fish under strict quality standards and veteran supervision.</p>
               </div>
             </div>
           </div>
           <!-- Step 9 -->
           <div class="relative flex flex-col md:flex-row items-stretch md:items-center group">
             <div class="w-full md:w-1/2 pl-9 min-[360px]:pl-12 md:pl-0 md:pr-16 md:text-right mb-4 sm:mb-8 md:mb-0">
-              <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left md:text-right">
-                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">9. Selling & Exporting</h4>
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Direct offloading and packaging for premium domestic markets and global seafood export.</p>
+              <div
+                class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left md:text-right">
+                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">9. Selling
+                  & Exporting</h4>
+                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Direct offloading and
+                  packaging for premium domestic markets and global seafood export.</p>
               </div>
             </div>
             <div
@@ -1163,25 +1336,35 @@
               class="absolute left-4 min-[360px]:left-6 md:left-1/2 top-6 md:top-1/2 w-3 h-3 min-[360px]:w-4 min-[360px]:h-4 bg-water-glow rounded-full -translate-x-1/2 md:-translate-y-1/2 shadow-[0_0_15px_rgba(0,204,255,0.8)] z-10">
             </div>
             <div class="w-full md:w-1/2 pl-9 min-[360px]:pl-12 md:pl-16 mb-4 sm:mb-8 md:mb-0">
-              <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left">
-                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">10. Profit Sharing Execution</h4>
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Executing audited revenue sharing and capital settlements according to the partnership terms.</p>
+              <div
+                class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl inline-block group-hover:border-water-glow/30 transition-all text-left">
+                <h4 class="font-bold text-sm min-[360px]:text-base sm:text-lg mb-1.5 sm:mb-2 text-water-glow">10. Profit
+                  Sharing Execution</h4>
+                <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Executing audited revenue
+                  sharing and capital settlements according to the partnership terms.</p>
               </div>
             </div>
           </div>
         </div>
         <!-- Luxury First Meeting Callout -->
         <div class="mt-10 sm:mt-16 max-w-3xl mx-auto relative z-20">
-          <div class="glass-card p-4 min-[360px]:p-6 sm:p-8 rounded-xl min-[360px]:rounded-2xl border border-water-glow/20 relative overflow-hidden group">
-            <div class="absolute -right-16 -top-16 w-32 h-32 bg-water-glow/10 rounded-full blur-2xl group-hover:bg-water-glow/20 transition-all duration-500"></div>
+          <div
+            class="glass-card p-4 min-[360px]:p-6 sm:p-8 rounded-xl min-[360px]:rounded-2xl border border-water-glow/20 relative overflow-hidden group">
+            <div
+              class="absolute -right-16 -top-16 w-32 h-32 bg-water-glow/10 rounded-full blur-2xl group-hover:bg-water-glow/20 transition-all duration-500">
+            </div>
             <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
-              <span class="material-symbols-outlined text-water-glow text-2xl min-[360px]:text-3xl sm:text-4xl mt-0.5 shrink-0">workspace_premium</span>
+              <span
+                class="material-symbols-outlined text-water-glow text-2xl min-[360px]:text-3xl sm:text-4xl mt-0.5 shrink-0">workspace_premium</span>
               <div>
-                <h3 class="font-bold text-base min-[360px]:text-lg sm:text-xl mb-2 sm:mb-3 text-water-glow">The Luxury First Meeting ("Business Begins With Trust")</h3>
+                <h3 class="font-bold text-base min-[360px]:text-lg sm:text-xl mb-2 sm:mb-3 text-water-glow">The Luxury
+                  First Meeting ("Business Begins With Trust")</h3>
                 <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed mb-4">
-                  The initial business consultation is treated with utmost exclusivity. Meetings are arranged at premium venues (e.g., Taj Hotel or a client-preferred luxury location).
+                  The initial business consultation is treated with utmost exclusivity. Meetings are arranged at premium
+                  venues (e.g., Taj Hotel or a client-preferred luxury location).
                 </p>
-                <div class="grid grid-cols-1 min-[480px]:grid-cols-2 gap-2.5 sm:gap-4 text-[11px] min-[360px]:text-xs text-on-surface-variant/80">
+                <div
+                  class="grid grid-cols-1 min-[480px]:grid-cols-2 gap-2.5 sm:gap-4 text-[11px] min-[360px]:text-xs text-on-surface-variant/80">
                   <div class="flex items-center gap-2">
                     <span class="material-symbols-outlined text-water-glow text-sm shrink-0">check_circle</span>
                     <span>In-depth Corporate Presentation</span>
@@ -1209,55 +1392,74 @@
   <!-- Legal & Compliance -->
   <section class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 overflow-hidden" id="compliance">
     <div class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter">
-      <div class="glass-card p-4 min-[360px]:p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl min-[360px]:rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] border border-white/5">
+      <div
+        class="glass-card p-4 min-[360px]:p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl min-[360px]:rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] border border-white/5">
         <div class="grid lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-16 items-start">
           <div>
-            <h3 class="font-headline-md text-xl min-[360px]:text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 lg:mb-8">Institutional Verification</h3>
-            <div class="grid grid-cols-2 min-[420px]:grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2.5 min-[360px]:gap-3 sm:gap-4">
-              <div class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+            <h3 class="font-headline-md text-xl min-[360px]:text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 lg:mb-8">
+              Institutional Verification</h3>
+            <div
+              class="grid grid-cols-2 min-[420px]:grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2.5 min-[360px]:gap-3 sm:gap-4">
+              <div
+                class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
                 <span
                   class="material-symbols-outlined text-2xl min-[360px]:text-3xl mb-1.5 sm:mb-2 text-on-surface-variant group-hover:text-water-glow">description</span>
-                <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">GST Registration</p>
+                <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">GST Registration
+                </p>
               </div>
-              <div class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+              <div
+                class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
                 <span
                   class="material-symbols-outlined text-2xl min-[360px]:text-3xl mb-1.5 sm:mb-2 text-on-surface-variant group-hover:text-water-glow">apartment</span>
                 <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">Incorporation</p>
               </div>
-              <div class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+              <div
+                class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
                 <span
                   class="material-symbols-outlined text-2xl min-[360px]:text-3xl mb-1.5 sm:mb-2 text-on-surface-variant group-hover:text-water-glow">health_and_safety</span>
-                <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">FSSAI Certified</p>
+                <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">FSSAI Certified
+                </p>
               </div>
-              <div class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+              <div
+                class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
                 <span
                   class="material-symbols-outlined text-2xl min-[360px]:text-3xl mb-1.5 sm:mb-2 text-on-surface-variant group-hover:text-water-glow">eco</span>
-                <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">Pollution Control</p>
+                <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">Pollution Control
+                </p>
               </div>
-              <div class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+              <div
+                class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
                 <span
                   class="material-symbols-outlined text-2xl min-[360px]:text-3xl mb-1.5 sm:mb-2 text-on-surface-variant group-hover:text-water-glow">water</span>
-                <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">Aquaculture Auth.</p>
+                <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">Aquaculture Auth.
+                </p>
               </div>
-              <div class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+              <div
+                class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
                 <span
                   class="material-symbols-outlined text-2xl min-[360px]:text-3xl mb-1.5 sm:mb-2 text-on-surface-variant group-hover:text-water-glow">store</span>
-                <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">MSME Registered</p>
+                <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">MSME Registered
+                </p>
               </div>
-              <div class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+              <div
+                class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
                 <span
                   class="material-symbols-outlined text-2xl min-[360px]:text-3xl mb-1.5 sm:mb-2 text-on-surface-variant group-hover:text-water-glow">workspace_premium</span>
                 <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">ISO 9001:2015</p>
               </div>
-              <div class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
+              <div
+                class="p-2.5 min-[360px]:p-3 sm:p-4 glass-card rounded-lg min-[360px]:rounded-xl text-center group cursor-pointer hover:bg-white/5 transition-all">
                 <span
                   class="material-symbols-outlined text-2xl min-[360px]:text-3xl mb-1.5 sm:mb-2 text-on-surface-variant group-hover:text-water-glow">download</span>
                 <p class="text-[9px] min-[360px]:text-[10px] font-label-caps uppercase tracking-wider">Full Dossier</p>
               </div>
             </div>
           </div>
-          <div class="bg-surface-container-lowest/50 p-4 min-[360px]:p-6 sm:p-8 lg:p-10 rounded-xl min-[360px]:rounded-2xl border border-white/5">
-            <h4 class="font-label-caps text-[10px] min-[360px]:text-xs text-water-glow mb-2.5 sm:mb-4 uppercase tracking-wider">Legal Framework &amp; Transparency</h4>
+          <div
+            class="bg-surface-container-lowest/50 p-4 min-[360px]:p-6 sm:p-8 lg:p-10 rounded-xl min-[360px]:rounded-2xl border border-white/5">
+            <h4
+              class="font-label-caps text-[10px] min-[360px]:text-xs text-water-glow mb-2.5 sm:mb-4 uppercase tracking-wider">
+              Legal Framework &amp; Transparency</h4>
             <p class="text-xs min-[360px]:text-sm leading-relaxed text-on-surface-variant italic mb-4 sm:mb-6">
               "Before initiating any commercial farming project, both parties shall execute a comprehensive legal
               agreement covering all operational responsibilities, investment terms, and compliance requirements.
@@ -1276,46 +1478,66 @@
   </section>
 
   <!-- FAQ & Testimonials -->
-  <section class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 bg-surface-container-lowest border-t border-glass-border overflow-hidden" id="faq-testimonials">
+  <section
+    class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 bg-surface-container-lowest border-t border-glass-border overflow-hidden"
+    id="faq-testimonials">
     <div class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter">
       <!-- Section Header -->
       <div class="text-center mb-8 sm:mb-12 lg:mb-20">
-        <p class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">Trust &amp; Validation</p>
-        <h2 class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight">FAQ &amp; Testimonials</h2>
+        <p
+          class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 tracking-widest uppercase">
+          Trust &amp; Validation</p>
+        <h2
+          class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight">
+          FAQ &amp; Testimonials</h2>
       </div>
 
       <div class="grid lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16">
         <!-- Testimonials (Left Column: 5 Cols) -->
         <div class="lg:col-span-5 space-y-6 sm:space-y-8 lg:space-y-12">
           <div>
-            <h3 class="font-headline-md text-lg min-[360px]:text-xl sm:text-2xl mb-2 text-water-glow font-label-caps">Client Success</h3>
-            <p class="text-xs min-[360px]:text-sm text-on-surface-variant mb-4 sm:mb-6 leading-relaxed">Real client reviews, photographic evidence, and video interviews from our active farm sites.</p>
+            <h3 class="font-headline-md text-lg min-[360px]:text-xl sm:text-2xl mb-2 text-water-glow font-label-caps">
+              Client Success</h3>
+            <p class="text-xs min-[360px]:text-sm text-on-surface-variant mb-4 sm:mb-6 leading-relaxed">Real client
+              reviews, photographic evidence, and video interviews from our active farm sites.</p>
           </div>
 
           <!-- Video Testimonial Card -->
-          <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 relative overflow-hidden group">
-            <div class="relative rounded-lg min-[360px]:rounded-xl overflow-hidden aspect-video bg-surface-container-lowest border border-white/10 flex items-center justify-center">
+          <div
+            class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 relative overflow-hidden group">
+            <div
+              class="relative rounded-lg min-[360px]:rounded-xl overflow-hidden aspect-video bg-surface-container-lowest border border-white/10 flex items-center justify-center">
               <!-- Video Placeholder Image / Overlay -->
-              <div class="absolute inset-0 bg-cover bg-center opacity-60 filter blur-[1px] group-hover:scale-105 transition-transform duration-500"
+              <div
+                class="absolute inset-0 bg-cover bg-center opacity-60 filter blur-[1px] group-hover:scale-105 transition-transform duration-500"
                 style="background-image: url('assets/image/facility_preview.png');">
               </div>
-              <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent">
+              </div>
               <!-- Play Button -->
-              <button class="relative z-10 w-12 h-12 min-[360px]:w-14 min-[360px]:h-14 sm:w-16 sm:h-16 bg-water-glow/90 rounded-full flex items-center justify-center text-surface-container-lowest font-bold shadow-[0_0_20px_rgba(0,204,255,0.6)] group-hover:scale-110 transition-transform">
+              <button
+                class="relative z-10 w-12 h-12 min-[360px]:w-14 min-[360px]:h-14 sm:w-16 sm:h-16 bg-water-glow/90 rounded-full flex items-center justify-center text-surface-container-lowest font-bold shadow-[0_0_20px_rgba(0,204,255,0.6)] group-hover:scale-110 transition-transform">
                 <span class="material-symbols-outlined text-2xl sm:text-3xl fill-1">play_arrow</span>
               </button>
               <div class="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-4 sm:left-4 sm:right-4 text-left">
-                <div class="text-[9px] min-[360px]:text-xs font-bold text-water-glow uppercase font-label-caps">Video Tour &amp; Interview</div>
-                <div class="text-xs min-[360px]:text-sm font-semibold text-white truncate">Harvest Review - Rajesh K. (Investor since 2023)</div>
+                <div class="text-[9px] min-[360px]:text-xs font-bold text-water-glow uppercase font-label-caps">Video
+                  Tour &amp; Interview</div>
+                <div class="text-xs min-[360px]:text-sm font-semibold text-white truncate">Harvest Review - Rajesh K.
+                  (Investor since 2023)</div>
               </div>
             </div>
-            <p class="mt-3 sm:mt-4 text-[11px] min-[360px]:text-xs italic text-on-surface-variant leading-relaxed">"Visiting the farm in Andhra Pradesh changed my perspective on aquaculture. The scale, biosecurity, and drone-assisted daily reporting are top-notch."</p>
+            <p class="mt-3 sm:mt-4 text-[11px] min-[360px]:text-xs italic text-on-surface-variant leading-relaxed">
+              "Visiting the farm in Andhra Pradesh changed my perspective on aquaculture. The scale, biosecurity, and
+              drone-assisted daily reporting are top-notch."</p>
           </div>
 
           <!-- Google Review Grid -->
           <div class="space-y-3 sm:space-y-4">
             <div class="flex items-center justify-between border-b border-white/10 pb-3 sm:pb-4 gap-2">
-              <span class="text-[10px] min-[360px]:text-xs font-bold font-label-caps uppercase tracking-wider text-water-glow">Verified Google Reviews</span>
+              <span
+                class="text-[10px] min-[360px]:text-xs font-bold font-label-caps uppercase tracking-wider text-water-glow">Verified
+                Google Reviews</span>
               <div class="flex items-center gap-1 text-amber-400 shrink-0">
                 <span class="material-symbols-outlined text-xs sm:text-sm fill-1">star</span>
                 <span class="text-[10px] min-[360px]:text-xs font-bold text-white">4.9 / 5.0 Rating</span>
@@ -1330,7 +1552,8 @@
                   <span class="material-symbols-outlined text-xs fill-1">star</span>
                   <span class="material-symbols-outlined text-xs fill-1">star</span>
                 </div>
-                <p class="text-[10px] min-[360px]:text-[11px] text-on-surface-variant mb-2 leading-relaxed">"Extremely professional. Visited the site and saw the aerators and packing units myself. Honest pricing."</p>
+                <p class="text-[10px] min-[360px]:text-[11px] text-on-surface-variant mb-2 leading-relaxed">"Extremely
+                  professional. Visited the site and saw the aerators and packing units myself. Honest pricing."</p>
                 <div class="text-[9px] min-[360px]:text-[10px] font-bold text-water-glow">— Amit S., Bengaluru</div>
               </div>
               <div class="glass-card p-3 min-[360px]:p-4 rounded-xl text-left border border-white/5">
@@ -1341,7 +1564,8 @@
                   <span class="material-symbols-outlined text-xs fill-1">star</span>
                   <span class="material-symbols-outlined text-xs fill-1">star</span>
                 </div>
-                <p class="text-[10px] min-[360px]:text-[11px] text-on-surface-variant mb-2 leading-relaxed">"The ROI timelines are followed meticulously. Highly recommend checking their monthly biosecurity report."</p>
+                <p class="text-[10px] min-[360px]:text-[11px] text-on-surface-variant mb-2 leading-relaxed">"The ROI
+                  timelines are followed meticulously. Highly recommend checking their monthly biosecurity report."</p>
                 <div class="text-[9px] min-[360px]:text-[10px] font-bold text-water-glow">— Priya M., Mumbai</div>
               </div>
             </div>
@@ -1351,85 +1575,135 @@
         <!-- FAQ (Right Column: 7 Cols) -->
         <div class="lg:col-span-7 space-y-6 sm:space-y-8">
           <div>
-            <h3 class="font-headline-md text-lg min-[360px]:text-xl sm:text-2xl mb-2 text-water-glow font-label-caps">Frequently Asked Questions</h3>
-            <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Here are answers to the most common questions raised by our prospective partners and institutional investors.</p>
+            <h3 class="font-headline-md text-lg min-[360px]:text-xl sm:text-2xl mb-2 text-water-glow font-label-caps">
+              Frequently Asked Questions</h3>
+            <p class="text-xs min-[360px]:text-sm text-on-surface-variant leading-relaxed">Here are answers to the most
+              common questions raised by our prospective partners and institutional investors.</p>
           </div>
 
           <div class="space-y-3 sm:space-y-4" id="faq-accordion">
             <!-- FAQ 1 -->
-            <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5" onclick="toggleFaq(1)">
+            <div
+              class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5"
+              onclick="toggleFaq(1)">
               <div class="flex justify-between items-center gap-3 sm:gap-4">
-                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors" id="faq-q-1">What is the minimum capital required to partner with Fish Aqua Farming?</h4>
-                <span class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0" id="faq-icon-1">expand_more</span>
+                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors"
+                  id="faq-q-1">What is the minimum capital required to partner with Fish Aqua Farming?</h4>
+                <span
+                  class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0"
+                  id="faq-icon-1">expand_more</span>
               </div>
               <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out mt-0" id="faq-a-1">
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-3 sm:mt-4">
-                  Our partnership structures start at a minimum capital commitment of ₹10 Lakhs. This allows institutional and individual private partners to be allocated a biosecure, managed pond slice or hatchery unit.
+                <p
+                  class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-3 sm:mt-4">
+                  Our partnership structures start at a minimum capital commitment of ₹10 Lakhs. This allows
+                  institutional and individual private partners to be allocated a biosecure, managed pond slice or
+                  hatchery unit.
                 </p>
               </div>
             </div>
 
             <!-- FAQ 2 -->
-            <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5" onclick="toggleFaq(2)">
+            <div
+              class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5"
+              onclick="toggleFaq(2)">
               <div class="flex justify-between items-center gap-3 sm:gap-4">
-                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors" id="faq-q-2">What are the expected ROI timelines for a harvest cycle?</h4>
-                <span class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0" id="faq-icon-2">expand_more</span>
+                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors"
+                  id="faq-q-2">What are the expected ROI timelines for a harvest cycle?</h4>
+                <span
+                  class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0"
+                  id="faq-icon-2">expand_more</span>
               </div>
               <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out mt-0" id="faq-a-2">
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-4">
-                  Expected ROI timelines typically range between 12 to 18 months, depending on the cultivated species (e.g., Pangasius has a shorter cycle compared to some carp varieties). A full breakdown is provided in our luxury corporate presentation.
+                <p
+                  class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-4">
+                  Expected ROI timelines typically range between 12 to 18 months, depending on the cultivated species
+                  (e.g., Pangasius has a shorter cycle compared to some carp varieties). A full breakdown is provided in
+                  our luxury corporate presentation.
                 </p>
               </div>
             </div>
 
             <!-- FAQ 3 -->
-            <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5" onclick="toggleFaq(3)">
+            <div
+              class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5"
+              onclick="toggleFaq(3)">
               <div class="flex justify-between items-center gap-3 sm:gap-4">
-                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors" id="faq-q-3">How is the profit-sharing contract executed?</h4>
-                <span class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0" id="faq-icon-3">expand_more</span>
+                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors"
+                  id="faq-q-3">How is the profit-sharing contract executed?</h4>
+                <span
+                  class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0"
+                  id="faq-icon-3">expand_more</span>
               </div>
               <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out mt-0" id="faq-a-3">
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-4">
-                  Profit sharing is executed directly into your registered bank account within 30 days of the harvest liquidation. All settlements are audited by third-party accounting firms, and partners receive complete invoice and sale transparency.
+                <p
+                  class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-4">
+                  Profit sharing is executed directly into your registered bank account within 30 days of the harvest
+                  liquidation. All settlements are audited by third-party accounting firms, and partners receive
+                  complete invoice and sale transparency.
                 </p>
               </div>
             </div>
 
             <!-- FAQ 4 -->
-            <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5" onclick="toggleFaq(4)">
+            <div
+              class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5"
+              onclick="toggleFaq(4)">
               <div class="flex justify-between items-center gap-3 sm:gap-4">
-                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors" id="faq-q-4">How do you protect the harvest against water/biological anomalies?</h4>
-                <span class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0" id="faq-icon-4">expand_more</span>
+                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors"
+                  id="faq-q-4">How do you protect the harvest against water/biological anomalies?</h4>
+                <span
+                  class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0"
+                  id="faq-icon-4">expand_more</span>
               </div>
               <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out mt-0" id="faq-a-4">
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-4">
-                  We maintain state-of-the-art biosecurity protocols, including daily veterinary health checks, constant oxygen and water parameter testing, and automated backup aerators. However, standard force majeure clauses apply to environmental catastrophes.
+                <p
+                  class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-4">
+                  We maintain state-of-the-art biosecurity protocols, including daily veterinary health checks, constant
+                  oxygen and water parameter testing, and automated backup aerators. However, standard force majeure
+                  clauses apply to environmental catastrophes.
                 </p>
               </div>
             </div>
 
             <!-- FAQ 5 -->
-            <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5" onclick="toggleFaq(5)">
+            <div
+              class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5"
+              onclick="toggleFaq(5)">
               <div class="flex justify-between items-center gap-3 sm:gap-4">
-                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors" id="faq-q-5">Can partners physically visit or inspect the farm site?</h4>
-                <span class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0" id="faq-icon-5">expand_more</span>
+                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors"
+                  id="faq-q-5">Can partners physically visit or inspect the farm site?</h4>
+                <span
+                  class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0"
+                  id="faq-icon-5">expand_more</span>
               </div>
               <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out mt-0" id="faq-a-5">
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-4">
-                  Yes, farm visits are highly encouraged as part of Step 3 of our journey. We arrange guided drone tours and physical inspection walk-throughs for all verified partners, maintaining strict disinfection and biosecurity entry rules.
+                <p
+                  class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-4">
+                  Yes, farm visits are highly encouraged as part of Step 3 of our journey. We arrange guided drone tours
+                  and physical inspection walk-throughs for all verified partners, maintaining strict disinfection and
+                  biosecurity entry rules.
                 </p>
               </div>
             </div>
 
             <!-- FAQ 6 -->
-            <div class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5" onclick="toggleFaq(6)">
+            <div
+              class="glass-card p-3.5 min-[360px]:p-4 sm:p-6 rounded-xl min-[360px]:rounded-2xl border border-white/5 cursor-pointer transition-all hover:bg-white/5"
+              onclick="toggleFaq(6)">
               <div class="flex justify-between items-center gap-3 sm:gap-4">
-                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors" id="faq-q-6">What government approvals and compliance certifications do you hold?</h4>
-                <span class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0" id="faq-icon-6">expand_more</span>
+                <h4 class="font-bold text-xs min-[360px]:text-sm sm:text-base text-white transition-colors"
+                  id="faq-q-6">What government approvals and compliance certifications do you hold?</h4>
+                <span
+                  class="material-symbols-outlined text-water-glow text-lg sm:text-xl transition-transform duration-300 shrink-0"
+                  id="faq-icon-6">expand_more</span>
               </div>
               <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out mt-0" id="faq-a-6">
-                <p class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-4">
-                  We hold a full stack of certifications including GST Registration, Incorporation documents, Pollution Control Board Clearance, MSME registration, ISO 9001:2015, and registrations under the National Aquaculture Authority. These are available in the Institutional Verification section.
+                <p
+                  class="text-xs min-[360px]:text-sm text-on-surface-variant pt-3 sm:pt-4 leading-relaxed border-t border-white/5 mt-4">
+                  We hold a full stack of certifications including GST Registration, Incorporation documents, Pollution
+                  Control Board Clearance, MSME registration, ISO 9001:2015, and registrations under the National
+                  Aquaculture Authority. These are available in the Institutional Verification section.
                 </p>
               </div>
             </div>
@@ -1444,12 +1718,12 @@
       const answer = document.getElementById(`faq-a-${id}`);
       const icon = document.getElementById(`faq-icon-${id}`);
       const question = document.getElementById(`faq-q-${id}`);
-      
+
       // Close all other FAQs
       const allAnswers = document.querySelectorAll('[id^="faq-a-"]');
       const allIcons = document.querySelectorAll('[id^="faq-icon-"]');
       const allQuestions = document.querySelectorAll('[id^="faq-q-"]');
-      
+
       allAnswers.forEach((ans, index) => {
         const idx = index + 1;
         if (idx !== id) {
@@ -1471,27 +1745,38 @@
     }
   </script>
   <!-- Luxury Consultation CTA -->
-  <section class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 bg-surface/80 backdrop-blur-md border-t border-b border-glass-border overflow-hidden"
+  <section
+    class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 bg-surface/80 backdrop-blur-md border-t border-b border-glass-border overflow-hidden"
     id="consultation">
     <div class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter relative">
       <!-- Ambient Backdrop Glow (Matching Proven Legacy) -->
       <div class="absolute -inset-4 bg-water-glow/10 blur-3xl rounded-full pointer-events-none"></div>
 
       <div class="relative z-10 max-w-4xl mx-auto text-center">
-        <p class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 uppercase tracking-widest">Business Begins With
+        <p
+          class="font-label-caps text-[11px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2.5 sm:mb-4 uppercase tracking-widest">
+          Business Begins With
           Trust</p>
-        <h2 class="font-headline-lg text-2xl min-[360px]:text-3xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight tracking-tight">An Invitation to Global Food Security</h2>
-        <p class="font-body-lg text-xs min-[360px]:text-sm sm:text-base lg:text-lg text-on-surface-variant mb-6 sm:mb-10 leading-relaxed max-w-2xl mx-auto">We treat our
+        <h2
+          class="font-headline-lg text-2xl min-[360px]:text-3xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight tracking-tight">
+          An Invitation to Global Food Security</h2>
+        <p
+          class="font-body-lg text-xs min-[360px]:text-sm sm:text-base lg:text-lg text-on-surface-variant mb-6 sm:mb-10 leading-relaxed max-w-2xl mx-auto">
+          We treat our
           investor relations with the same precision we apply to our hatcheries. Schedule an exclusive consultation to
           discuss ROI, asset allocation, and sustainable aquaculture scaling.</p>
 
-        <div class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl border-l-4 border-l-water-glow max-w-2xl mx-auto mb-6 sm:mb-10 text-left">
-          <p class="italic text-xs min-[360px]:text-sm sm:text-base text-on-surface leading-relaxed">"Our investment framework combines bilateral legal security with
+        <div
+          class="glass-card p-4 min-[360px]:p-5 sm:p-6 lg:p-8 rounded-xl min-[360px]:rounded-2xl border-l-4 border-l-water-glow max-w-2xl mx-auto mb-6 sm:mb-10 text-left">
+          <p class="italic text-xs min-[360px]:text-sm sm:text-base text-on-surface leading-relaxed">"Our investment
+            framework combines bilateral legal security with
             100% biosecurity transparency, ensuring peace of mind for institutional capital."</p>
-          <div class="mt-3 sm:mt-4 font-label-caps text-[10px] min-[360px]:text-xs text-water-glow">— Global Investor Relations</div>
+          <div class="mt-3 sm:mt-4 font-label-caps text-[10px] min-[360px]:text-xs text-water-glow">— Global Investor
+            Relations</div>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center max-w-lg mx-auto w-full">
+        <div
+          class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center max-w-lg mx-auto w-full">
           <button
             class="w-full sm:w-auto bg-water-glow text-surface-container-lowest py-3 min-[360px]:py-3.5 sm:py-4 px-4 min-[360px]:px-6 sm:px-8 rounded-xl font-label-caps text-[11px] min-[360px]:text-xs font-bold hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,204,255,0.3)]">
             <span class="material-symbols-outlined text-base sm:text-lg">calendar_month</span>
@@ -1509,81 +1794,133 @@
   <!-- Footer -->
   <footer class="relative z-10 bg-surface-container-lowest border-t border-glass-border/40 overflow-hidden">
     <!-- Ambient Bottom Glow -->
-    <div class="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-water-glow/5 to-transparent pointer-events-none z-0"></div>
+    <div
+      class="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-water-glow/5 to-transparent pointer-events-none z-0">
+    </div>
 
-    <div class="relative z-10 max-w-container-max mx-auto px-gutter pt-16 pb-8">
+    <div class="relative z-10 max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter pt-10 sm:pt-16 pb-6 sm:pb-8">
       <!-- 4-Column Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-glass-border/20">
-        
+      <div
+        class="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 pb-8 sm:pb-12 border-b border-glass-border/20">
+
         <!-- Col 1: Brand & Socials -->
         <div>
-          <div class="flex items-center gap-3 mb-4">
-            <img src="assets/image/logo.png" alt="Fish Aqua Farming Logo" class="h-8 w-auto object-contain flex-shrink-0" />
-            <span class="font-headline-md text-xl font-bold text-ocean-white tracking-tight">Fish Aqua Farming</span>
+          <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+            <img src="assets/image/logo.png" alt="Fish Aqua Farming Logo"
+              class="h-7 sm:h-8 w-auto object-contain flex-shrink-0" />
+            <span class="font-headline-md text-lg sm:text-xl font-bold text-ocean-white tracking-tight">Fish Aqua
+              Farming</span>
           </div>
-          <p class="font-body-md text-sm text-on-surface-variant leading-relaxed mb-6">
-            Pioneering the future of sustainable, high-yield biological asset management. Blending precision science with absolute transparency.
+          <p class="font-body-md text-xs sm:text-sm text-on-surface-variant leading-relaxed mb-4 sm:mb-6">
+            Pioneering the future of sustainable, high-yield biological asset management. Blending precision science
+            with absolute transparency.
           </p>
           <!-- Social Icons -->
-          <div class="flex gap-4">
-            <a href="#" class="social-glow w-10 h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all" aria-label="LinkedIn">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          <div class="flex gap-2.5 sm:gap-4 mb-4">
+            <a href="#"
+              class="social-glow w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all"
+              aria-label="LinkedIn">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
             </a>
-            <a href="#" class="social-glow w-10 h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all" aria-label="YouTube">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.524 3.545 12 3.545 12 3.545s-7.525 0-9.388.51a3.003 3.003 0 0 0-2.11 2.108C0 8.026 0 12 0 12s0 3.974.502 5.837a3.003 3.003 0 0 0 2.11 2.108C4.475 20.455 12 20.455 12 20.455s7.524 0 9.388-.51a3.002 3.002 0 0 0 2.11-2.108C24 15.974 24 12 24 12s0-3.974-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            <a href="#"
+              class="social-glow w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all"
+              aria-label="YouTube">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.524 3.545 12 3.545 12 3.545s-7.525 0-9.388.51a3.003 3.003 0 0 0-2.11 2.108C0 8.026 0 12 0 12s0 3.974.502 5.837a3.003 3.003 0 0 0 2.11 2.108C4.475 20.455 12 20.455 12 20.455s7.524 0 9.388-.51a3.002 3.002 0 0 0 2.11-2.108C24 15.974 24 12 24 12s0-3.974-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
             </a>
-            <a href="#" class="social-glow w-10 h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all" aria-label="Twitter X">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <a href="#"
+              class="social-glow w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all"
+              aria-label="Twitter X">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
             </a>
-            <a href="#" class="social-glow w-10 h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all" aria-label="Instagram">
-              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            <a href="https://www.instagram.com/fishaquafarming"
+              class="social-glow w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 sm:w-10 sm:h-10 rounded-full border border-glass-border/60 flex items-center justify-center text-on-surface-variant hover:text-water-glow transition-all"
+              aria-label="Instagram">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
+              </svg>
+            </a>
+          </div>
+          <!-- Direct Contact Info -->
+          <div class="flex flex-col gap-2 font-label-caps text-xs text-on-surface-variant">
+            <a href="tel:+919510228723" class="inline-flex items-center gap-2 hover:text-water-glow transition-colors">
+              <span class="material-symbols-outlined text-water-glow text-sm">call</span>
+              <span>+91 95102 28723</span>
+            </a>
+            <a href="mailto:contact@fishaquafarming.com" class="inline-flex items-center gap-2 hover:text-water-glow transition-colors">
+              <span class="material-symbols-outlined text-water-glow text-sm">mail</span>
+              <span>contact@fishaquafarming.com</span>
             </a>
           </div>
         </div>
 
         <!-- Col 2: Navigation -->
         <div class="flex flex-col">
-          <span class="font-label-caps text-xs font-bold text-water-glow uppercase tracking-wider mb-5">Quick Links</span>
-          <div class="flex flex-col gap-3.5 text-sm">
+          <span class="font-label-caps text-xs font-bold text-water-glow uppercase tracking-wider mb-3 sm:mb-5">Quick
+            Links</span>
+          <div class="flex flex-col gap-2.5 sm:gap-3.5 text-xs sm:text-sm">
             <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="#stage-1">Aquatic Lifecycle</a>
             <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="#portfolio">Premium Species</a>
             <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="#advantage">Our Advantage</a>
-            <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="#investment">Investment Framework</a>
-            <a class="text-water-glow/85 hover:text-water-glow transition-colors font-label-caps text-xs tracking-wider" href="pages/investment-portal/code.html">Investor Portal</a>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors" href="#investment">Investment
+              Framework</a>
           </div>
         </div>
 
         <!-- Col 3: Compliance & Certifications -->
         <div class="flex flex-col">
-          <span class="font-label-caps text-xs font-bold text-water-glow uppercase tracking-wider mb-5">Certifications</span>
-          <div class="flex flex-col gap-3.5 text-sm">
-            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="#compliance">
-              <span class="material-symbols-outlined text-base">description</span>
+          <span
+            class="font-label-caps text-xs font-bold text-water-glow uppercase tracking-wider mb-3 sm:mb-5">Certifications</span>
+          <div class="flex flex-col gap-2.5 sm:gap-3.5 text-xs sm:text-sm">
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2"
+              href="#compliance">
+              <span class="material-symbols-outlined text-sm sm:text-base shrink-0">description</span>
               <span>GST Registration (PDF)</span>
             </a>
-            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="#compliance">
-              <span class="material-symbols-outlined text-base">description</span>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2"
+              href="#compliance">
+              <span class="material-symbols-outlined text-sm sm:text-base shrink-0">description</span>
               <span>Company Incorporation</span>
             </a>
-            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="#compliance">
-              <span class="material-symbols-outlined text-base">description</span>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2"
+              href="#compliance">
+              <span class="material-symbols-outlined text-sm sm:text-base shrink-0">description</span>
               <span>Pollution Control Clearance</span>
             </a>
-            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2" href="#compliance">
-              <span class="material-symbols-outlined text-base">description</span>
+            <a class="text-ocean-white/80 hover:text-water-glow transition-colors flex items-center gap-2"
+              href="#compliance">
+              <span class="material-symbols-outlined text-sm sm:text-base shrink-0">description</span>
               <span>Aquaculture Authority Reg</span>
             </a>
           </div>
         </div>
 
         <!-- Col 4: Consultation Card -->
-        <div class="flex flex-col bg-surface-container-high/40 p-5 rounded-2xl border border-glass-border/30 shadow-[inset_0_0_15px_rgba(255,255,255,0.02)]">
-          <span class="font-label-caps text-xs font-bold text-water-glow uppercase tracking-wider mb-3 block">Luxury Consultation</span>
-          <p class="font-body-md text-xs text-on-surface-variant leading-relaxed mb-4">
-            Bilateral legal security & biosecurity transparency. Inperson consultations arranged at exclusive venues (Taj Hotel).
+        <div
+          class="flex flex-col bg-surface-container-high/40 p-3.5 min-[360px]:p-4 sm:p-5 rounded-xl min-[360px]:rounded-2xl border border-glass-border/30 shadow-[inset_0_0_15px_rgba(255,255,255,0.02)]">
+          <span
+            class="font-label-caps text-[11px] min-[360px]:text-xs font-bold text-water-glow uppercase tracking-wider mb-2 sm:mb-3 block">Luxury
+            Consultation</span>
+          <p class="font-body-md text-[11px] min-[360px]:text-xs text-on-surface-variant leading-relaxed mb-3 sm:mb-4">
+            Bilateral legal security & biosecurity transparency. In-person consultations arranged at exclusive venues
+            (e.g., Taj Hotel).
           </p>
-          <button onclick="document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })" class="w-full bg-water-glow/20 border border-water-glow/30 hover:bg-water-glow hover:text-surface-container-lowest text-water-glow py-3 px-4 rounded-xl font-label-caps text-[10px] font-bold tracking-widest transition-all text-center flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,204,255,0.15)]">
-            <span class="material-symbols-outlined text-sm">calendar_month</span>
+          <button onclick="document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' })"
+            class="w-full bg-water-glow/20 border border-water-glow/30 hover:bg-water-glow hover:text-surface-container-lowest text-water-glow py-2.5 sm:py-3 px-3 sm:px-4 rounded-xl font-label-caps text-[10px] min-[360px]:text-[11px] font-bold tracking-widest transition-all text-center flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,204,255,0.15)]">
+            <span class="material-symbols-outlined text-sm shrink-0">calendar_month</span>
             <span>BOOK TAJ MEETING</span>
           </button>
         </div>
@@ -1591,69 +1928,98 @@
       </div>
 
       <!-- Bottom Details -->
-      <div class="pt-8 flex flex-col lg:flex-row justify-between items-center gap-6">
-        <div class="flex flex-col gap-2 items-center lg:items-start">
-          <p class="font-label-caps text-[11px] text-on-surface-variant text-center lg:text-left">
-            © 2024 Fish Aqua Farming. All rights reserved.
+      <div
+        class="pt-6 sm:pt-8 flex flex-col lg:flex-row justify-between items-center gap-4 sm:gap-6 border-b border-glass-border/10 pb-6 mb-4">
+        <div class="flex flex-col gap-1.5 sm:gap-2 items-center lg:items-start">
+          <p
+            class="font-label-caps text-[10px] min-[360px]:text-[11px] text-on-surface-variant text-center lg:text-left">
+            © 2026 Fish Aqua Farming. All rights reserved.
           </p>
-          <p class="text-[10px] text-on-surface-variant/60 max-w-xl text-center lg:text-left leading-relaxed">
-            Disclaimer: Biological asset aquaculture processes involve standard agricultural & market risks. Legal assurances and force majeure exclusions are detail-specified in executed contracts.
+          <p
+            class="text-[9px] min-[360px]:text-[10px] text-on-surface-variant/60 max-w-xl text-center lg:text-left leading-relaxed">
+            Disclaimer: Biological asset aquaculture processes involve standard agricultural &amp; market risks. Legal
+            assurances and force majeure exclusions are detail-specified in executed contracts.
           </p>
         </div>
-        <div class="flex gap-6 text-[11px] font-label-caps tracking-widest shrink-0">
-          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="#">Privacy Policy</a>
-          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="#">Terms of Service</a>
-          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="#">Compliance</a>
+        <div
+          class="flex flex-wrap justify-center gap-4 sm:gap-6 text-[10px] min-[360px]:text-[11px] font-label-caps tracking-widest shrink-0">
+          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="privacy-policy.html">Privacy Policy</a>
+          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="terms-of-service.html">Terms of Service</a>
+          <a class="text-ocean-white/70 hover:text-water-glow transition-colors" href="compliance.html">Compliance</a>
         </div>
+      </div>
+
+      <!-- Developer Credit Bar -->
+      <div class="text-center pt-2">
+        <p class="text-[10px] min-[360px]:text-[11px] text-on-surface-variant/80 font-label-caps tracking-wider">
+          Designed &amp; Developed with <span class="text-water-glow">♥</span> by
+          <a href="https://innoveloper.com" target="_blank" rel="noopener noreferrer"
+            class="text-water-glow font-semibold hover:underline transition-all">
+            Innoveloper Solutions
+          </a>
+        </p>
       </div>
     </div>
   </footer>
 
   <!-- Floating Back-to-Top Bubble -->
-  <button id="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="fixed bottom-8 right-8 w-14 h-14 bg-surface-container-high/80 border border-glass-border hover:border-water-glow/50 text-water-glow rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all z-40 opacity-0 pointer-events-none floating-bubble group hover:scale-110">
+  <button id="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    class="fixed bottom-8 right-8 w-14 h-14 bg-surface-container-high/80 border border-glass-border hover:border-water-glow/50 text-water-glow rounded-full flex items-center justify-center shadow-[0_0_25px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all z-40 opacity-0 pointer-events-none floating-bubble group hover:scale-110">
     <span class="material-symbols-outlined text-2xl group-hover:-translate-y-1 transition-transform">arrow_upward</span>
   </button>
 
   <!-- Premium Interactive 3D Fish Metrics Modal -->
-  <div id="fish-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-background/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
-    <div class="glass-card w-[90%] max-w-5xl h-[85vh] md:h-[75vh] rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row relative border border-white/10 shadow-[0_0_50px_rgba(0,204,255,0.15)]">
-      
+  <div id="fish-modal"
+    class="fixed inset-0 z-50 flex items-center justify-center hidden bg-background/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
+    <div
+      class="glass-card w-[90%] max-w-5xl h-[85vh] md:h-[75vh] rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row relative border border-white/10 shadow-[0_0_50px_rgba(0,204,255,0.15)]">
+
       <!-- Close Button -->
-      <button onclick="closeFishModal()" class="absolute top-6 right-6 w-12 h-12 rounded-full border border-glass-border flex items-center justify-center text-on-surface-variant hover:text-water-glow hover:border-water-glow/50 hover:bg-water-glow/10 transition-all duration-300 z-50">
+      <button onclick="closeFishModal()"
+        class="absolute top-6 right-6 w-12 h-12 rounded-full border border-glass-border flex items-center justify-center text-on-surface-variant hover:text-water-glow hover:border-water-glow/50 hover:bg-water-glow/10 transition-all duration-300 z-50">
         <span class="material-symbols-outlined text-white">close</span>
       </button>
 
       <!-- Left Panel: 3D Interactive Viewer -->
-      <div class="w-full md:w-[55%] h-[40vh] md:h-full relative bg-gradient-to-b from-surface-container-lowest to-surface-container-low/50">
+      <div
+        class="w-full md:w-[55%] h-[40vh] md:h-full relative bg-gradient-to-b from-surface-container-lowest to-surface-container-low/50">
         <div id="modal-canvas-container" class="w-full h-full"></div>
-        
+
         <div class="absolute bottom-6 left-6 right-6 flex justify-between items-center z-10 pointer-events-none">
           <div class="flex gap-2 pointer-events-auto">
-            <button id="btn-feed-fish" class="bg-water-glow/20 border border-water-glow/30 hover:bg-water-glow hover:text-background text-water-glow px-4 py-2 rounded-xl text-xs font-label-caps font-bold transition-all flex items-center gap-1.5 backdrop-blur-md">
+            <button id="btn-feed-fish"
+              class="bg-water-glow/20 border border-water-glow/30 hover:bg-water-glow hover:text-background text-water-glow px-4 py-2 rounded-xl text-xs font-label-caps font-bold transition-all flex items-center gap-1.5 backdrop-blur-md">
               <span class="material-symbols-outlined text-sm">flatware</span>
               <span>Feed Fish</span>
             </button>
-            <button id="btn-scientific-mode" class="bg-white/5 border border-white/10 hover:bg-white/15 text-on-surface px-4 py-2 rounded-xl text-xs font-label-caps font-bold transition-all flex items-center gap-1.5 backdrop-blur-md">
+            <button id="btn-scientific-mode"
+              class="bg-white/5 border border-white/10 hover:bg-white/15 text-on-surface px-4 py-2 rounded-xl text-xs font-label-caps font-bold transition-all flex items-center gap-1.5 backdrop-blur-md">
               <span class="material-symbols-outlined text-sm">biotech</span>
               <span>Scientific Mode</span>
             </button>
           </div>
-          <div class="text-[10px] font-label-caps text-on-surface-variant bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/5">
+          <div
+            class="text-[10px] font-label-caps text-on-surface-variant bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/5">
             DRAG TO ROTATE
           </div>
         </div>
-        <div class="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.8)_100%)]"></div>
+        <div
+          class="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.8)_100%)]">
+        </div>
       </div>
 
       <!-- Right Panel: Data and Metrics -->
-      <div class="w-full md:w-[45%] h-[45vh] md:h-full flex flex-col justify-between p-8 md:p-10 overflow-y-auto border-t md:border-t-0 md:border-l border-white/10 bg-surface/30 backdrop-blur-xl">
+      <div
+        class="w-full md:w-[45%] h-[45vh] md:h-full flex flex-col justify-between p-8 md:p-10 overflow-y-auto border-t md:border-t-0 md:border-l border-white/10 bg-surface/30 backdrop-blur-xl">
         <div>
           <div class="flex justify-between items-start mb-2">
             <h3 id="modal-fish-name" class="font-headline-lg text-3xl text-white">Rohu</h3>
-            <span id="modal-scientific-name" class="text-xs font-label-caps text-water-glow italic self-end mb-1">Labeo rohita</span>
+            <span id="modal-scientific-name" class="text-xs font-label-caps text-water-glow italic self-end mb-1">Labeo
+              rohita</span>
           </div>
           <p id="modal-fish-desc" class="text-sm text-on-surface-variant leading-relaxed mb-6">
-            A key member of the Indian Major Carps, highly valued for its taste, growth performance, and commercial viability in polyculture environments.
+            A key member of the Indian Major Carps, highly valued for its taste, growth performance, and commercial
+            viability in polyculture environments.
           </p>
 
           <div class="grid grid-cols-2 gap-4 mb-6">
@@ -1711,14 +2077,17 @@
 
         <div class="mt-6 flex flex-col sm:flex-row gap-3">
           <div class="flex-grow flex bg-surface-container-lowest/80 p-1 rounded-xl border border-white/5">
-            <button id="btn-model-procedural" class="flex-1 py-2 text-[10px] font-label-caps font-bold rounded-lg transition-all bg-water-glow text-surface-container-lowest">
+            <button id="btn-model-procedural"
+              class="flex-1 py-2 text-[10px] font-label-caps font-bold rounded-lg transition-all bg-water-glow text-surface-container-lowest">
               BIO-MODEL
             </button>
-            <button id="btn-model-glb" class="flex-1 py-2 text-[10px] font-label-caps font-bold rounded-lg transition-all text-on-surface-variant hover:text-white">
+            <button id="btn-model-glb"
+              class="flex-1 py-2 text-[10px] font-label-caps font-bold rounded-lg transition-all text-on-surface-variant hover:text-white">
               GLB MODEL
             </button>
           </div>
-          <button class="bg-water-glow text-surface-container-lowest py-3 px-6 rounded-xl font-label-caps text-xs font-bold hover:scale-[1.02] transition-transform duration-300 shadow-[0_0_15px_rgba(0,204,255,0.25)] flex items-center justify-center gap-1.5">
+          <button
+            class="bg-water-glow text-surface-container-lowest py-3 px-6 rounded-xl font-label-caps text-xs font-bold hover:scale-[1.02] transition-transform duration-300 shadow-[0_0_15px_rgba(0,204,255,0.25)] flex items-center justify-center gap-1.5">
             <span class="material-symbols-outlined text-sm">trending_up</span>
             <span>Analyze ROI</span>
           </button>
@@ -2028,7 +2397,7 @@
         gltfLoader.load('assets/models/egg.glb', (gltf) => {
           const model = gltf.scene;
           model.updateMatrixWorld(true);
-          
+
           const box = new THREE.Box3();
           let hasMeshes = false;
           model.traverse((child) => {
@@ -2154,11 +2523,11 @@
           model.traverse((child) => {
             if (child.isMesh && child.material) {
               if (child.material.map) child.material.map.encoding = THREE.sRGBEncoding;
-              
+
               // Clone material to ensure unique material instances
               child.material = child.material.clone();
               child.material.transparent = true;
-              
+
               // Recolor all blue/navy materials to brand dark navy (#111124) with glowing cyan highlights
               const c = child.material.color;
               if (c) {
@@ -2351,13 +2720,13 @@
           for (let i = 0; i < count; i++) {
             // Wrapper group to ensure rotation operates around centered pivot
             const fishWrapper = new THREE.Group();
-            
+
             // Clone template scene (remains at origin) using SkeletonUtils to preserve skeletal binds
             const fishModel = THREE.SkeletonUtils.clone(loadedScene);
-            
+
             // Center the clone inside the wrapper group by shifting it by -center
             fishModel.position.copy(center).multiplyScalar(-1);
-            
+
             fishWrapper.add(fishModel);
 
             // Apply standard size normalization multiplier (target size 2.6 units in scene)
@@ -2402,7 +2771,7 @@
       // Load all 5 GLB species into the live 3D aquatic shoal with realistic relative sizes & counts
       loadFishModel('assets/models/betta_splendens.glb', 4, 0.85); // medium size, solitary
       loadFishModel('assets/models/guppy.glb', 12, 0.35);          // small size, schooling swarm
-loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large goldfish
+      loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large goldfish
       loadFishModel('assets/models/tosakin_goldfish.glb', 4, 1.2);  // larger fancy goldfish
       loadFishModel('assets/models/koi_fish.glb', 4, 2.0);          // massive majestic koi
 
@@ -2511,7 +2880,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
             if (isVisible && modelOpacity > 0.005) {
               el.style.display = 'flex';
               el.style.opacity = modelOpacity;
-              
+
               const card = el.querySelector('.content-card');
               if (card) {
                 card.style.transform = `translateY(${offsetY}px)`;
@@ -2530,7 +2899,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
 
           if (modelOpacity > 0.005) {
             s.mesh.visible = true;
-            
+
             // Calculate responsive scale factor for small screens / mobile viewports
             let responsiveScale = s.scale || 1.65;
             if (isMobile) {
@@ -2607,7 +2976,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
             if (otherBoid === boid) return;
 
             const dist = boid.position.distanceTo(otherBoid.position);
-            
+
             // Separation: steer away if too close to any neighbor
             if (dist < 3.5) {
               const force = boid.position.clone().sub(otherBoid.position);
@@ -2696,7 +3065,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
             let wagMultiplier = 1.0;
             if (boid.species.includes('guppy')) wagMultiplier = 2.4;
             else if (boid.species.includes('koi')) wagMultiplier = 0.5;
-            
+
             boid.mixer.timeScale = (0.35 + speedRatio * 1.4) * wagMultiplier;
           }
 
@@ -3050,7 +3419,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       modalRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       modalRenderer.shadowMap.enabled = true;
       modalRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      
+
       container.innerHTML = '';
       container.appendChild(modalRenderer.domElement);
 
@@ -3097,7 +3466,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       let isDragging = false;
       let prevMousePos = { x: 0, y: 0 };
       const canvasElement = modalRenderer.domElement;
-      
+
       canvasElement.addEventListener('mousedown', (e) => {
         isDragging = true;
         prevMousePos = { x: e.clientX, y: e.clientY };
@@ -3107,11 +3476,11 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
         if (!isDragging || !modalFishGroup) return;
         const deltaX = e.clientX - prevMousePos.x;
         const deltaY = e.clientY - prevMousePos.y;
-        
+
         modalFishGroup.rotation.y += deltaX * 0.007;
         modalFishGroup.rotation.x += deltaY * 0.007;
         modalFishGroup.rotation.x = Math.max(-Math.PI / 4, Math.min(Math.PI / 4, modalFishGroup.rotation.x));
-        
+
         prevMousePos = { x: e.clientX, y: e.clientY };
       });
 
@@ -3130,10 +3499,10 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
         if (!isDragging || !modalFishGroup || e.touches.length !== 1) return;
         const deltaX = e.touches[0].clientX - prevMousePos.x;
         const deltaY = e.touches[0].clientY - prevMousePos.y;
-        
+
         modalFishGroup.rotation.y += deltaX * 0.007;
         modalFishGroup.rotation.x += deltaY * 0.007;
-        
+
         prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
       }, { passive: true });
 
@@ -3213,7 +3582,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
 
       if (type === 'procedural') {
         const fishModel = createRealisticFish(1.8, spec.colorBody, spec.colorAccent);
-        
+
         if (speciesKey === 'magur' || speciesKey === 'singhi') {
           addCatfishWhiskers(fishModel, 1.8);
         }
@@ -3348,7 +3717,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       if (modalFood.length > 0 && modalFishGroup) {
         let closestFood = null;
         let minDist = 9999;
-        
+
         modalFood.forEach((food) => {
           food.position.y -= 0.018;
           food.rotation.x += 0.01;
@@ -3367,11 +3736,11 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
           const targetAngle = Math.atan2(targetDir.y, targetDir.x);
           modalFishGroup.rotation.z += (targetAngle * 0.1 - modalFishGroup.rotation.z) * 0.05;
           modalFishGroup.position.lerp(closestFood.position, 0.015);
-          
+
           if (minDist < 0.45) {
             modalScene.remove(closestFood);
             modalFood = modalFood.filter(f => f !== closestFood);
-            
+
             if (modalFishGroup.children[0] && modalFishGroup.children[0].userData && modalFishGroup.children[0].userData.mixer) {
               modalFishGroup.children[0].userData.mixer.timeScale = 1.8;
               setTimeout(() => {
@@ -3425,7 +3794,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
     function toggleScientificMode() {
       isScientificMode = !isScientificMode;
       const btn = document.getElementById('btn-scientific-mode');
-      
+
       if (isScientificMode) {
         btn.className = "bg-water-glow border border-water-glow hover:bg-water-glow/80 text-background px-4 py-2 rounded-xl text-xs font-label-caps font-bold transition-all flex items-center gap-1.5 backdrop-blur-md pointer-events-auto";
         if (modalFishGroup) applyScientificModeToMesh(modalFishGroup);
@@ -3463,7 +3832,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
 
       document.getElementById('btn-model-procedural').className = "flex-1 py-2 text-[10px] font-label-caps font-bold rounded-lg transition-all bg-water-glow text-surface-container-lowest";
       document.getElementById('btn-model-glb').className = "flex-1 py-2 text-[10px] font-label-caps font-bold rounded-lg transition-all text-on-surface-variant hover:text-white";
-      
+
       const btnSci = document.getElementById('btn-scientific-mode');
       btnSci.className = "bg-white/5 border border-white/10 hover:bg-white/15 text-on-surface px-4 py-2 rounded-xl text-xs font-label-caps font-bold transition-all flex items-center gap-1.5 backdrop-blur-md pointer-events-auto";
 
@@ -3676,7 +4045,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
     const loadingBarFill = document.getElementById('loading-bar-fill');
     const loadingPercentage = document.getElementById('loading-percentage');
     const loadingSubtext = document.getElementById('loading-subtext');
-    
+
     const subtexts = [
       "Initializing biosecure telemetry...",
       "Analyzing water parameters...",
@@ -3685,18 +4054,18 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       "Calibrating oxygen sensors...",
       "Preparing international logistics..."
     ];
-    
+
     let progress = 0;
     const interval = setInterval(() => {
       progress += Math.floor(Math.random() * 8) + 2;
       if (progress >= 100) {
         progress = 100;
         clearInterval(interval);
-        
+
         loadingBarFill.style.width = '100%';
         loadingPercentage.innerText = '100%';
         loadingSubtext.innerText = 'Fully loaded.';
-        
+
         setTimeout(() => {
           loadingScreen.classList.add('opacity-0', 'pointer-events-none');
           // Initialize GSAP animations after loader is gone
@@ -3705,7 +4074,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       } else {
         loadingBarFill.style.width = `${progress}%`;
         loadingPercentage.innerText = `${progress}%`;
-        
+
         const textIdx = Math.floor((progress / 100) * subtexts.length);
         if (subtexts[textIdx]) {
           loadingSubtext.innerText = subtexts[textIdx];
@@ -3775,7 +4144,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       }
     }
 
-    window.scrollSpecies = function(direction) {
+    window.scrollSpecies = function (direction) {
       const track = document.getElementById('species-carousel-track');
       if (!track) return;
       const cardWidth = track.firstElementChild.getBoundingClientRect().width + 24;
@@ -3857,7 +4226,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
 
         const maxScrollLeft = speciesTrack.scrollWidth - speciesTrack.clientWidth;
         const scrollDelta = (deltaX / maxThumbLeft) * maxScrollLeft;
-        
+
         speciesTrack.scrollLeft = startScrollLeft + scrollDelta;
       };
 
@@ -3970,7 +4339,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
 
     window.addEventListener('scroll', updateGlobalScrollbar);
     window.addEventListener('resize', updateGlobalScrollbar);
-    
+
     if (typeof lenis !== 'undefined') {
       lenis.on('scroll', updateGlobalScrollbar);
     } else {
@@ -3982,7 +4351,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       }, 200);
       setTimeout(() => clearInterval(checkLenis), 5000);
     }
-    
+
     setTimeout(updateGlobalScrollbar, 200);
     setTimeout(updateGlobalScrollbar, 800);
     window.addEventListener('load', updateGlobalScrollbar);
@@ -4074,7 +4443,7 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
     }
 
     // --- Redesigned Navigation & Back-to-Top Button Logic ---
-    (function() {
+    (function () {
       const nav = document.getElementById('main-nav');
       const backToTopBtn = document.getElementById('back-to-top');
       window.addEventListener('scroll', () => {
