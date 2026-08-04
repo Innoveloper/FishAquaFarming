@@ -263,14 +263,6 @@ body {
   font-size: 1.1rem !important;
 }
 
-/* On mobile/tablet, when scrolled, snap logo-text back to start (no centering) */
-@media (max-width: 1023px) {
-  #main-nav.nav-scrolled .logo-text {
-    position: static !important;
-    transform: none !important;
-  }
-}
-
 /* Responsive Desktop Layout Upgrades */
 @media (min-width: 1024px) {
   #main-nav {
