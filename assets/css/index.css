@@ -35,12 +35,20 @@
   --water-glow: #00CCFF;
 }
 
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background-color: var(--surface-container-lowest);
   color: var(--on-surface);
   font-family: 'Hanken Grotesk', sans-serif;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Oceanic Abundance Glassmorphism */
