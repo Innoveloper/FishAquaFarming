@@ -6,12 +6,12 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>Fish Aqua Farming | Precision Aquaculture</title>
   <!-- Favicon & App Manifest Links -->
-  <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png?v=20260804" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg?v=20260804" />
-  <link rel="shortcut icon" href="/favicon/favicon.ico?v=20260804" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png?v=20260804" />
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png?v=20260804" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg?v=20260804" />
+  <link rel="shortcut icon" href="favicon/favicon.ico?v=20260804" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png?v=20260804" />
   <meta name="apple-mobile-web-app-title" content="Fish Aqua Farming" />
-  <link rel="manifest" href="/favicon/site.webmanifest?v=20260804" />
+  <link rel="manifest" href="favicon/site.webmanifest?v=20260804" />
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Hanken+Grotesk:wght@300;400;600&amp;family=Space+Mono:wght@400;700&amp;display=swap"
@@ -301,12 +301,12 @@
       <div class="sticky-container w-full flex items-center justify-center">
         <div class="relative w-full h-full max-w-container-max mx-auto px-gutter flex items-center justify-center pointer-events-none">
           
-          <div class="narrative-overlay justify-center text-center px-8" id="narrative-1" style="display: none; opacity: 0;">
-            <div class="content-card max-w-lg mx-auto flex flex-col items-center">
+          <div class="narrative-overlay justify-start pl-[12%]" id="narrative-1" style="display: none; opacity: 0;">
+            <div class="content-card text-left">
               <div class="watermark-num">01</div>
               <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 01</p>
               <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">1. Seed Selection</h2>
-              <div class="flex justify-center gap-3 mb-6">
+              <div class="flex gap-3 mb-6">
                 <span class="tech-chip">
                   <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
                   EGG SIZE: 0.8mm
@@ -397,12 +397,12 @@
             </div>
           </div>
 
-          <div class="narrative-overlay justify-center text-center px-8" id="narrative-7" style="display: none; opacity: 0;">
-            <div class="content-card max-w-lg mx-auto flex flex-col items-center">
+          <div class="narrative-overlay justify-start pl-[12%]" id="narrative-7" style="display: none; opacity: 0;">
+            <div class="content-card text-left">
               <div class="watermark-num">07</div>
               <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 07</p>
               <h2 class="font-headline-lg text-5xl font-bold mb-6 text-ocean-white tracking-tight">7. Premium Harvest</h2>
-              <div class="flex justify-center gap-3 mb-6">
+              <div class="flex gap-3 mb-6">
                 <span class="tech-chip">
                   <span class="w-1.5 h-1.5 rounded-full bg-water-glow animate-pulse"></span>
                   PURITY: Grade A
@@ -413,7 +413,7 @@
             </div>
           </div>
 
-          <div class="narrative-overlay justify-start pl-[12%]" id="narrative-8" style="display: none; opacity: 0;">
+          <div class="narrative-overlay justify-end pr-[12%]" id="narrative-8" style="display: none; opacity: 0;">
             <div class="content-card text-left">
               <div class="watermark-num">08</div>
               <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 08</p>
@@ -1928,6 +1928,10 @@
       const mainGroup = new THREE.Group();
       scene.add(mainGroup);
 
+      const boids = [];
+      const mixers = [];
+      const gltfLoader = new THREE.GLTFLoader();
+
       // --- Hyper-Realistic 3D Organic Fish Model Generator ---
       function createRealisticFish(scale = 1.0, bodyColor = 0x0284c7, accentColor = 0x38bdf8) {
         const fishGroup = new THREE.Group();
@@ -2027,59 +2031,276 @@
       }
 
       function createEggSeed() {
-        const geo = new THREE.SphereGeometry(0.9, 32, 32);
-        const mat = new THREE.MeshPhongMaterial({ color: 0x88ffff, transparent: true, opacity: 0.9, shininess: 100, emissive: 0x0088cc, emissiveIntensity: 0.4 });
-        return new THREE.Mesh(geo, mat);
+        const group = new THREE.Group();
+        gltfLoader.load('assets/models/egg.glb', (gltf) => {
+          const model = gltf.scene;
+          model.updateMatrixWorld(true);
+          
+          const box = new THREE.Box3();
+          let hasMeshes = false;
+          model.traverse((child) => {
+            if (child.isMesh && child.geometry) {
+              if (!child.geometry.boundingBox) child.geometry.computeBoundingBox();
+              const meshBox = child.geometry.boundingBox.clone();
+              child.updateMatrixWorld(true);
+              meshBox.applyMatrix4(child.matrixWorld);
+              if (!hasMeshes) {
+                box.copy(meshBox);
+                hasMeshes = true;
+              } else {
+                box.union(meshBox);
+              }
+            }
+          });
+          if (!hasMeshes) box.setFromObject(model);
+
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const normalScale = 1.0 / (maxDim || 1.0);
+
+          const wrapper = new THREE.Group();
+          model.position.copy(center).multiplyScalar(-1);
+          wrapper.add(model);
+          wrapper.scale.setScalar(normalScale * 1.6);
+
+          model.traverse((child) => {
+            if (child.isMesh) {
+              if (child.material) {
+                child.material.side = THREE.DoubleSide;
+                if (child.material.map) child.material.map.encoding = THREE.sRGBEncoding;
+                // Add ambient/emissive hint so egg pops against dark background
+                if (child.material.emissive) {
+                  child.material.emissive.setHex(0x004466);
+                  child.material.emissiveIntensity = 0.3;
+                }
+              }
+            }
+          });
+          group.add(wrapper);
+        }, undefined, (err) => {
+          console.warn('Could not load assets/models/egg.glb, fallback to sphere', err);
+          const geo = new THREE.SphereGeometry(1.2, 32, 32);
+          const mat = new THREE.MeshPhongMaterial({ color: 0x88ffff, transparent: true, opacity: 0.9, shininess: 100, emissive: 0x0088cc, emissiveIntensity: 0.4 });
+          group.add(new THREE.Mesh(geo, mat));
+        });
+        return group;
       }
 
       function createHatchingLarva() {
         const group = new THREE.Group();
-        const eggMat = new THREE.MeshPhongMaterial({ color: 0x88ffff, transparent: true, opacity: 0.7, shininess: 90 });
-        const shell = new THREE.Mesh(new THREE.SphereGeometry(0.8, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.5), eggMat);
-        shell.rotation.x = -0.5;
-        const larva = createRealisticFish(0.4, 0x00ffff, 0x88ffff);
-        larva.position.set(0.2, 0.2, 0);
-        group.add(shell, larva);
+        gltfLoader.load('assets/models/egg.glb', (gltf) => {
+          const model = gltf.scene;
+          model.updateMatrixWorld(true);
+
+          const box = new THREE.Box3();
+          let hasMeshes = false;
+          model.traverse((child) => {
+            if (child.isMesh && child.geometry) {
+              if (!child.geometry.boundingBox) child.geometry.computeBoundingBox();
+              const meshBox = child.geometry.boundingBox.clone();
+              child.updateMatrixWorld(true);
+              meshBox.applyMatrix4(child.matrixWorld);
+              if (!hasMeshes) {
+                box.copy(meshBox);
+                hasMeshes = true;
+              } else {
+                box.union(meshBox);
+              }
+            }
+          });
+          if (!hasMeshes) box.setFromObject(model);
+
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const normalScale = 1.0 / (maxDim || 1.0);
+
+          const wrapper = new THREE.Group();
+          model.position.copy(center).multiplyScalar(-1);
+          wrapper.add(model);
+          wrapper.scale.setScalar(normalScale * 1.6);
+          wrapper.rotation.z = -0.3; // Slight hatching tilt
+
+          model.traverse((child) => {
+            if (child.isMesh) {
+              if (child.material) {
+                child.material.side = THREE.DoubleSide;
+                if (child.material.map) child.material.map.encoding = THREE.sRGBEncoding;
+                if (child.material.emissive) {
+                  child.material.emissive.setHex(0x005577);
+                  child.material.emissiveIntensity = 0.4;
+                }
+              }
+            }
+          });
+
+          // Emerging baby larva breaking out of the egg GLB model
+          const larva = createRealisticFish(0.4, 0x00ffff, 0x88ffff);
+          larva.position.set(0.35, 0.25, 0.2);
+          larva.rotation.z = 0.4;
+
+          group.add(wrapper, larva);
+        }, undefined, (err) => {
+          console.warn('Could not load assets/models/egg.glb for hatching stage, fallback', err);
+          const eggMat = new THREE.MeshPhongMaterial({ color: 0x88ffff, transparent: true, opacity: 0.7, shininess: 90 });
+          const shell = new THREE.Mesh(new THREE.SphereGeometry(0.8, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.5), eggMat);
+          shell.rotation.x = -0.5;
+          const larva = createRealisticFish(0.4, 0x00ffff, 0x88ffff);
+          larva.position.set(0.2, 0.2, 0);
+          group.add(shell, larva);
+        });
         return group;
       }
 
       function createTruckModel() {
         const group = new THREE.Group();
-        const cab = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.2, 1.2), new THREE.MeshPhongMaterial({ color: 0x1e293b, shininess: 80 }));
-        const trailer = new THREE.Mesh(new THREE.BoxGeometry(3.6, 1.6, 1.3), new THREE.MeshPhongMaterial({ color: 0x0284c7, shininess: 90 }));
-        trailer.position.x = -2.6;
-        const wheelGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.3, 16);
-        const wheelMat = new THREE.MeshPhongMaterial({ color: 0x0f172a });
-        const w1 = new THREE.Mesh(wheelGeo, wheelMat); w1.rotation.x = Math.PI / 2; w1.position.set(0.2, -0.7, 0.65);
-        const w2 = new THREE.Mesh(wheelGeo, wheelMat); w2.rotation.x = Math.PI / 2; w2.position.set(0.2, -0.7, -0.65);
-        const w3 = new THREE.Mesh(wheelGeo, wheelMat); w3.rotation.x = Math.PI / 2; w3.position.set(-2.6, -0.8, 0.65);
-        const w4 = new THREE.Mesh(wheelGeo, wheelMat); w4.rotation.x = Math.PI / 2; w4.position.set(-2.6, -0.8, -0.65);
-        group.add(cab, trailer, w1, w2, w3, w4);
-        group.scale.setScalar(0.9);
+        gltfLoader.load('assets/models/truck.glb', (gltf) => {
+          const model = gltf.scene;
+          model.updateMatrixWorld(true);
+          const box = new THREE.Box3().setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const normalScale = 1.0 / (maxDim || 1.0);
+          model.position.copy(center).multiplyScalar(-1);
+          model.scale.setScalar(normalScale * 5.5);
+          model.traverse((child) => {
+            if (child.isMesh && child.material) {
+              if (child.material.map) child.material.map.encoding = THREE.sRGBEncoding;
+              
+              // Clone material to ensure unique material instances
+              child.material = child.material.clone();
+              child.material.transparent = true;
+              
+              // Recolor all blue/navy materials to brand dark navy (#111124) with glowing cyan highlights
+              const c = child.material.color;
+              if (c) {
+                // If material is blue-dominant (b > r and b > g) or dark saturated blue
+                if ((c.b > c.r * 1.2 && c.b > 0.25) || (c.b > 0.15 && c.r < 0.2 && c.g < 0.3)) {
+                  child.material.color.setHex(0x1a2638); // Deep sleek aquatic navy body
+                  if (child.material.emissive) {
+                    child.material.emissive.setHex(0x003351); // Soft cyan/blue glow
+                    child.material.emissiveIntensity = 0.5;
+                  }
+                  child.material.roughness = 0.2;
+                  child.material.metalness = 0.8;
+                }
+              }
+            }
+          });
+          group.add(model);
+          if (gltf.animations && gltf.animations.length > 0) {
+            const mixer = new THREE.AnimationMixer(model);
+            const action = mixer.clipAction(gltf.animations[0]);
+            action.play();
+            mixers.push(mixer);
+          }
+        }, undefined, (err) => {
+          console.warn('Could not load assets/models/truck.glb, fallback to procedural truck', err);
+          const cab = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.2, 1.2), new THREE.MeshPhongMaterial({ color: 0x1e293b, shininess: 80 }));
+          const trailer = new THREE.Mesh(new THREE.BoxGeometry(3.6, 1.6, 1.3), new THREE.MeshPhongMaterial({ color: 0x0284c7, shininess: 90 }));
+          trailer.position.x = -2.6;
+          const wheelGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.3, 16);
+          const wheelMat = new THREE.MeshPhongMaterial({ color: 0x0f172a });
+          const w1 = new THREE.Mesh(wheelGeo, wheelMat); w1.rotation.x = Math.PI / 2; w1.position.set(0.2, -0.7, 0.65);
+          const w2 = new THREE.Mesh(wheelGeo, wheelMat); w2.rotation.x = Math.PI / 2; w2.position.set(0.2, -0.7, -0.65);
+          const w3 = new THREE.Mesh(wheelGeo, wheelMat); w3.rotation.x = Math.PI / 2; w3.position.set(-2.6, -0.8, 0.65);
+          const w4 = new THREE.Mesh(wheelGeo, wheelMat); w4.rotation.x = Math.PI / 2; w4.position.set(-2.6, -0.8, -0.65);
+          group.add(cab, trailer, w1, w2, w3, w4);
+          group.scale.setScalar(0.9);
+        });
+        return group;
+      }
+
+      function loadStageGLBModel(modelUrl, scaleMult = 1.0, rotY = 0) {
+        const group = new THREE.Group();
+        gltfLoader.load(modelUrl, (gltf) => {
+          const loadedScene = gltf.scene;
+          loadedScene.updateMatrixWorld(true);
+
+          const box = new THREE.Box3();
+          let hasMeshes = false;
+          loadedScene.traverse((child) => {
+            if (child.isMesh && child.geometry) {
+              if (!child.geometry.boundingBox) child.geometry.computeBoundingBox();
+              const meshBox = child.geometry.boundingBox.clone();
+              child.updateMatrixWorld(true);
+              meshBox.applyMatrix4(child.matrixWorld);
+              if (!hasMeshes) {
+                box.copy(meshBox);
+                hasMeshes = true;
+              } else {
+                box.union(meshBox);
+              }
+            }
+          });
+          if (!hasMeshes) box.setFromObject(loadedScene);
+
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+          const maxDim = Math.max(size.x, size.y, size.z);
+          const normalScale = 1.0 / (maxDim || 1.0);
+
+          const wrapper = new THREE.Group();
+          loadedScene.position.copy(center).multiplyScalar(-1);
+          wrapper.add(loadedScene);
+          wrapper.scale.setScalar(normalScale * scaleMult * 2.5);
+          wrapper.rotation.y = rotY;
+
+          loadedScene.traverse((child) => {
+            if (child.isMesh) {
+              // Hide transparent helper planes/boxes embedded in 3D assets (such as betta_splendens bounds box)
+              if (child.name.toLowerCase().includes('plane') || child.name.toLowerCase().includes('cube') || child.name.toLowerCase().includes('box') || child.name.toLowerCase().includes('helper') || child.name.toLowerCase().includes('bound')) {
+                child.visible = false;
+                return;
+              }
+              if (child.material) {
+                if (child.material.transparent && child.material.opacity < 0.1) {
+                  child.visible = false;
+                  return;
+                }
+                if (child.material.map) child.material.map.encoding = THREE.sRGBEncoding;
+                // Store original material settings
+                child.userData.origTransparent = child.material.transparent;
+                child.userData.origOpacity = child.material.opacity !== undefined ? child.material.opacity : 1.0;
+                child.material.depthWrite = true;
+                child.material.side = THREE.DoubleSide;
+              }
+            }
+          });
+
+          group.add(wrapper);
+
+          if (gltf.animations && gltf.animations.length > 0) {
+            const mixer = new THREE.AnimationMixer(loadedScene);
+            const action = mixer.clipAction(gltf.animations[0]);
+            action.play();
+            mixers.push(mixer);
+          }
+        }, undefined, (err) => {
+          console.warn('Could not load stage model:', modelUrl, err);
+        });
         return group;
       }
 
       // Main interactive aquaculture showcase stages with choreographed positions and scales
       const stages = [
-        { mesh: createEggSeed(), posX: 0, posY: 0, scale: 2.4 },
-        { mesh: createHatchingLarva(), posX: -2.3, posY: 0.5, scale: 1.8 },
-        { mesh: createRealisticFish(0.6, 0x00f0ff, 0x70f0ff), posX: 2.5, posY: -0.5, scale: 2.5 },
-        { mesh: createRealisticFish(1.0, 0x00c8ff, 0x38bdf8), posX: -2.7, posY: 0.2, scale: 2.3 },
-        { mesh: createRealisticFish(1.5, 0x0284c7, 0x38bdf8), posX: 2.3, posY: 0.6, scale: 2.0 },
-        { mesh: createRealisticFish(2.1, 0x0369a1, 0x0284c7), posX: -2.5, posY: -0.6, scale: 2.2 },
-        { mesh: createRealisticFish(2.7, 0x075985, 0x0369a1), posX: 0, posY: -0.5, scale: 2.6 },
-        { mesh: createTruckModel(), posX: 2.5, posY: 0.2, scale: 1.9 }
+        { mesh: createEggSeed(), posX: 2.5, posY: 0, scale: 2.2, keepTransparent: true },                             // Phase 1: Seed Egg (egg.glb)
+        { mesh: createHatchingLarva(), posX: -2.3, posY: 0.5, scale: 2.2, keepTransparent: true },                   // Phase 2: Hatching Incubation (Larva)
+        { mesh: loadStageGLBModel('assets/models/guppy.glb', 1.0, Math.PI / 2), posX: 2.5, posY: -0.5, scale: 1.8 },          // Phase 3: Emergence (Guppy Fry)
+        { mesh: loadStageGLBModel('assets/models/betta_splendens.glb', 1.1, Math.PI), posX: -2.7, posY: 0.2, scale: 1.8 },    // Phase 4: Juvenile (Betta Splendens)
+        { mesh: loadStageGLBModel('assets/models/jikin_goldfish.glb', 1.2, -Math.PI / 2), posX: 2.3, posY: 0.6, scale: 1.9 }, // Phase 5: Active Growth (Jikin Goldfish)
+        { mesh: loadStageGLBModel('assets/models/tosakin_goldfish.glb', 1.3, -Math.PI / 2), posX: -2.5, posY: -0.6, scale: 2.0 },// Phase 6: Maturity (Tosakin Goldfish)
+        { mesh: loadStageGLBModel('assets/models/koi_fish.glb', 1.6, Math.PI), posX: 2.5, posY: -0.5, scale: 2.4 },          // Phase 7: Harvest (Majestic Koi Fish)
+        { mesh: createTruckModel(), posX: -2.5, posY: 0.2, scale: 2.2 }                       // Phase 8: Logistics (truck.glb)
       ];
 
       stages.forEach(s => { s.mesh.visible = false; mainGroup.add(s.mesh); });
 
-      // --- Background Diverse Fish Shoal (Multiple Species: Betta, Guppy, Jikin, Tosakin) ---
+      // --- Background Diverse Fish Shoal & Model Loading Infrastructure ---
       const shoalGroup = new THREE.Group();
       scene.add(shoalGroup);
-      const boids = [];
-      const mixers = [];
-
-      const gltfLoader = new THREE.GLTFLoader();
 
       const loadFishModel = (modelUrl, count, scaleMultiplier = 1.0) => {
         gltfLoader.load(modelUrl, (gltf) => {
@@ -2205,12 +2426,13 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
       window.addEventListener('scroll', () => {
         const track = document.getElementById('lifecycle-track');
         if (track) {
+          const trackTop = track.offsetTop;
           const trackHeight = track.clientHeight - window.innerHeight;
-          // Calculate target scroll between 0 and 1 over the track's scrollable range
-          targetScroll = Math.max(0, Math.min(1, window.scrollY / (trackHeight || 1)));
+          // Calculate linear normalized scroll progress relative to lifecycle track
+          targetScroll = (window.scrollY - trackTop) / (trackHeight || 1);
         } else {
           const heroHeight = window.innerHeight * 4.5;
-          targetScroll = Math.max(0, Math.min(1, window.scrollY / heroHeight));
+          targetScroll = window.scrollY / heroHeight;
         }
       }, { passive: true });
 
@@ -2262,64 +2484,85 @@ loadFishModel('assets/models/jikin_goldfish.glb', 4, 1.0);    // medium-large go
 
         // Animate central scroll stage models and stacked narrative overlays
         stages.forEach((s, i) => {
-          const mid = i / divisor;
-          const dist = Math.abs(scrollPos - mid);
-          const influence = Math.max(0, 1 - dist * divisor * 1.3);
-          const eased = Math.pow(influence, 2);
+          // Calculate stage model opacity synchronized with narrative card plateau curve
+          let modelOpacity = 0;
+          if (scrollPos > 1.05) {
+            modelOpacity = 0; // Completely hide all models when scrolled past lifecycle track
+          } else if (scrollPos > 0.95) {
+            // Smoothly fade out Phase 8 model as user scrolls past Phase 8
+            const exitRatio = Math.min(1.0, (scrollPos - 0.95) / 0.1);
+            if (i === 7) modelOpacity = 1.0 - exitRatio;
+          } else if (i === activeIdx1) {
+            modelOpacity = activeIdx1 === activeIdx2 ? 1.0 : (1.0 - fadeRatio);
+          } else if (i === activeIdx2) {
+            modelOpacity = fadeRatio;
+          }
 
           // Update Narrative Text overlays using linear cross-fade
           const el = document.getElementById('narrative-' + (i + 1));
           if (el) {
-            let opacity = 0;
             let offsetY = 0;
             let blurVal = 8;
             let isVisible = false;
 
             if (i === activeIdx1) {
               isVisible = true;
-              opacity = activeIdx1 === activeIdx2 ? 1.0 : (1.0 - fadeRatio);
               offsetY = -fadeRatio * 45; // slide up as it exits
               blurVal = fadeRatio * 6;
             } else if (i === activeIdx2) {
               isVisible = true;
-              opacity = fadeRatio;
               offsetY = (1.0 - fadeRatio) * 45; // slide in from below
               blurVal = (1.0 - fadeRatio) * 6;
             }
 
-            if (isVisible && opacity > 0.005) {
+            if (isVisible && modelOpacity > 0.005) {
               el.style.display = 'flex';
-              el.style.opacity = opacity;
+              el.style.opacity = modelOpacity;
               
               const card = el.querySelector('.content-card');
               if (card) {
                 card.style.transform = `translateY(${offsetY}px)`;
-                card.style.opacity = opacity;
+                card.style.opacity = modelOpacity;
                 card.style.filter = `blur(${blurVal}px)`;
               }
               const watermark = el.querySelector('.watermark-num');
               if (watermark) {
-                watermark.style.opacity = opacity * 0.9;
-                watermark.style.transform = `scale(${0.88 + opacity * 0.12}) translateY(${offsetY * 0.3}px)`;
+                watermark.style.opacity = modelOpacity * 0.9;
+                watermark.style.transform = `scale(${0.88 + modelOpacity * 0.12}) translateY(${offsetY * 0.3}px)`;
               }
             } else {
               el.style.display = 'none';
             }
           }
 
-          if (eased > 0.01) {
+          if (modelOpacity > 0.005) {
             s.mesh.visible = true;
-            s.mesh.scale.setScalar(eased * (s.scale || 1.65));
+            s.mesh.scale.setScalar(s.scale || 1.65);
             s.mesh.rotation.y = time * 0.9;
 
             // Tail wiggle for current active fish stage
             if (s.mesh.userData && s.mesh.userData.tailPivot) {
               s.mesh.userData.tailPivot.rotation.y = Math.sin(time * 10.0 + (s.mesh.userData.phaseOffset || 0)) * 0.4;
             }
+
+            // Silk-smooth synchronized opacity cross-fade (Keep Phase 1-2 translucent egg membrane)
             s.mesh.traverse(c => {
               if (c.material) {
-                c.material.transparent = true;
-                c.material.opacity = Math.min(1, eased * 2);
+                if (s.keepTransparent) {
+                  c.material.transparent = true;
+                  c.material.opacity = modelOpacity * 0.85;
+                  c.material.depthWrite = false;
+                } else if (modelOpacity >= 0.99) {
+                  // Fully active: restore solid depth writing and original material opacity
+                  c.material.transparent = c.userData.origTransparent || false;
+                  c.material.opacity = c.userData.origOpacity !== undefined ? c.userData.origOpacity : 1.0;
+                  c.material.depthWrite = true;
+                } else {
+                  // Transitioning: enable smooth cross-fade opacity
+                  c.material.transparent = true;
+                  c.material.opacity = modelOpacity * (c.userData.origOpacity !== undefined ? c.userData.origOpacity : 1.0);
+                  c.material.depthWrite = false;
+                }
               }
             });
           } else {
