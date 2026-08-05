@@ -64,6 +64,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png?v=20260804" />
   <meta name="apple-mobile-web-app-title" content="Fish Aqua Farming" />
   <link rel="manifest" href="manifest.json?v=20260804" />
+  <link rel="preload" as="image" href="assets/image/logo.webp" type="image/webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -323,7 +324,7 @@
       <!-- Logo (start-center aligned) -->
       <div class="flex items-center">
         <a href="#" class="flex items-center gap-2 group pointer-events-auto leading-none">
-          <img src="assets/image/logo.webp" alt="Fish Aqua Farming Logo"
+          <img src="assets/image/logo.webp" alt="Fish Aqua Farming Logo" fetchpriority="high" decoding="async"
             class="h-7 sm:h-8 lg:h-9 w-auto object-contain flex-shrink-0 group-hover:scale-105 transition-transform" />
           <span
             class="logo-text font-headline-md text-base sm:text-xl lg:text-2xl font-bold text-ocean-white group-hover:text-water-glow transition-all tracking-tight whitespace-nowrap leading-none">Fish

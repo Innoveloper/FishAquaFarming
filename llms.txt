@@ -1,0 +1,16 @@
+# Fish Aqua Farming
+
+> Precision Sustainable Aquaculture & Smart Fish Farming Technology.
+
+Fish Aqua Farming provides AI-driven biomass monitoring, recirculating aquaculture systems (RAS), water quality analytics, and eco-friendly fish farming solutions.
+
+## Core Services & Pages
+- [Home Page](https://fishaquafarming.com/): Primary overview of sustainable fish farming technology.
+- [Commercial Fish Species](https://fishaquafarming.com/#species): Detailed guide to Rohu, Katla, Tilapia, Pangasius, Carp, and Catfish.
+- [Aquaculture Technology Showcase](https://fishaquafarming.com/#technology): AI diagnostics, biomass monitoring, and water quality analytics.
+- [Recirculating Systems (RAS)](https://fishaquafarming.com/#ras): Eco-friendly closed-loop water recirculation systems.
+
+## Machine-Readable Files
+- [Web App Manifest](https://fishaquafarming.com/manifest.json): Application metadata and icon configuration.
+- [Robots Configuration](https://fishaquafarming.com/robots.txt): Search engine crawler directives.
+- [Sitemap](https://fishaquafarming.com/sitemap.xml): XML sitemap listing indexable web pages.
