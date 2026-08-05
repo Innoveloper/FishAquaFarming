@@ -42,6 +42,35 @@ body {
   scroll-behavior: smooth;
 }
 
+/* --- Primary Buttons Font (Sora) --- */
+button,
+.btn-primary,
+button.bg-water-glow,
+a.bg-water-glow,
+.primary-btn {
+  font-family: 'Sora', sans-serif !important;
+  letter-spacing: 0.01em;
+}
+
+/* --- Contact Details Font (Hanken Grotesk) --- */
+.contact-detail,
+.contact-info,
+a[href^="tel:"],
+a[href^="mailto:"] {
+  font-family: 'Hanken Grotesk', sans-serif !important;
+  letter-spacing: 0.01em;
+}
+
+/* --- Legal Pages & Footer Legal Text Font (Hanken Grotesk) --- */
+.legal-content,
+.legal-text,
+.legal-link,
+a[href*="privacy"],
+a[href*="terms"],
+a[href*="compliance"] {
+  font-family: 'Hanken Grotesk', sans-serif !important;
+}
+
 /* Oceanic Abundance Glassmorphism */
 .glass-card {
   background: rgba(6, 6, 37, 0.4);
