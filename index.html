@@ -2488,8 +2488,12 @@
                   child.material.emissive.setHex(0x004466);
                   child.material.emissiveIntensity = 0.3;
                 }
-                child.userData.origTransparent = child.material.transparent;
-                child.userData.origOpacity = child.material.opacity !== undefined ? child.material.opacity : 1.0;
+                // Set transparency to 0 (100% solid opaque)
+                child.material.transparent = false;
+                child.material.opacity = 1.0;
+                child.material.depthWrite = true;
+                child.userData.origTransparent = false;
+                child.userData.origOpacity = 1.0;
               }
             }
           });
@@ -2497,10 +2501,10 @@
         }, undefined, (err) => {
           console.warn('Could not load assets/models/egg.glb, fallback to sphere', err);
           const geo = new THREE.SphereGeometry(1.2, 32, 32);
-          const mat = new THREE.MeshPhongMaterial({ color: 0x88ffff, transparent: true, opacity: 0.9, shininess: 100, emissive: 0x0088cc, emissiveIntensity: 0.4 });
+          const mat = new THREE.MeshPhongMaterial({ color: 0x88ffff, transparent: false, opacity: 1.0, shininess: 100, emissive: 0x0088cc, emissiveIntensity: 0.4 });
           const fallbackMesh = new THREE.Mesh(geo, mat);
-          fallbackMesh.userData.origTransparent = true;
-          fallbackMesh.userData.origOpacity = 0.9;
+          fallbackMesh.userData.origTransparent = false;
+          fallbackMesh.userData.origOpacity = 1.0;
           group.add(fallbackMesh);
         });
         return group;
@@ -2580,7 +2584,7 @@
           const maxDim = Math.max(size.x, size.y, size.z);
           const normalScale = 1.0 / (maxDim || 1.0);
           model.position.copy(center).multiplyScalar(-1);
-          model.scale.setScalar(normalScale * 5.5);
+          model.scale.setScalar(normalScale * 3.8);
           model.traverse((child) => {
             if (child.isMesh && child.material) {
               if (child.material.map) child.material.map.encoding = THREE.sRGBEncoding;
@@ -2711,7 +2715,7 @@
         { mesh: loadStageGLBModel('assets/models/jikin_goldfish.glb', 1.2, -Math.PI / 2), posX: 2.5, posY: 0.0, scale: 1.9 }, // Phase 5 (odd): 3D Model Right
         { mesh: loadStageGLBModel('assets/models/tosakin_goldfish.glb', 1.3, -Math.PI / 2), posX: -2.5, posY: 0.0, scale: 2.0 },// Phase 6 (even): 3D Model Left
         { mesh: loadStageGLBModel('assets/models/koi_fish.glb', 1.6, Math.PI), posX: 2.5, posY: 0.0, scale: 2.4 },          // Phase 7 (odd): 3D Model Right
-        { mesh: createTruckModel(), posX: -2.5, posY: 0.0, scale: 2.2 }                       // Phase 8 (even): 3D Model Left
+        { mesh: createTruckModel(), posX: -2.6, posY: 0.0, scale: 1.65 }                      // Phase 8 (even): 3D Model Left (0.75x reduced scale)
       ];
 
       stages.forEach(s => { s.mesh.visible = false; mainGroup.add(s.mesh); });
@@ -2919,11 +2923,11 @@
         stages.forEach((s, i) => {
           // Calculate stage model opacity synchronized with narrative card plateau curve
           let modelOpacity = 0;
-          if (scrollPos > 1.05) {
+          if (scrollPos > 1.08) {
             modelOpacity = 0; // Completely hide all models when scrolled past lifecycle track
-          } else if (scrollPos > 0.98) {
-            // Smoothly fade out Phase 8 model right as next section enters from bottom
-            const exitRatio = Math.min(1.0, (scrollPos - 0.98) / 0.07);
+          } else if (scrollPos > 1.0) {
+            // Smoothly fade out Phase 8 model only when scrolling past Phase 8 into next section
+            const exitRatio = Math.min(1.0, (scrollPos - 1.0) / 0.08);
             if (i === 7) modelOpacity = 1.0 - exitRatio;
           } else if (i === activeIdx1) {
             modelOpacity = activeIdx1 === activeIdx2 ? 1.0 : (1.0 - fadeRatio);
@@ -4596,11 +4600,9 @@
         return { trackTop, trackHeight, stageInterval };
       }
 
-      function scrollToStage(stageIndex, speed = 0.35) {
-        const { trackTop, stageInterval } = getBounds();
-        const clampedIndex = Math.max(0, Math.min(numStages - 1, stageIndex));
-        const targetY = Math.round(trackTop + clampedIndex * stageInterval);
-
+      function scrollToY(targetY, speed = 0.35) {
+        targetY = Math.round(targetY);
+        if (Math.abs(window.scrollY - targetY) <= 3) return;
         isSnapping = true;
         clearTimeout(lockSafetyTimeout);
 
@@ -4608,7 +4610,7 @@
           isSnapping = false;
           // Ensure exact pixel alignment to prevent any half-way rendering state
           const currentY = window.scrollY;
-          if (Math.abs(currentY - targetY) > 2 && Math.abs(currentY - targetY) < 100) {
+          if (Math.abs(currentY - targetY) > 2 && Math.abs(currentY - targetY) < 60) {
             if (typeof lenis !== 'undefined' && lenis.scrollTo) {
               lenis.scrollTo(targetY, { immediate: true });
             } else {
@@ -4632,6 +4634,13 @@
 
         // Safety fallback to guarantee isSnapping resets even if Lenis event is cancelled
         lockSafetyTimeout = setTimeout(finalizeSnap, Math.max(300, speed * 1000 + 100));
+      }
+
+      function scrollToStage(stageIndex, speed = 0.35) {
+        const { trackTop, stageInterval } = getBounds();
+        const clampedIndex = Math.max(0, Math.min(numStages - 1, stageIndex));
+        const targetY = trackTop + clampedIndex * stageInterval;
+        scrollToY(targetY, speed);
       }
 
       if (dotsContainer) {
@@ -4660,12 +4669,27 @@
 
       function handleSnap(force = false) {
         if (typeof isGlobalDragging !== 'undefined' && isGlobalDragging) return;
+        if (isSnapping && !force) return;
 
         const { trackTop, trackHeight, stageInterval } = getBounds();
         const scrollY = window.scrollY;
+        const nextSec = document.getElementById('authority');
+        const phase8Y = Math.round(trackTop + 7 * stageInterval);
+        const nextY = nextSec ? Math.round(nextSec.offsetTop) : phase8Y + stageInterval;
+
+        // Seamless transition between Phase 8 and Next Section (#authority)
+        if (scrollY >= phase8Y - 15 && scrollY <= nextY + 40) {
+          if (scrollDirection > 0 && Math.abs(scrollY - nextY) > 5) {
+            scrollToY(nextY, 0.3);
+            return;
+          } else if (scrollDirection < 0 && scrollY <= nextY + 40 && Math.abs(scrollY - phase8Y) > 5) {
+            scrollToY(phase8Y, 0.3);
+            return;
+          }
+        }
 
         // Only snap when user is inside the lifecycle track section
-        if (scrollY < trackTop - 60 || scrollY > trackTop + trackHeight + 60) {
+        if (scrollY < trackTop - 60 || scrollY > phase8Y + 80) {
           if (dotsContainer) {
             dotsContainer.classList.add('opacity-0', 'translate-x-4');
             dotsContainer.classList.remove('opacity-100', 'translate-x-0');
@@ -4685,9 +4709,6 @@
 
         let targetStage = Math.round(rawIdx);
 
-        // Sensitive Sticky Snap Logic:
-        // - Scroll down: if progressed >= 0.18 towards next phase -> snap forward (idx2), else snap back (idx1)
-        // - Scroll up: if progressed <= 0.82 towards previous phase -> snap back (idx1), else snap forward (idx2)
         if (scrollDirection > 0) {
           targetStage = frac >= 0.18 ? idx2 : idx1;
         } else if (scrollDirection < 0) {
@@ -4697,9 +4718,9 @@
         targetStage = Math.max(0, Math.min(numStages - 1, targetStage));
         const targetY = Math.round(trackTop + targetStage * stageInterval);
 
-        // Snap immediately if not already resting at target phase
+        // Snap instantly with fast 0.3s easing animation
         if (Math.abs(scrollY - targetY) > 3) {
-          scrollToStage(targetStage, 0.35);
+          scrollToStage(targetStage, 0.3);
         }
       }
 
@@ -4732,32 +4753,32 @@
         }
       }
 
-      // Instant physical input release handlers to settle immediately without waiting for momentum decay
+      // Instant physical input release handlers - triggers 15ms after wheel/touch release
       window.addEventListener('wheel', (e) => {
-        if (Math.abs(e.deltaY) > 2) {
+        if (Math.abs(e.deltaY) > 1.5) {
           scrollDirection = e.deltaY > 0 ? 1 : -1;
         }
         clearTimeout(wheelTimeout);
         wheelTimeout = setTimeout(() => {
           handleSnap(true);
-        }, 30);
+        }, 18);
       }, { passive: true });
 
       window.addEventListener('touchend', () => {
-        setTimeout(() => handleSnap(true), 15);
+        setTimeout(() => handleSnap(true), 12);
       }, { passive: true });
 
       window.addEventListener('mouseup', () => {
         if (typeof isGlobalDragging === 'undefined' || !isGlobalDragging) {
-          setTimeout(() => handleSnap(true), 15);
+          setTimeout(() => handleSnap(true), 12);
         }
       }, { passive: true });
 
       window.addEventListener('keyup', (e) => {
         if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Space'].includes(e.code)) {
-          setTimeout(() => handleSnap(true), 25);
+          setTimeout(() => handleSnap(true), 15);
         }
-      });
+      }, { passive: true });
 
       window.addEventListener('scroll', onScroll, { passive: true });
       if (typeof lenis !== 'undefined') {

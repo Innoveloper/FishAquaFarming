@@ -89,13 +89,13 @@ body {
 
 #lifecycle-track {
   position: relative;
-  height: 420vh;
+  height: 330vh;
   width: 100%;
 }
 
 @media (max-width: 767px) {
   #lifecycle-track {
-    height: 360vh;
+    height: 280vh;
   }
 }
 
