@@ -326,6 +326,36 @@
   <main>
     <div id="lifecycle-track">
       <div class="sticky-container w-full flex items-center justify-center">
+        <!-- Floating Interactive Phase Dot Navigation Sidebar -->
+        <div id="phase-dots-container"
+          class="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-3 pointer-events-auto transition-all duration-500 opacity-0 translate-x-4">
+          <div class="text-[9px] font-label-caps text-water-glow/80 tracking-widest uppercase mb-1 rotate-90 origin-center translate-y-[-8px] pointer-events-none">Phases</div>
+          <button data-phase="0" title="Phase 01: Seed Selection" class="phase-dot w-3 h-3 rounded-full border border-water-glow/40 bg-surface-container-high/60 transition-all duration-300 hover:scale-125 hover:border-water-glow relative group cursor-pointer">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-md bg-surface-container-high/90 border border-water-glow/30 text-[10px] font-label-caps text-water-glow whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">01. Seed Selection</span>
+          </button>
+          <button data-phase="1" title="Phase 02: Hatchery Incubation" class="phase-dot w-3 h-3 rounded-full border border-water-glow/40 bg-surface-container-high/60 transition-all duration-300 hover:scale-125 hover:border-water-glow relative group cursor-pointer">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-md bg-surface-container-high/90 border border-water-glow/30 text-[10px] font-label-caps text-water-glow whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">02. Incubation</span>
+          </button>
+          <button data-phase="2" title="Phase 03: Emergence" class="phase-dot w-3 h-3 rounded-full border border-water-glow/40 bg-surface-container-high/60 transition-all duration-300 hover:scale-125 hover:border-water-glow relative group cursor-pointer">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-md bg-surface-container-high/90 border border-water-glow/30 text-[10px] font-label-caps text-water-glow whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">03. Emergence</span>
+          </button>
+          <button data-phase="3" title="Phase 04: Juvenile Development" class="phase-dot w-3 h-3 rounded-full border border-water-glow/40 bg-surface-container-high/60 transition-all duration-300 hover:scale-125 hover:border-water-glow relative group cursor-pointer">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-md bg-surface-container-high/90 border border-water-glow/30 text-[10px] font-label-caps text-water-glow whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">04. Juvenile</span>
+          </button>
+          <button data-phase="4" title="Phase 05: Active Growth" class="phase-dot w-3 h-3 rounded-full border border-water-glow/40 bg-surface-container-high/60 transition-all duration-300 hover:scale-125 hover:border-water-glow relative group cursor-pointer">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-md bg-surface-container-high/90 border border-water-glow/30 text-[10px] font-label-caps text-water-glow whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">05. Active Growth</span>
+          </button>
+          <button data-phase="5" title="Phase 06: Maturity" class="phase-dot w-3 h-3 rounded-full border border-water-glow/40 bg-surface-container-high/60 transition-all duration-300 hover:scale-125 hover:border-water-glow relative group cursor-pointer">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-md bg-surface-container-high/90 border border-water-glow/30 text-[10px] font-label-caps text-water-glow whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">06. Maturity</span>
+          </button>
+          <button data-phase="6" title="Phase 07: Premium Harvest" class="phase-dot w-3 h-3 rounded-full border border-water-glow/40 bg-surface-container-high/60 transition-all duration-300 hover:scale-125 hover:border-water-glow relative group cursor-pointer">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-md bg-surface-container-high/90 border border-water-glow/30 text-[10px] font-label-caps text-water-glow whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">07. Harvest</span>
+          </button>
+          <button data-phase="7" title="Phase 08: Global Logistics" class="phase-dot w-3 h-3 rounded-full border border-water-glow/40 bg-surface-container-high/60 transition-all duration-300 hover:scale-125 hover:border-water-glow relative group cursor-pointer">
+            <span class="absolute right-6 top-1/2 -translate-y-1/2 px-2.5 py-1 rounded-md bg-surface-container-high/90 border border-water-glow/30 text-[10px] font-label-caps text-water-glow whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">08. Logistics</span>
+          </button>
+        </div>
+
         <div
           class="relative w-full h-full max-w-container-max mx-auto px-gutter flex items-center justify-center pointer-events-none">
 
@@ -2458,6 +2488,8 @@
                   child.material.emissive.setHex(0x004466);
                   child.material.emissiveIntensity = 0.3;
                 }
+                child.userData.origTransparent = child.material.transparent;
+                child.userData.origOpacity = child.material.opacity !== undefined ? child.material.opacity : 1.0;
               }
             }
           });
@@ -2466,7 +2498,10 @@
           console.warn('Could not load assets/models/egg.glb, fallback to sphere', err);
           const geo = new THREE.SphereGeometry(1.2, 32, 32);
           const mat = new THREE.MeshPhongMaterial({ color: 0x88ffff, transparent: true, opacity: 0.9, shininess: 100, emissive: 0x0088cc, emissiveIntensity: 0.4 });
-          group.add(new THREE.Mesh(geo, mat));
+          const fallbackMesh = new THREE.Mesh(geo, mat);
+          fallbackMesh.userData.origTransparent = true;
+          fallbackMesh.userData.origOpacity = 0.9;
+          group.add(fallbackMesh);
         });
         return group;
       }
@@ -2515,6 +2550,8 @@
                   child.material.emissive.setHex(0x005577);
                   child.material.emissiveIntensity = 0.4;
                 }
+                child.userData.origTransparent = child.material.transparent;
+                child.userData.origOpacity = child.material.opacity !== undefined ? child.material.opacity : 1.0;
               }
             }
           });
@@ -2525,6 +2562,8 @@
           const eggMat = new THREE.MeshPhongMaterial({ color: 0x88ffff, transparent: true, opacity: 0.7, shininess: 90 });
           const shell = new THREE.Mesh(new THREE.SphereGeometry(0.8, 32, 32, 0, Math.PI * 2, 0, Math.PI / 1.5), eggMat);
           shell.rotation.x = -0.5;
+          shell.userData.origTransparent = true;
+          shell.userData.origOpacity = 0.7;
           group.add(shell);
         });
         return group;
@@ -2549,6 +2588,8 @@
               // Clone material to ensure unique material instances
               child.material = child.material.clone();
               child.material.transparent = true;
+              child.userData.origTransparent = true;
+              child.userData.origOpacity = 1.0;
 
               // Recolor all blue/navy materials to brand dark navy (#111124) with glowing cyan highlights
               const c = child.material.color;
@@ -2826,7 +2867,8 @@
         threeAnimationFrameId = requestAnimationFrame(animate);
         const delta = clock.getDelta();
         const time = Date.now() * 0.00045;
-        scrollPos += (targetScroll - scrollPos) * 0.08;
+        // Smoothly interpolate scroll progress with optimal dampening
+        scrollPos += (targetScroll - scrollPos) * 0.07;
 
         // Update skeletal GLTF animation mixers
         mixers.forEach(mixer => mixer.update(delta));
@@ -2842,14 +2884,14 @@
         const idx2 = Math.min(num - 1, idx1 + 1);
         const ratio = rawIdx - idx1;
 
-        // Calculate a sticky plateau curve (stays 100% at phase for first/last 40%, transitions in middle 20%)
+        // Calculate crisp phase plateau curve (100% solid at phase ends, transitions quickly in middle 30%)
         let fadeRatio = 0;
-        if (ratio <= 0.4) {
+        if (ratio <= 0.35) {
           fadeRatio = 0;
-        } else if (ratio >= 0.6) {
+        } else if (ratio >= 0.65) {
           fadeRatio = 1;
         } else {
-          const t = (ratio - 0.4) / 0.2;
+          const t = (ratio - 0.35) / 0.3;
           fadeRatio = t * t * (3 - 2 * t); // smoothstep ease
         }
 
@@ -2893,41 +2935,57 @@
           const el = document.getElementById('narrative-' + (i + 1));
           if (el) {
             let offsetY = 0;
-            let blurVal = 8;
+            let blurVal = 0;
             let isVisible = false;
 
             if (i === activeIdx1) {
               isVisible = true;
-              offsetY = -fadeRatio * 45; // slide up as it exits
-              blurVal = fadeRatio * 6;
+              offsetY = -fadeRatio * 35; // slide up as it exits
+              blurVal = fadeRatio * 3;
             } else if (i === activeIdx2) {
               isVisible = true;
-              offsetY = (1.0 - fadeRatio) * 45; // slide in from below
-              blurVal = (1.0 - fadeRatio) * 6;
+              offsetY = (1.0 - fadeRatio) * 35; // slide in from below
+              blurVal = (1.0 - fadeRatio) * 3;
             }
 
-            if (isVisible && modelOpacity > 0.005) {
+            if (isVisible && modelOpacity > 0.01) {
               el.style.display = 'flex';
-              el.style.opacity = modelOpacity;
+              el.style.opacity = modelOpacity.toFixed(3);
 
               const card = el.querySelector('.content-card');
               if (card) {
-                card.style.transform = `translateY(${offsetY}px)`;
-                card.style.opacity = modelOpacity;
-                card.style.filter = `blur(${blurVal}px)`;
+                card.style.transform = `translate3d(0, ${offsetY.toFixed(1)}px, 0)`;
+                card.style.opacity = modelOpacity.toFixed(3);
+                card.style.filter = blurVal > 0.2 ? `blur(${blurVal.toFixed(1)}px)` : 'none';
               }
               const watermark = el.querySelector('.watermark-num');
               if (watermark) {
-                watermark.style.opacity = modelOpacity * 0.9;
-                watermark.style.transform = `scale(${0.88 + modelOpacity * 0.12}) translateY(${offsetY * 0.3}px)`;
+                watermark.style.opacity = (modelOpacity * 0.9).toFixed(3);
+                watermark.style.transform = `scale(${(0.88 + modelOpacity * 0.12).toFixed(3)}) translate3d(0, ${(offsetY * 0.3).toFixed(1)}px, 0)`;
               }
             } else {
               el.style.display = 'none';
+              el.style.opacity = '0';
             }
           }
 
           if (modelOpacity > 0.005) {
             s.mesh.visible = true;
+
+            // Prevent overlapping z-fighting or ghost shadow during cross-fade:
+            // Outgoing stage moves slightly outward/back, incoming stage smoothly steps forward
+            if (i === activeIdx1 && activeIdx1 !== activeIdx2) {
+              s.mesh.position.x = -fadeRatio * 0.8;
+              s.mesh.position.z = -fadeRatio * 1.5;
+              s.mesh.renderOrder = 1;
+            } else if (i === activeIdx2 && activeIdx1 !== activeIdx2) {
+              s.mesh.position.x = (1.0 - fadeRatio) * 0.8;
+              s.mesh.position.z = (1.0 - fadeRatio) * -1.5;
+              s.mesh.renderOrder = 2;
+            } else {
+              s.mesh.position.set(0, 0, 0);
+              s.mesh.renderOrder = 0;
+            }
 
             // Calculate responsive scale factor for small screens / mobile viewports
             let responsiveScale = s.scale || 1.65;
@@ -2940,7 +2998,15 @@
                 responsiveScale = responsiveScale * 0.8 * mobileScaleFactor;
               }
             }
-            s.mesh.scale.setScalar(responsiveScale);
+
+            if (i === activeIdx1 && activeIdx1 !== activeIdx2) {
+              s.mesh.scale.setScalar(responsiveScale * (1.0 - fadeRatio * 0.15));
+            } else if (i === activeIdx2 && activeIdx1 !== activeIdx2) {
+              s.mesh.scale.setScalar(responsiveScale * (0.85 + fadeRatio * 0.15));
+            } else {
+              s.mesh.scale.setScalar(responsiveScale);
+            }
+
             s.mesh.rotation.y = time * 0.9;
 
             // Tail wiggle for current active fish stage
@@ -2970,6 +3036,7 @@
             });
           } else {
             s.mesh.visible = false;
+            s.mesh.position.set(0, 0, 0);
           }
         });
 
@@ -4507,6 +4574,196 @@
         }
       });
     }
+
+    // --- Sticky Phase Scroll Snapping & Indicator System ---
+    (function initStickyPhaseScroll() {
+      const track = document.getElementById('lifecycle-track');
+      const dotsContainer = document.getElementById('phase-dots-container');
+      if (!track) return;
+
+      const numStages = 8;
+      let isSnapping = false;
+      let snapTimeout = null;
+      let wheelTimeout = null;
+      let lockSafetyTimeout = null;
+      let lastScrollY = window.scrollY;
+      let scrollDirection = 0; // 1 = down, -1 = up
+
+      function getBounds() {
+        const trackTop = track.offsetTop;
+        const trackHeight = track.clientHeight - window.innerHeight;
+        const stageInterval = trackHeight / (numStages - 1);
+        return { trackTop, trackHeight, stageInterval };
+      }
+
+      function scrollToStage(stageIndex, speed = 0.35) {
+        const { trackTop, stageInterval } = getBounds();
+        const clampedIndex = Math.max(0, Math.min(numStages - 1, stageIndex));
+        const targetY = Math.round(trackTop + clampedIndex * stageInterval);
+
+        isSnapping = true;
+        clearTimeout(lockSafetyTimeout);
+
+        const finalizeSnap = () => {
+          isSnapping = false;
+          // Ensure exact pixel alignment to prevent any half-way rendering state
+          const currentY = window.scrollY;
+          if (Math.abs(currentY - targetY) > 2 && Math.abs(currentY - targetY) < 100) {
+            if (typeof lenis !== 'undefined' && lenis.scrollTo) {
+              lenis.scrollTo(targetY, { immediate: true });
+            } else {
+              window.scrollTo(0, targetY);
+            }
+          }
+        };
+
+        if (typeof lenis !== 'undefined' && lenis.scrollTo) {
+          lenis.scrollTo(targetY, {
+            duration: speed,
+            easing: (t) => 1 - Math.pow(1 - t, 3), // Fast snappy cubic out
+            onComplete: finalizeSnap
+          });
+        } else {
+          window.scrollTo({
+            top: targetY,
+            behavior: 'smooth'
+          });
+        }
+
+        // Safety fallback to guarantee isSnapping resets even if Lenis event is cancelled
+        lockSafetyTimeout = setTimeout(finalizeSnap, Math.max(300, speed * 1000 + 100));
+      }
+
+      if (dotsContainer) {
+        const dots = dotsContainer.querySelectorAll('.phase-dot');
+        dots.forEach((dot, idx) => {
+          dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            scrollToStage(idx, 0.4);
+          });
+        });
+      }
+
+      function updateDotsUI(activeIdx) {
+        if (!dotsContainer) return;
+        const dots = dotsContainer.querySelectorAll('.phase-dot');
+        dots.forEach((dot, idx) => {
+          if (idx === activeIdx) {
+            dot.classList.add('!bg-water-glow', '!border-water-glow', 'shadow-[0_0_12px_#00ccff]', 'scale-125');
+            dot.classList.remove('bg-surface-container-high/60', 'border-water-glow/40');
+          } else {
+            dot.classList.remove('!bg-water-glow', '!border-water-glow', 'shadow-[0_0_12px_#00ccff]', 'scale-125');
+            dot.classList.add('bg-surface-container-high/60', 'border-water-glow/40');
+          }
+        });
+      }
+
+      function handleSnap(force = false) {
+        if (typeof isGlobalDragging !== 'undefined' && isGlobalDragging) return;
+
+        const { trackTop, trackHeight, stageInterval } = getBounds();
+        const scrollY = window.scrollY;
+
+        // Only snap when user is inside the lifecycle track section
+        if (scrollY < trackTop - 60 || scrollY > trackTop + trackHeight + 60) {
+          if (dotsContainer) {
+            dotsContainer.classList.add('opacity-0', 'translate-x-4');
+            dotsContainer.classList.remove('opacity-100', 'translate-x-0');
+          }
+          return;
+        }
+
+        if (dotsContainer) {
+          dotsContainer.classList.remove('opacity-0', 'translate-x-4');
+          dotsContainer.classList.add('opacity-100', 'translate-x-0');
+        }
+
+        const rawIdx = (scrollY - trackTop) / stageInterval;
+        const idx1 = Math.floor(rawIdx);
+        const idx2 = Math.min(numStages - 1, idx1 + 1);
+        const frac = rawIdx - idx1;
+
+        let targetStage = Math.round(rawIdx);
+
+        // Sensitive Sticky Snap Logic:
+        // - Scroll down: if progressed >= 0.18 towards next phase -> snap forward (idx2), else snap back (idx1)
+        // - Scroll up: if progressed <= 0.82 towards previous phase -> snap back (idx1), else snap forward (idx2)
+        if (scrollDirection > 0) {
+          targetStage = frac >= 0.18 ? idx2 : idx1;
+        } else if (scrollDirection < 0) {
+          targetStage = frac <= 0.82 ? idx1 : idx2;
+        }
+
+        targetStage = Math.max(0, Math.min(numStages - 1, targetStage));
+        const targetY = Math.round(trackTop + targetStage * stageInterval);
+
+        // Snap immediately if not already resting at target phase
+        if (Math.abs(scrollY - targetY) > 3) {
+          scrollToStage(targetStage, 0.35);
+        }
+      }
+
+      function onScroll() {
+        const currentY = window.scrollY;
+        const delta = currentY - lastScrollY;
+        if (Math.abs(delta) > 1.5) {
+          scrollDirection = delta > 0 ? 1 : -1;
+        }
+        lastScrollY = currentY;
+
+        const { trackTop, trackHeight, stageInterval } = getBounds();
+        if (currentY >= trackTop - 100 && currentY <= trackTop + trackHeight + 100) {
+          if (dotsContainer) {
+            dotsContainer.classList.remove('opacity-0', 'translate-x-4');
+            dotsContainer.classList.add('opacity-100', 'translate-x-0');
+          }
+          const rawIdx = (currentY - trackTop) / stageInterval;
+          updateDotsUI(Math.max(0, Math.min(numStages - 1, Math.round(rawIdx))));
+        } else {
+          if (dotsContainer) {
+            dotsContainer.classList.add('opacity-0', 'translate-x-4');
+            dotsContainer.classList.remove('opacity-100', 'translate-x-0');
+          }
+        }
+
+        if (!isSnapping) {
+          clearTimeout(snapTimeout);
+          snapTimeout = setTimeout(() => handleSnap(false), 40);
+        }
+      }
+
+      // Instant physical input release handlers to settle immediately without waiting for momentum decay
+      window.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) > 2) {
+          scrollDirection = e.deltaY > 0 ? 1 : -1;
+        }
+        clearTimeout(wheelTimeout);
+        wheelTimeout = setTimeout(() => {
+          handleSnap(true);
+        }, 30);
+      }, { passive: true });
+
+      window.addEventListener('touchend', () => {
+        setTimeout(() => handleSnap(true), 15);
+      }, { passive: true });
+
+      window.addEventListener('mouseup', () => {
+        if (typeof isGlobalDragging === 'undefined' || !isGlobalDragging) {
+          setTimeout(() => handleSnap(true), 15);
+        }
+      }, { passive: true });
+
+      window.addEventListener('keyup', (e) => {
+        if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Space'].includes(e.code)) {
+          setTimeout(() => handleSnap(true), 25);
+        }
+      });
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      if (typeof lenis !== 'undefined') {
+        lenis.on('scroll', onScroll);
+      }
+    })();
 
     // --- Redesigned Navigation & Back-to-Top Button Logic ---
     (function () {

@@ -95,7 +95,7 @@ body {
 
 @media (max-width: 767px) {
   #lifecycle-track {
-    height: 380vh;
+    height: 360vh;
   }
 }
 
@@ -140,8 +140,6 @@ body {
   z-index: 10;
   pointer-events: auto;
   will-change: opacity, transform, filter;
-  transition: transform 0.15s ease-out, opacity 0.15s ease-out;
-  /* minor damping to smooth scroll ticks */
 }
 
 .watermark-num {
@@ -159,7 +157,6 @@ body {
   user-select: none;
   z-index: -1;
   will-change: opacity, transform;
-  transition: transform 0.15s ease-out, opacity 0.15s ease-out;
 }
 
 .tech-chip {
