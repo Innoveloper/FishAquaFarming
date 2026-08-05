@@ -647,7 +647,7 @@
       </div>
 
       <div
-        class="relative group aspect-video rounded-xl min-[360px]:rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] overflow-hidden glass-card border border-white/10 shadow-2xl">
+        class="max-w-sm sm:max-w-md mx-auto relative group aspect-[9/16] rounded-xl min-[360px]:rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] overflow-hidden glass-card border border-white/10 shadow-2xl">
         <!-- Play Button Overlay -->
         <div class="absolute inset-0 flex items-center justify-center z-20 transition-all duration-500 cursor-pointer"
           id="facility-video-overlay" onclick="toggleFacilityVideo()">
@@ -661,8 +661,8 @@
         </div>
 
         <!-- HTML5 Video Player using Local MP4 Videos in assets/video/ -->
-        <video class="w-full h-full object-cover" id="facility-video-player" loop muted playsinline>
-          <source id="facility-video-src" src="assets/video/103307-662114653.mp4" type="video/mp4" />
+        <video class="w-full h-full object-cover" id="facility-video-player" loop playsinline>
+          <source id="facility-video-src" src="assets/video/drone video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
@@ -3258,13 +3258,28 @@
       });
     }, { threshold: 0.5 });
     stats.forEach(stat => statsObserver.observe(stat));
-    // --- Facility Video Player Toggle & Tab Switcher ---
+    // --- Facility Video Player Toggle & Auto-Pause on Unfocus/Scroll ---
+    function pauseFacilityVideo() {
+      const video = document.getElementById('facility-video-player');
+      const icon = document.getElementById('facility-video-icon');
+      const overlay = document.getElementById('facility-video-overlay');
+      if (video && !video.paused) {
+        video.pause();
+        if (icon) icon.innerText = 'play_arrow';
+        if (overlay) {
+          overlay.style.opacity = '1';
+          overlay.classList.add('bg-black/30');
+        }
+      }
+    }
+
     function toggleFacilityVideo() {
       const video = document.getElementById('facility-video-player');
       const icon = document.getElementById('facility-video-icon');
       const overlay = document.getElementById('facility-video-overlay');
 
       if (video.paused) {
+        video.muted = false;
         video.play();
         icon.innerText = 'pause';
         overlay.classList.add('bg-black/0');
@@ -3299,10 +3314,34 @@
       // Switch source and play
       source.src = videoSrc;
       video.load();
+      video.muted = false;
       video.play();
       icon.innerText = 'pause';
       overlay.style.opacity = '0.3';
     }
+
+    // Auto pause video when scrolled out of view or when window/tab loses focus
+    const facilityVideoElem = document.getElementById('facility-video-player');
+    if (facilityVideoElem) {
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) {
+            pauseFacilityVideo();
+          }
+        });
+      }, { threshold: 0.2 });
+      videoObserver.observe(facilityVideoElem);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        pauseFacilityVideo();
+      }
+    });
+
+    window.addEventListener('blur', () => {
+      pauseFacilityVideo();
+    });
 
     // --- Custom Interactive Aquatic Cursor Script ---
     if (!isTouchDevice) {
