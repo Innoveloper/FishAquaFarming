@@ -187,7 +187,7 @@
       background: #00e1ff;
       border-radius: 50%;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 9999999;
       transform: translate(-50%, -50%);
       box-shadow: 0 0 12px #00e1ff, 0 0 24px #0088ff;
       transition: width 0.2s, height 0.2s, background-color 0.2s;
@@ -202,7 +202,7 @@
       border: 1.5px solid rgba(0, 225, 255, 0.6);
       border-radius: 50%;
       pointer-events: none;
-      z-index: 9998;
+      z-index: 9999998;
       transform: translate(-50%, -50%);
       backdrop-filter: blur(1px);
       transition: transform 0.15s ease-out, width 0.25s, height 0.25s, border-color 0.25s;
@@ -344,6 +344,9 @@
         <a id="nav-species"
           class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
           href="#portfolio">Species</a>
+        <a id="nav-gallery"
+          class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
+          href="#gallery">Gallery</a>
         <a id="nav-advantage"
           class="nav-link nav-link-underline text-ocean-white hover:text-water-glow transition-colors duration-300 font-label-caps text-label-caps"
           href="#advantage">Advantage</a>
@@ -373,6 +376,8 @@
         href="#lifecycle-track">Lifecycle</a>
       <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
         href="#portfolio">Species</a>
+      <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
+        href="#gallery">Gallery</a>
       <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
         href="#advantage">Advantage</a>
       <a class="mobile-nav-link text-2xl text-ocean-white font-headline-display tracking-wide hover:text-water-glow transition-colors"
@@ -1481,6 +1486,73 @@
       </div>
     </div>
   </section>
+  <!-- Facility & Operations Gallery Section -->
+  <section class="py-8 min-[360px]:py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 overflow-hidden" id="gallery">
+    <div class="w-full px-2 min-[360px]:px-4 sm:px-8 lg:px-12">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-8 min-[360px]:mb-10 sm:mb-16">
+        <p class="font-label-caps text-[10px] min-[360px]:text-xs sm:text-sm text-water-glow mb-2 min-[360px]:mb-3 tracking-widest uppercase">Aquaculture In Action</p>
+        <h2 class="font-headline-lg text-xl min-[360px]:text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-6 leading-tight tracking-tight">
+          Next-Gen Infrastructure Gallery
+        </h2>
+        <p class="font-body-lg text-[11px] min-[360px]:text-xs sm:text-base text-on-surface-variant leading-relaxed">
+          Explore our biosecure hatcheries, automated telemetry control hubs, smart feeding arrays, and automated cold-chain harvesting lines.
+        </p>
+      </div>
+
+      <!-- Dynamic Horizontal Pinterest-Style Uncropped Masonry Layout -->
+      <div class="relative group/gallery">
+        <!-- Horizontal Scroll Container (Smooth Momentum Scroll) -->
+        <div class="flex flex-col gap-3 min-[360px]:gap-5 overflow-x-auto pb-4 min-[360px]:pb-6 scrollbar-none focus:outline-none w-full scroll-smooth" id="horizontal-gallery-scroll" style="max-height: 80vh; -webkit-overflow-scrolling: touch;">
+          <!-- Horizontal Masonry Row 1 (Populated Dynamically via JS) -->
+          <div class="flex gap-3 min-[360px]:gap-5 shrink-0 items-center h-[180px] min-[360px]:h-[220px] sm:h-[280px] lg:h-[340px]" id="gallery-row-1"></div>
+
+          <!-- Horizontal Masonry Row 2 (Populated Dynamically via JS) -->
+          <div class="flex gap-3 min-[360px]:gap-5 shrink-0 items-center h-[180px] min-[360px]:h-[220px] sm:h-[280px] lg:h-[340px] ml-6 min-[360px]:ml-12 sm:ml-20" id="gallery-row-2"></div>
+        </div>
+
+        <!-- Horizontal Scroll Control Buttons -->
+        <div class="flex items-center justify-end mt-3 min-[360px]:mt-4 px-2">
+          <div class="flex gap-2">
+            <button id="gallery-scroll-left" class="w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 rounded-full border border-white/15 glass-card flex items-center justify-center text-ocean-white hover:text-water-glow hover:border-water-glow/50 transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-base min-[360px]:text-lg">chevron_left</span>
+            </button>
+            <button id="gallery-scroll-right" class="w-8 h-8 min-[360px]:w-9 min-[360px]:h-9 rounded-full border border-white/15 glass-card flex items-center justify-center text-ocean-white hover:text-water-glow hover:border-water-glow/50 transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-base min-[360px]:text-lg">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Lightbox Modal with Photo & Video Support -->
+  <div id="gallery-lightbox" class="fixed inset-0 z-[999999] bg-surface-container-lowest/95 backdrop-blur-2xl hidden flex flex-col items-center justify-center p-2 min-[360px]:p-4 sm:p-8 opacity-0 transition-opacity duration-300 cursor-default">
+    <!-- Close Button -->
+    <button id="lightbox-close" class="absolute top-3 right-3 min-[360px]:top-6 min-[360px]:right-6 text-on-surface-variant hover:text-water-glow text-2xl min-[360px]:text-3xl p-2 focus:outline-none transition-colors z-20 cursor-pointer" title="Close (Esc)">
+      <span class="material-symbols-outlined text-2xl min-[360px]:text-3xl">close</span>
+    </button>
+
+    <!-- Prev/Next Navigation Controls -->
+    <button id="lightbox-prev" class="absolute left-2 min-[360px]:left-4 sm:left-8 top-1/2 -translate-y-1/2 w-9 h-9 min-[360px]:w-12 min-[360px]:h-12 rounded-full border border-white/15 glass-card flex items-center justify-center text-ocean-white hover:text-water-glow hover:border-water-glow/50 transition-all z-20 cursor-pointer focus:outline-none" title="Previous Item">
+      <span class="material-symbols-outlined text-xl min-[360px]:text-2xl">arrow_back</span>
+    </button>
+    <button id="lightbox-next" class="absolute right-2 min-[360px]:right-4 sm:right-8 top-1/2 -translate-y-1/2 w-9 h-9 min-[360px]:w-12 min-[360px]:h-12 rounded-full border border-white/15 glass-card flex items-center justify-center text-ocean-white hover:text-water-glow hover:border-water-glow/50 transition-all z-20 cursor-pointer focus:outline-none" title="Next Item">
+      <span class="material-symbols-outlined text-xl min-[360px]:text-2xl">arrow_forward</span>
+    </button>
+
+    <div class="max-w-5xl w-full flex flex-col items-center z-10 px-2">
+      <div class="relative rounded-xl min-[360px]:rounded-2xl overflow-hidden border border-water-glow/30 shadow-[0_0_50px_rgba(0,204,255,0.2)] max-h-[75vh] min-[360px]:max-h-[85vh] flex items-center justify-center w-full">
+        <img id="lightbox-img" src="" alt="Enlarged Facility Preview" class="w-full h-full object-contain max-h-[75vh] min-[360px]:max-h-[85vh] transition-transform duration-300 hidden cursor-zoom-out" />
+        <video id="lightbox-video" src="" class="w-full h-full object-contain max-h-[75vh] min-[360px]:max-h-[85vh] transition-transform duration-300 hidden cursor-pointer" controls autoplay></video>
+      </div>
+      <!-- Media Counter Badge -->
+      <div id="lightbox-counter" class="mt-3 min-[360px]:mt-4 px-3 min-[360px]:px-4 py-1 min-[360px]:py-1.5 rounded-full bg-surface-container-lowest/80 border border-water-glow/20 text-water-glow font-label-caps text-[10px] min-[360px]:text-xs tracking-widest pointer-events-none">
+        1 / 35
+      </div>
+    </div>
+  </div>
+
   <!-- Legal & Compliance -->
   <section class="py-10 sm:py-16 md:py-20 lg:py-section-padding relative z-10 overflow-hidden" id="compliance">
     <div class="max-w-container-max mx-auto px-4 sm:px-6 lg:px-gutter">
@@ -2330,7 +2402,7 @@
       const glCanvas = document.createElement('canvas');
       glContainer.appendChild(glCanvas);
 
-      if ('transferControlToOffscreen' in glCanvas && typeof Worker !== 'undefined') {
+      if ('transferControlToOffscreen' in glCanvas && typeof Worker !== 'undefined' && window.location.protocol !== 'file:') {
         try {
           const offscreen = glCanvas.transferControlToOffscreen();
           causticsWorker = new Worker('assets/js/caustics-worker.js');
@@ -4160,10 +4232,13 @@
       modalRenderer.setSize(w, h);
     });
 
-    // Interactive Hover effect on clickable elements
-    document.querySelectorAll('a, button, input, select, .glass-card').forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    // Interactive Hover effect on all current & dynamically created clickable elements
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest('a, button, input, select, .glass-card, .gallery-card, #gallery-lightbox video')) {
+        document.body.classList.add('cursor-hover');
+      } else {
+        document.body.classList.remove('cursor-hover');
+      }
     });
 
     // --- 3D Egg GLB Loader Animation Setup ---
@@ -4946,10 +5021,259 @@
         });
       }
 
-      // 5. ScrollSpy Integration - Highlight navigation item on active viewport
+      // 5. Dynamic Shuffled Gallery Media Loader & Lightbox Handlers
+      const allGalleryMedia = [
+        { type: 'image', src: 'assets/image/gallery/WhatsApp Image 2026-08-07 at 07.53.46.jpeg' },
+        { type: 'image', src: 'assets/image/gallery/WhatsApp Image 2026-08-07 at 07.53.47.jpeg' },
+        { type: 'image', src: 'assets/image/gallery/WhatsApp Image 2026-08-07 at 07.53.47 (1).jpeg' },
+        { type: 'image', src: 'assets/image/gallery/WhatsApp Image 2026-08-07 at 07.53.47 (2).jpeg' },
+        { type: 'image', src: 'assets/image/gallery/WhatsApp Image 2026-08-07 at 07.53.48.jpeg' },
+        { type: 'image', src: 'assets/image/gallery/WhatsApp Image 2026-08-07 at 07.53.48 (1).jpeg' },
+        { type: 'image', src: 'assets/image/gallery/WhatsApp Image 2026-08-07 at 07.53.48 (2).jpeg' },
+        { type: 'image', src: 'assets/image/gallery/WhatsApp Image 2026-08-07 at 07.53.49.jpeg' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.53.49.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.53.49 (1).mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.53.51.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.53.52.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.53.53.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.53.55.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.53.57.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.54.00.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.54.01.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.54.05.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.54.06.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.54.08.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.54.11.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.54.13.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.54.15.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.54.16.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.54.20.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.56.14.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.56.19.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.56.22.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.56.23.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.56.25.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.56.27.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.56.28.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.56.30.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.56.32.mp4' },
+        { type: 'video', src: 'assets/image/gallery/WhatsApp Video 2026-08-07 at 07.56.34.mp4' }
+      ];
+
+      // Fisher-Yates Shuffle algorithm for dynamic layout on load
+      const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      };
+
+      const shuffledGallery = shuffleArray([...allGalleryMedia]);
+      const row1Container = document.getElementById('gallery-row-1');
+      const row2Container = document.getElementById('gallery-row-2');
+
+      let galleryCards = [];
+
+      if (row1Container && row2Container) {
+        row1Container.innerHTML = '';
+        row2Container.innerHTML = '';
+
+        shuffledGallery.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.className = 'gallery-card shrink-0 h-full rounded-2xl overflow-hidden glass-card border border-white/10 hover:border-water-glow/50 transition-all duration-500 cursor-pointer shadow-lg group relative';
+          card.setAttribute('data-type', item.type);
+          card.setAttribute('data-src', item.src);
+
+          if (item.type === 'video') {
+            card.innerHTML = `
+              <video src="${item.src}#t=0.5" class="h-full w-auto object-cover block pointer-events-none" muted preload="metadata"></video>
+              <div class="absolute inset-0 flex items-center justify-center bg-surface-container-lowest/30 group-hover:bg-surface-container-lowest/50 transition-all">
+                <span class="w-12 h-12 rounded-full bg-water-glow/20 border border-water-glow/60 text-water-glow flex items-center justify-center backdrop-blur-md group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(0,204,255,0.4)]">
+                  <span class="material-symbols-outlined text-2xl">play_arrow</span>
+                </span>
+              </div>
+            `;
+          } else {
+            card.innerHTML = `
+              <img src="${item.src}" alt="Gallery Image" class="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-700 block" loading="lazy" />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-surface-container-lowest/40 backdrop-blur-sm">
+                <span class="material-symbols-outlined text-water-glow text-4xl transform scale-75 group-hover:scale-100 transition-transform duration-300">zoom_in</span>
+              </div>
+            `;
+          }
+
+          if (index % 2 === 0) {
+            row1Container.appendChild(card);
+          } else {
+            row2Container.appendChild(card);
+          }
+        });
+
+        galleryCards = Array.from(document.querySelectorAll('.gallery-card'));
+      } else {
+        galleryCards = Array.from(document.querySelectorAll('.gallery-card'));
+      }
+
+      const lightbox = document.getElementById('gallery-lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxVideo = document.getElementById('lightbox-video');
+      const lightboxClose = document.getElementById('lightbox-close');
+      const lightboxPrev = document.getElementById('lightbox-prev');
+      const lightboxNext = document.getElementById('lightbox-next');
+      const lightboxCounter = document.getElementById('lightbox-counter');
+
+      let currentImageIndex = 0;
+      let isDragging = false;
+
+      const scrollContainer = document.getElementById('horizontal-gallery-scroll');
+      const scrollLeftBtn = document.getElementById('gallery-scroll-left');
+      const scrollRightBtn = document.getElementById('gallery-scroll-right');
+
+      if (scrollContainer && scrollLeftBtn && scrollRightBtn) {
+        scrollLeftBtn.addEventListener('click', () => {
+          scrollContainer.scrollBy({ left: -400, behavior: 'smooth' });
+        });
+        scrollRightBtn.addEventListener('click', () => {
+          scrollContainer.scrollBy({ left: 400, behavior: 'smooth' });
+        });
+
+        // Smooth Touch & Mouse Drag to Scroll without jerkiness
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        scrollContainer.addEventListener('mousedown', (e) => {
+          isDown = true;
+          isDragging = false;
+          scrollContainer.classList.add('cursor-grabbing');
+          startX = e.pageX - scrollContainer.offsetLeft;
+          scrollLeft = scrollContainer.scrollLeft;
+        });
+
+        scrollContainer.addEventListener('mouseleave', () => {
+          isDown = false;
+          scrollContainer.classList.remove('cursor-grabbing');
+        });
+
+        scrollContainer.addEventListener('mouseup', () => {
+          isDown = false;
+          scrollContainer.classList.remove('cursor-grabbing');
+          setTimeout(() => { isDragging = false; }, 50);
+        });
+
+        scrollContainer.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          const x = e.pageX - scrollContainer.offsetLeft;
+          const walk = (x - startX) * 1.5;
+          if (Math.abs(walk) > 5) {
+            isDragging = true;
+            scrollContainer.scrollLeft = scrollLeft - walk;
+          }
+        });
+      }
+
+      const updateLightboxMedia = (index) => {
+        if (galleryCards.length === 0) return;
+        currentImageIndex = (index + galleryCards.length) % galleryCards.length;
+        const targetCard = galleryCards[currentImageIndex];
+        const mediaType = targetCard.getAttribute('data-type') || 'image';
+        const mediaSrc = targetCard.getAttribute('data-src');
+
+        if (mediaType === 'video') {
+          if (lightboxImg) lightboxImg.classList.add('hidden');
+          if (lightboxVideo) {
+            lightboxVideo.src = mediaSrc;
+            lightboxVideo.classList.remove('hidden');
+            lightboxVideo.play().catch(() => {});
+          }
+        } else {
+          if (lightboxVideo) {
+            lightboxVideo.pause();
+            lightboxVideo.classList.add('hidden');
+          }
+          if (lightboxImg) {
+            lightboxImg.style.opacity = '0';
+            lightboxImg.style.transform = 'scale(0.95)';
+            lightboxImg.classList.remove('hidden');
+            setTimeout(() => {
+              lightboxImg.src = mediaSrc;
+              lightboxImg.style.opacity = '1';
+              lightboxImg.style.transform = 'scale(1)';
+            }, 100);
+          }
+        }
+
+        if (lightboxCounter) {
+          lightboxCounter.textContent = `${currentImageIndex + 1} / ${galleryCards.length}`;
+        }
+      };
+
+      const openLightbox = (index) => {
+        if (!lightbox) return;
+        updateLightboxMedia(index);
+        lightbox.classList.remove('hidden');
+        setTimeout(() => {
+          lightbox.classList.remove('opacity-0');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeLightbox = () => {
+        if (!lightbox) return;
+        lightbox.classList.add('opacity-0');
+        if (lightboxVideo) {
+          lightboxVideo.pause();
+        }
+        setTimeout(() => {
+          lightbox.classList.add('hidden');
+          document.body.style.overflow = '';
+        }, 300);
+      };
+
+      galleryCards.forEach((card, idx) => {
+        card.addEventListener('click', () => {
+          if (!isDragging) openLightbox(idx);
+        });
+      });
+
+      if (lightboxPrev) {
+        lightboxPrev.addEventListener('click', (e) => {
+          e.stopPropagation();
+          updateLightboxMedia(currentImageIndex - 1);
+        });
+      }
+
+      if (lightboxNext) {
+        lightboxNext.addEventListener('click', (e) => {
+          e.stopPropagation();
+          updateLightboxMedia(currentImageIndex + 1);
+        });
+      }
+
+      if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+      }
+
+      if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) closeLightbox();
+        });
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (lightbox && !lightbox.classList.contains('hidden')) {
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowLeft') updateLightboxMedia(currentImageIndex - 1);
+          if (e.key === 'ArrowRight') updateLightboxMedia(currentImageIndex + 1);
+        }
+      });
+
+      // 6. ScrollSpy Integration - Highlight navigation item on active viewport
       const sections = [
         { id: 'lifecycle-track', linkId: 'nav-lifecycle' },
         { id: 'portfolio', linkId: 'nav-species' },
+        { id: 'gallery', linkId: 'nav-gallery' },
         { id: 'advantage', linkId: 'nav-advantage' },
         { id: 'investment', linkId: 'nav-investment' }
       ];
