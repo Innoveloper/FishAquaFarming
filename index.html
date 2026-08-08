@@ -3254,11 +3254,11 @@
 
         // Animate background shoal fish with organic swim motions, tail wiggles, and cursor reaction
         boids.forEach((boid, index) => {
-          // Species-specific speed constraints
-          let minSpeed = 0.02, maxSpeed = 0.07;
-          if (boid.species.includes('guppy')) { minSpeed = 0.045; maxSpeed = 0.12; }
-          else if (boid.species.includes('koi')) { minSpeed = 0.012; maxSpeed = 0.038; }
-          else if (boid.species.includes('betta')) { minSpeed = 0.015; maxSpeed = 0.05; }
+          // Species-specific speed constraints (reduced for gentle/calm movement)
+          let minSpeed = 0.01, maxSpeed = 0.035;
+          if (boid.species.includes('guppy')) { minSpeed = 0.022; maxSpeed = 0.06; }
+          else if (boid.species.includes('koi')) { minSpeed = 0.006; maxSpeed = 0.019; }
+          else if (boid.species.includes('betta')) { minSpeed = 0.007; maxSpeed = 0.025; }
 
           // 1. Calculate Flocking Forces (Separation, Cohesion, Wander) - Throttled on alternate boids
           if ((index + frameCount) % 2 === 0) {
@@ -3288,31 +3288,31 @@
           });
 
           // Wander: add natural continuous exploration curves
-          const wanderTime = time * 1.5 + boid.phase;
+          const wanderTime = time * 0.75 + boid.phase;
           const wanderForce = new THREE.Vector3(
-            Math.cos(wanderTime) * 0.0035,
-            Math.sin(wanderTime * 1.8) * 0.0018,
-            Math.sin(wanderTime) * 0.0028
+            Math.cos(wanderTime) * 0.0018,
+            Math.sin(wanderTime * 1.8) * 0.0009,
+            Math.sin(wanderTime) * 0.0014
           );
           boid.velocity.add(wanderForce);
 
           // Apply Separation
           if (separationCount > 0) {
             separationForce.divideScalar(separationCount);
-            boid.velocity.add(separationForce.multiplyScalar(0.012));
+            boid.velocity.add(separationForce.multiplyScalar(0.006));
           }
 
           // Apply Cohesion
           if (cohesionCount > 0) {
             cohesionCenter.divideScalar(cohesionCount);
-            const steerCohesion = cohesionCenter.sub(boid.position).normalize().multiplyScalar(0.006);
+            const steerCohesion = cohesionCenter.sub(boid.position).normalize().multiplyScalar(0.003);
             boid.velocity.add(steerCohesion);
           }
 
           // 2. Cursor Repulsion (Scare reaction)
           const distToMouse = boid.position.distanceTo(mouse3D);
           if (distToMouse < 6.0) {
-            const scareForce = boid.position.clone().sub(mouse3D).normalize().multiplyScalar(0.022 * (1.0 - distToMouse / 6.0));
+            const scareForce = boid.position.clone().sub(mouse3D).normalize().multiplyScalar(0.011 * (1.0 - distToMouse / 6.0));
             boid.velocity.add(scareForce);
             // Escape speed boost
             maxSpeed *= 1.8;
@@ -3320,7 +3320,8 @@
 
           } // end throttled calculation check
 
-          // Update position
+          // Dampen velocity & update position
+          boid.velocity.multiplyScalar(0.98);
           boid.position.add(boid.velocity);
 
           // Boundary wrapping
@@ -3338,7 +3339,7 @@
           let diffYaw = targetYaw - boid.mesh.rotation.y;
           while (diffYaw < -Math.PI) diffYaw += Math.PI * 2;
           while (diffYaw > Math.PI) diffYaw -= Math.PI * 2;
-          boid.mesh.rotation.y += diffYaw * 0.07; // smooth turn factor
+          boid.mesh.rotation.y += diffYaw * 0.05; // smooth turn factor
 
           // Pitch climbing/diving tilt angle
           const speedXZ = Math.sqrt(boid.velocity.x * boid.velocity.x + boid.velocity.z * boid.velocity.z);
@@ -3346,30 +3347,30 @@
           let diffPitch = targetPitch - boid.mesh.rotation.z;
           while (diffPitch < -Math.PI) diffPitch += Math.PI * 2;
           while (diffPitch > Math.PI) diffPitch -= Math.PI * 2;
-          boid.mesh.rotation.z += diffPitch * 0.08;
+          boid.mesh.rotation.z += diffPitch * 0.05;
 
           // Roll / bank wiggle
-          boid.mesh.rotation.x = Math.sin(time * 3.5 + boid.phase) * 0.08;
+          boid.mesh.rotation.x = Math.sin(time * 2.0 + boid.phase) * 0.05;
 
           // 4. Dynamic Tail-Wag Animation Speed Sync
           const currentSpeed = boid.velocity.length();
-          const speedRatio = currentSpeed / (maxSpeed || 0.05);
+          const speedRatio = currentSpeed / (maxSpeed || 0.035);
 
           if (boid.mixer) {
             let wagMultiplier = 1.0;
             if (boid.species.includes('guppy')) wagMultiplier = 2.4;
             else if (boid.species.includes('koi')) wagMultiplier = 0.5;
 
-            boid.mixer.timeScale = (0.35 + speedRatio * 1.4) * wagMultiplier;
+            boid.mixer.timeScale = (0.2 + speedRatio * 0.7) * wagMultiplier;
           }
 
           if (boid.mesh.userData.tailPivot) {
-            const speedFreq = 6.0 + speedRatio * 10.0;
-            boid.mesh.userData.tailPivot.rotation.y = Math.sin(time * speedFreq * boid.mesh.userData.speedFactor + boid.phase) * 0.38;
+            const speedFreq = 3.0 + speedRatio * 5.0;
+            boid.mesh.userData.tailPivot.rotation.y = Math.sin(time * speedFreq * boid.mesh.userData.speedFactor + boid.phase) * 0.3;
           }
           if (boid.mesh.userData.pectoralLeft && boid.mesh.userData.pectoralRight) {
-            boid.mesh.userData.pectoralLeft.rotation.z = -0.5 + Math.sin(time * 7.0 + boid.phase) * 0.18;
-            boid.mesh.userData.pectoralRight.rotation.z = -0.5 - Math.sin(time * 7.0 + boid.phase) * 0.18;
+            boid.mesh.userData.pectoralLeft.rotation.z = -0.5 + Math.sin(time * 3.5 + boid.phase) * 0.12;
+            boid.mesh.userData.pectoralRight.rotation.z = -0.5 - Math.sin(time * 3.5 + boid.phase) * 0.12;
           }
         });
 
