@@ -4052,11 +4052,14 @@
       }
     }
 
-    const modalClock = new THREE.Clock();
+    let modalClock = null;
 
     function animateModal() {
+      if (!modalClock && typeof THREE !== 'undefined') {
+        modalClock = new THREE.Clock();
+      }
       modalAnimationId = requestAnimationFrame(animateModal);
-      const delta = modalClock.getDelta();
+      const delta = modalClock ? modalClock.getDelta() : 0.016;
       const time = Date.now() * 0.001;
 
       modalBubbles.forEach((bubble) => {
