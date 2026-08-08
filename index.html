@@ -155,9 +155,6 @@
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=swap"
     rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=swap" rel="stylesheet"></noscript>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js"></script>
   <!-- Lenis Smooth Scroll -->
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.39/dist/lenis.min.js" defer></script>
   <!-- GSAP & ScrollTrigger -->
@@ -416,7 +413,7 @@
       <!-- Logo (start-center aligned) -->
       <div class="flex items-center">
         <a href="#" class="flex items-center gap-2 group pointer-events-auto leading-none">
-          <img src="assets/image/logo.webp" alt="Fish Aqua Farming Logo" fetchpriority="high" decoding="async"
+          <img src="assets/image/logo.webp" alt="Fish Aqua Farming Logo" width="36" height="36" fetchpriority="high" decoding="async"
             class="h-7 sm:h-8 lg:h-9 w-auto object-contain flex-shrink-0 group-hover:scale-105 transition-transform" />
           <span
             class="logo-text font-headline-md text-base sm:text-xl lg:text-2xl font-bold text-ocean-white group-hover:text-water-glow transition-all tracking-tight whitespace-nowrap leading-none">Fish
@@ -512,7 +509,7 @@
         <div
           class="relative w-full h-full max-w-container-max mx-auto px-gutter flex items-center justify-center pointer-events-none">
 
-          <div class="narrative-overlay justify-start pl-[12%]" id="narrative-1" style="display: none; opacity: 0;">
+          <div class="narrative-overlay justify-start pl-[12%]" id="narrative-1" style="display: flex; opacity: 1;">
             <div class="content-card text-left">
               <div class="watermark-num">01</div>
               <p class="font-label-caps text-label-caps text-water-glow mb-4 tracking-widest">Phase 01</p>
@@ -709,7 +706,8 @@
         <img
           class="w-full h-44 min-[360px]:h-56 sm:h-72 md:h-80 lg:h-96 object-cover rounded-lg min-[360px]:rounded-xl lg:rounded-2xl mb-4 sm:mb-6 border border-white/10"
           alt="Cinematic water quality testing & high-tech aquaculture diagnostics facility"
-          loading="lazy"
+          width="600" height="400"
+          loading="lazy" decoding="async"
           src="assets/image/realtime_diagnostics.webp" />
         <div class="flex items-center gap-2.5 min-[360px]:gap-3 sm:gap-4">
           <div
@@ -940,7 +938,7 @@
           class="glass-card w-[250px] min-[360px]:w-[280px] sm:w-[310px] flex-shrink-0 rounded-xl min-[360px]:rounded-2xl overflow-hidden group hover:border-water-glow/40 transition-all flex flex-col justify-between snap-start">
           <div class="h-48 overflow-hidden relative">
             <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              alt="Rohu Fish" loading="lazy" src="assets/image/rohu.webp" />
+              alt="Rohu Fish" width="310" height="192" loading="lazy" decoding="async" src="assets/image/rohu.webp" />
             <div
               class="absolute top-3 right-3 bg-water-glow/20 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[9px] font-bold font-label-caps border border-water-glow/30">
               Top Seller</div>
@@ -2031,7 +2029,7 @@
         <!-- Col 1: Brand & Socials -->
         <div>
           <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
-            <img src="assets/image/logo.webp" alt="Fish Aqua Farming Logo"
+            <img src="assets/image/logo.webp" alt="Fish Aqua Farming Logo" width="32" height="32"
               class="h-7 sm:h-8 w-auto object-contain flex-shrink-0" />
             <span class="font-headline-md text-lg sm:text-xl font-bold text-ocean-white tracking-tight">Fish Aqua
               Farming</span>
@@ -2336,6 +2334,9 @@
     let glInView = true;
     let startGLAnimationInline = null;
     let stopGLAnimationInline = null;
+
+    function initWebGLScene() {
+      if (typeof THREE === 'undefined') return;
 
     function startGLAnimation() {
       if (causticsWorker) {
@@ -3253,18 +3254,18 @@
 
         // Animate background shoal fish with organic swim motions, tail wiggles, and cursor reaction
         boids.forEach((boid, index) => {
+          // Species-specific speed constraints
+          let minSpeed = 0.02, maxSpeed = 0.07;
+          if (boid.species.includes('guppy')) { minSpeed = 0.045; maxSpeed = 0.12; }
+          else if (boid.species.includes('koi')) { minSpeed = 0.012; maxSpeed = 0.038; }
+          else if (boid.species.includes('betta')) { minSpeed = 0.015; maxSpeed = 0.05; }
+
           // 1. Calculate Flocking Forces (Separation, Cohesion, Wander) - Throttled on alternate boids
           if ((index + frameCount) % 2 === 0) {
             const separationForce = new THREE.Vector3();
             const cohesionCenter = new THREE.Vector3();
             let separationCount = 0;
             let cohesionCount = 0;
-
-            // Species-specific speed constraints
-            let minSpeed = 0.02, maxSpeed = 0.07;
-            if (boid.species.includes('guppy')) { minSpeed = 0.045; maxSpeed = 0.12; }
-            else if (boid.species.includes('koi')) { minSpeed = 0.012; maxSpeed = 0.038; }
-            else if (boid.species.includes('betta')) { minSpeed = 0.015; maxSpeed = 0.05; }
 
             boids.forEach(otherBoid => {
               if (otherBoid === boid) return;
@@ -3413,6 +3414,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
     })();
+    } // end initWebGLScene
 
     // --- Content Reveal Observer ---
     const observer = new IntersectionObserver((entries) => {
@@ -5375,6 +5377,46 @@
           }
         });
       }, { passive: true });
+    })();
+  </script>
+
+  <!-- Non-Blocking Async 3D Engine & WebGL Loader -->
+  <script>
+    (function() {
+      let scriptsLoaded = false;
+      function load3DScripts() {
+        if (scriptsLoaded) return;
+        scriptsLoaded = true;
+
+        const loadScript = (src) => {
+          return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.body.appendChild(script);
+          });
+        };
+
+        loadScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js")
+          .then(() => loadScript("https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"))
+          .then(() => loadScript("https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js"))
+          .then(() => {
+            if (typeof initWebGLScene === 'function') {
+              initWebGLScene();
+            }
+          })
+          .catch(err => console.warn("Async 3D script loading fallback:", err));
+      }
+
+      // Load 3D WebGL scenes after initial page load or user interaction
+      if (document.readyState === 'complete') {
+        setTimeout(load3DScripts, 500);
+      } else {
+        window.addEventListener('load', () => setTimeout(load3DScripts, 500), { once: true });
+        window.addEventListener('scroll', load3DScripts, { once: true, passive: true });
+        window.addEventListener('touchstart', load3DScripts, { once: true, passive: true });
+      }
     })();
   </script>
 </body>
