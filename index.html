@@ -3054,6 +3054,7 @@
 
       let threeAnimationFrameId = null;
       let threeInView = true;
+      let frameCount = 0;
 
       function animate() {
         if (!threeInView || document.hidden) {
@@ -3061,6 +3062,7 @@
           return;
         }
         threeAnimationFrameId = requestAnimationFrame(animate);
+        frameCount++;
         const delta = clock.getDelta();
         const time = Date.now() * 0.00045;
         // Smoothly interpolate scroll progress with optimal dampening
@@ -3250,29 +3252,29 @@
         const mouse3D = camera.position.clone().add(dir.multiplyScalar(distanceToCam));
 
         // Animate background shoal fish with organic swim motions, tail wiggles, and cursor reaction
-        if (time % 5 < 0.05 && boids.length > 0) {
-          console.log(`[Boid Active Debug] Total Boids: ${boids.length} | First Boid Position:`, boids[0].position, `| Mesh Position:`, boids[0].mesh.position);
-        }
-        boids.forEach(boid => {
-          // 1. Calculate Flocking Forces (Separation, Cohesion, Wander)
-          const separationForce = new THREE.Vector3();
-          const cohesionCenter = new THREE.Vector3();
-          let separationCount = 0;
-          let cohesionCount = 0;
+        let frameCount = 0;
 
-          // Species-specific speed constraints
-          let minSpeed = 0.02, maxSpeed = 0.07;
-          if (boid.species.includes('guppy')) { minSpeed = 0.045; maxSpeed = 0.12; }
-          else if (boid.species.includes('koi')) { minSpeed = 0.012; maxSpeed = 0.038; }
-          else if (boid.species.includes('betta')) { minSpeed = 0.015; maxSpeed = 0.05; }
+        boids.forEach((boid, index) => {
+          // 1. Calculate Flocking Forces (Separation, Cohesion, Wander) - Throttled on alternate boids
+          if ((index + frameCount) % 2 === 0) {
+            const separationForce = new THREE.Vector3();
+            const cohesionCenter = new THREE.Vector3();
+            let separationCount = 0;
+            let cohesionCount = 0;
 
-          boids.forEach(otherBoid => {
-            if (otherBoid === boid) return;
+            // Species-specific speed constraints
+            let minSpeed = 0.02, maxSpeed = 0.07;
+            if (boid.species.includes('guppy')) { minSpeed = 0.045; maxSpeed = 0.12; }
+            else if (boid.species.includes('koi')) { minSpeed = 0.012; maxSpeed = 0.038; }
+            else if (boid.species.includes('betta')) { minSpeed = 0.015; maxSpeed = 0.05; }
 
-            const dist = boid.position.distanceTo(otherBoid.position);
+            boids.forEach(otherBoid => {
+              if (otherBoid === boid) return;
 
-            // Separation: steer away if too close to any neighbor
-            if (dist < 3.5) {
+              const dist = boid.position.distanceTo(otherBoid.position);
+
+              // Separation: steer away if too close to any neighbor
+              if (dist < 3.5) {
               const force = boid.position.clone().sub(otherBoid.position);
               force.normalize().divideScalar(dist || 0.1); // stronger force if closer
               separationForce.add(force);
@@ -3317,8 +3319,7 @@
             maxSpeed *= 1.8;
           }
 
-          // Clamp speed to species limits
-          boid.velocity.clampLength(minSpeed, maxSpeed);
+          } // end throttled calculation check
 
           // Update position
           boid.position.add(boid.velocity);
