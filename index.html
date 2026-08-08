@@ -155,6 +155,10 @@
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=swap"
     rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&amp;display=swap" rel="stylesheet"></noscript>
+  <!-- Three.js 3D Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js"></script>
   <!-- Lenis Smooth Scroll -->
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.39/dist/lenis.min.js" defer></script>
   <!-- GSAP & ScrollTrigger -->
@@ -2335,9 +2339,6 @@
     let startGLAnimationInline = null;
     let stopGLAnimationInline = null;
 
-    function initWebGLScene() {
-      if (typeof THREE === 'undefined') return;
-
     function startGLAnimation() {
       if (causticsWorker) {
         causticsWorker.postMessage({ type: 'visibility', inView: glInView, hidden: document.hidden });
@@ -3415,7 +3416,6 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
     })();
-    } // end initWebGLScene
 
     // --- Content Reveal Observer ---
     const observer = new IntersectionObserver((entries) => {
@@ -5378,46 +5378,6 @@
           }
         });
       }, { passive: true });
-    })();
-  </script>
-
-  <!-- Non-Blocking Async 3D Engine & WebGL Loader -->
-  <script>
-    (function() {
-      let scriptsLoaded = false;
-      function load3DScripts() {
-        if (scriptsLoaded) return;
-        scriptsLoaded = true;
-
-        const loadScript = (src) => {
-          return new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = src;
-            script.onload = resolve;
-            script.onerror = reject;
-            document.body.appendChild(script);
-          });
-        };
-
-        loadScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js")
-          .then(() => loadScript("https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"))
-          .then(() => loadScript("https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js"))
-          .then(() => {
-            if (typeof initWebGLScene === 'function') {
-              initWebGLScene();
-            }
-          })
-          .catch(err => console.warn("Async 3D script loading fallback:", err));
-      }
-
-      // Load 3D WebGL scenes after initial page load or user interaction
-      if (document.readyState === 'complete') {
-        setTimeout(load3DScripts, 500);
-      } else {
-        window.addEventListener('load', () => setTimeout(load3DScripts, 500), { once: true });
-        window.addEventListener('scroll', load3DScripts, { once: true, passive: true });
-        window.addEventListener('touchstart', load3DScripts, { once: true, passive: true });
-      }
     })();
   </script>
 </body>
