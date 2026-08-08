@@ -3252,8 +3252,6 @@
         const mouse3D = camera.position.clone().add(dir.multiplyScalar(distanceToCam));
 
         // Animate background shoal fish with organic swim motions, tail wiggles, and cursor reaction
-        let frameCount = 0;
-
         boids.forEach((boid, index) => {
           // 1. Calculate Flocking Forces (Separation, Cohesion, Wander) - Throttled on alternate boids
           if ((index + frameCount) % 2 === 0) {
