@@ -3,9 +3,14 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://fishaquafarming.com/</loc>
-    <lastmod>2026-08-08</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://fishaquafarming.com/assets/image/facility_preview.png</image:loc>
+      <image:title>Fish Aqua Farming Precision Aquaculture Facility</image:title>
+      <image:caption>Fish Aqua Farming smart sustainable aquaculture facility and RAS technology</image:caption>
+    </image:image>
     <image:image>
       <image:loc>https://fishaquafarming.com/favicon/web-app-manifest-512x512.png</image:loc>
       <image:title>Fish Aqua Farming Logo</image:title>
@@ -13,20 +18,24 @@
   </url>
   <url>
     <loc>https://fishaquafarming.com/compliance.html</loc>
-    <lastmod>2026-08-08</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://fishaquafarming.com/assets/image/facility_preview.png</image:loc>
+      <image:title>Fish Aqua Farming Compliance and Certifications</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://fishaquafarming.com/privacy-policy.html</loc>
-    <lastmod>2026-08-08</lastmod>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://fishaquafarming.com/terms-of-service.html</loc>
-    <lastmod>2026-08-08</lastmod>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 </urlset>
